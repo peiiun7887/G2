@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.product.model.*"%>
-<%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
 	List<ProductVO> list = (List<ProductVO>) session.getAttribute("stolistAllProduct2");

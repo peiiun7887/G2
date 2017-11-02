@@ -8,12 +8,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
-public class ReportMemberDAOJDBC implements ReportMemberDAO_interface{
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "BA104G2";
-	String passwd = "BA104G2";	
+
+public class ReportMemberDAO implements ReportMemberDAO_interface{
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/BA104G2");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}	
 	//會員檢舉店家or會員or評論
 	private static final String INSERT = 
 			"INSERT INTO REPORT_MEMBER (RPT_MNUM,MEM_NUM,MEM_NUM2,STO_NUM,COM_NUM,RPT_TIME,STATUS)"
@@ -25,7 +35,7 @@ public class ReportMemberDAOJDBC implements ReportMemberDAO_interface{
 	private static final String MEMBER_GET_ALL_RPT = 
 				"SELECT * FROM REPORT_MEMBER WHERE MEM_NUM=?";
 	//選一個檢舉紀錄
-	private static final String GET_ONE_RPT=
+	private static final String GET_ONE=
 				"SELECT * FROM REPORT_MEMBER WHERE RPT_MNUM=?";
 	//後台查詢所有會員檢舉紀錄
 	private static final String GET_ALL=
@@ -40,8 +50,7 @@ public class ReportMemberDAOJDBC implements ReportMemberDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT);
 			
 			pstmt.setString(1,reportMemberVO.getMem_num());
@@ -51,9 +60,6 @@ public class ReportMemberDAOJDBC implements ReportMemberDAO_interface{
 			pstmt.setString(5, reportMemberVO.getStatus());//預設待處理
 			pstmt.executeUpdate();
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());		
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -80,19 +86,14 @@ public class ReportMemberDAOJDBC implements ReportMemberDAO_interface{
 	public void memUpdate(ReportMemberVO reportMemberVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		try {
-			
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+		try {			
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(MEMBER_UPDATE);
 			
 			pstmt.setDouble(1,reportMemberVO.getScore());
 			pstmt.setString(2, reportMemberVO.getRpt_mnum());
 			pstmt.executeUpdate();
-			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());		
+		
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -124,8 +125,7 @@ public class ReportMemberDAOJDBC implements ReportMemberDAO_interface{
 		ResultSet rs = null;
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(MEMBER_GET_ALL_RPT);
 			
 			pstmt.setString(1,mem_num);
@@ -144,10 +144,7 @@ public class ReportMemberDAOJDBC implements ReportMemberDAO_interface{
 				reportMemberVO.setWay(rs.getString("way"));
 				list.add(reportMemberVO);
 			}
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
+		
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -185,9 +182,8 @@ public class ReportMemberDAOJDBC implements ReportMemberDAO_interface{
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try{
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_ONE_RPT);
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONE);
 			pstmt.setString(1, rpt_mnum);
 			rs = pstmt.executeQuery();
 			while(rs.next()){
@@ -203,10 +199,7 @@ public class ReportMemberDAOJDBC implements ReportMemberDAO_interface{
 				reportMemberVO.setScore(rs.getDouble("score"));
 				reportMemberVO.setWay(rs.getString("way"));
 			}
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
+		
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -245,9 +238,7 @@ public class ReportMemberDAOJDBC implements ReportMemberDAO_interface{
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL);			
 			rs = pstmt.executeQuery();
 			while(rs.next()){
@@ -264,10 +255,7 @@ public class ReportMemberDAOJDBC implements ReportMemberDAO_interface{
 				reportMemberVO.setWay(rs.getString("way"));
 				list.add(reportMemberVO);
 			}
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
+		
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -303,9 +291,7 @@ public class ReportMemberDAOJDBC implements ReportMemberDAO_interface{
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
-			
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(STAFF_UPDATE);
 			
 			pstmt.setString(1, reportMemberVO.getStatus());
@@ -313,10 +299,7 @@ public class ReportMemberDAOJDBC implements ReportMemberDAO_interface{
 			pstmt.setString(3, reportMemberVO.getWay());
 			pstmt.setString(4, reportMemberVO.getRpt_mnum());
 			pstmt.executeUpdate();
-			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());		
+				
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -338,75 +321,5 @@ public class ReportMemberDAOJDBC implements ReportMemberDAO_interface{
 		}	
 	}
 
-	public static void main(String[] args){
-		ReportMemberDAOJDBC dao = new ReportMemberDAOJDBC();
-		ReportMemberVO rmVO = new ReportMemberVO();
-		
-		//insert
-//		rmVO.setMem_num("MB0000000001");
-//		rmVO.setMem_num2("");
-//		rmVO.setSto_num("");
-//		rmVO.setCom_num("CM0000000000001");
-//		rmVO.setStatus("待處理");
-//		dao.insert(rmVO);
-		
-		//mem_update
-//		rmVO.setScore(new Double(5));
-//		rmVO.setRpt_mnum("RM0000000005");
-//		dao.memUpdate(rmVO);
-		
-		//mem_get_all_rpt		
-//		List<ReportMemberVO> list = dao.memGetAllRpt("MB0000000001");
-//		for(ReportMemberVO all : list){
-//			System.out.print(all.getRpt_mnum());
-//			System.out.print(all.getMem_num());
-//			System.out.print(all.getMem_num2());
-//			System.out.print(all.getSto_num());
-//			System.out.print(all.getCom_num());
-//			System.out.print(all.getRpt_time());
-//			System.out.print(all.getStatus());
-//			System.out.print(all.getStaff_num());
-//			System.out.print(all.getScore());
-//			System.out.print(all.getWay());
-//			System.out.println();
-//		}
-		
-		//get_one_rpt
-//		rmVO = dao.getRptbyPrimaryKey("RM0000000001");
-//		System.out.print(rmVO.getRpt_mnum()+" , ");
-//		System.out.print(rmVO.getMem_num()+" , ");
-//		System.out.print(rmVO.getMem_num2()+" , ");
-//		System.out.print(rmVO.getSto_num()+" , ");
-//		System.out.print(rmVO.getCom_num()+" , ");
-//		System.out.print(rmVO.getRpt_time()+" , ");
-//		System.out.print(rmVO.getStatus()+" , ");
-//		System.out.print(rmVO.getStaff_num()+" , ");
-//		System.out.print(rmVO.getScore()+" , ");
-//		System.out.print(rmVO.getWay()+" , ");
-//		System.out.println();
-		
-		//get_all
-//		List<ReportMemberVO> list = dao.getAll();
-//		for(ReportMemberVO all : list){
-//		System.out.print(all.getRpt_mnum()+" , ");
-//		System.out.print(all.getMem_num()+" , ");
-//		System.out.print(all.getMem_num2()+" , ");
-//		System.out.print(all.getSto_num()+" , ");
-//		System.out.print(all.getCom_num()+" , ");
-//		System.out.print(all.getRpt_time()+" , ");
-//		System.out.print(all.getStatus()+" , ");
-//		System.out.print(all.getStaff_num()+" , ");
-//		System.out.print(all.getScore());
-//		System.out.print(all.getWay());
-//		System.out.println();
-//		}
-		
-		//staff_update
-//		rmVO.setStatus("已處理");
-//		rmVO.setStaff_num("BM0000000001");
-//		rmVO.setWay("停權");
-//		rmVO.setRpt_mnum("RM0000000002");
-//		dao.stfUpdate(rmVO);
-//		
-	}
+	
 }
