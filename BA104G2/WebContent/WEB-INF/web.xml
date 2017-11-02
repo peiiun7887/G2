@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>BA104G2</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <resource-ref>
+    <description>DB Connection</description>
+    <res-ref-name>jdbc/BA104G2</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+  </resource-ref>
+  
+  <servlet>
+    <servlet-name>ProductServlet</servlet-name>
+    <servlet-class>com.product.controller.ProductServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProductServlet</servlet-name>
+    <url-pattern>/pdc_mng/StoPdcMng.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>DBGifReader4</servlet-name>
+    <servlet-class>com.product.controller.DBGifReader4</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DBGifReader4</servlet-name>
+    <url-pattern>/DBGifReader4</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>SweetnessServlet</servlet-name>
+    <servlet-class>com.product.controller.SweetnessServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SweetnessServlet</servlet-name>
+    <url-pattern>/pdc_mng/StoSwtMng.do</url-pattern>
+  </servlet-mapping>
+</web-app>
