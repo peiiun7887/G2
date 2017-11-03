@@ -339,11 +339,11 @@ public class ReportStoreDAOJDBC implements ReportStoreDAO_interface{
 		ReportStoreVO rmVO = new ReportStoreVO();
 		
 		//insert
-//		rmVO.setSto_num("ST0000000001");
-//		rmVO.setMem_num("MB0000000003");
-//		rmVO.setCom_num("");
-//		rmVO.setStatus("待處理");
-//		dao.insert(rmVO);
+		rmVO.setSto_num("ST0000000001");
+		rmVO.setMem_num("MB0000000003");
+		rmVO.setCom_num("");
+		rmVO.setStatus("待處理");
+		dao.insert(rmVO);
 		
 		//sto_update
 //		rmVO.setScore(new Integer(5));

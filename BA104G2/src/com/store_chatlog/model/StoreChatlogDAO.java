@@ -11,11 +11,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StoreChatlogDAOJDBC implements StoreChatlogDAO_interface{
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "BA104G2";
-	String passwd = "BA104G2";
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
+public class StoreChatlogDAO implements StoreChatlogDAO_interface{
+	private static DataSource ds = null;
+	static{
+		try {
+			Context ctx = new InitialContext();
+			ds =(DataSource)ctx.lookup("java:comp/env/jdbc/BA104G2");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}		
+	}
 	
 	private static final String INSERT =
 			"INSERT INTO STORE_CHATLOG (SC_NUM,RPT_SNUM,CLOG_NAME,CONTENT,CLOG_TIME)"
@@ -34,8 +44,8 @@ public class StoreChatlogDAOJDBC implements StoreChatlogDAO_interface{
 		Connection con =null;
 		PreparedStatement pstmt = null;
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT);
 			
 			pstmt.setString(1, storeChatlogVO.getRpt_snum());
@@ -44,9 +54,6 @@ public class StoreChatlogDAOJDBC implements StoreChatlogDAO_interface{
 		
 			pstmt.executeUpdate();
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());		
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -67,6 +74,7 @@ public class StoreChatlogDAOJDBC implements StoreChatlogDAO_interface{
 			}
 		}		
 	}
+
 	@Override
 	public List<StoreChatlogVO> stoGetAll(String sto_num) {
 		List<StoreChatlogVO> list = new ArrayList<StoreChatlogVO>();
@@ -77,8 +85,7 @@ public class StoreChatlogDAOJDBC implements StoreChatlogDAO_interface{
 		ResultSet rs = null;
 		
 			try {
-				Class.forName(driver);
-				con = DriverManager.getConnection(url, userid, passwd);
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(STO_Get_ALL);
 				
 				pstmt.setString(1, sto_num);
@@ -94,9 +101,7 @@ public class StoreChatlogDAOJDBC implements StoreChatlogDAO_interface{
 					list.add(storeChatlogVO);
 				}
 				
-			} catch (ClassNotFoundException e) {
-				throw new RuntimeException("Couldn't load database driver. "
-						+ e.getMessage());
+			
 			} catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
@@ -125,6 +130,7 @@ public class StoreChatlogDAOJDBC implements StoreChatlogDAO_interface{
 			}		
 		return list;
 	}
+	
 	@Override
 	public List<StoreChatlogVO> getAll() {
 		StoreChatlogVO storeChatlogVO = null;
@@ -134,8 +140,7 @@ public class StoreChatlogDAOJDBC implements StoreChatlogDAO_interface{
 		ResultSet rs = null;
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL);			
 			rs = pstmt.executeQuery();
 			
@@ -148,10 +153,6 @@ public class StoreChatlogDAOJDBC implements StoreChatlogDAO_interface{
 				storeChatlogVO.setClog_time(rs.getDate("clog_time"));
 				list.add(storeChatlogVO);
 			}
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -181,45 +182,4 @@ public class StoreChatlogDAOJDBC implements StoreChatlogDAO_interface{
 		}
 		return list;
 	}
-	
-	public static void main(String[] args){
-		
-//		StoreChatlogDAOJDBC dao = new StoreChatlogDAOJDBC();
-//		StoreChatlogVO scVO = new StoreChatlogVO();
-//		
-		//insert
-//		scVO.setRpt_snum("RS0000000004");
-//		scVO.setClog_name("店家");
-//		scVO.setContent("不實廣告");
-//		dao.insert(scVO);
-		
-		//sto get all
-//		List<StoreChatlogVO> list = dao.stoGetAll("ST0000000001");
-//		
-//		System.out.println(list.size());
-//		for(StoreChatlogVO scVO : list){			
-//			System.out.print(scVO.getSc_num() + ",");
-//			System.out.print(scVO.getRpt_snum() + ",");
-//			System.out.print(scVO.getClog_name() + ",");
-//			System.out.print(scVO.getContent() + ",");
-//			System.out.print(scVO.getClog_time() + ",");
-//			System.out.println();
-//		}
-		
-		//get all
-//		List<StoreChatlogVO> list = dao.getAll();
-//		System.out.println(list.size());
-//		for(StoreChatlogVO allSC : list){			
-//			System.out.print(allSC.getSc_num() + ",");
-//			System.out.print(allSC.getRpt_snum() + ",");
-//			System.out.print(allSC.getClog_name() + ",");
-//			System.out.print(allSC.getContent() + ",");
-//			System.out.print(allSC.getClog_time() + ",");
-//			System.out.println();
-//		}
-	}
-
-
-
-
 }

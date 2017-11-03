@@ -1,7 +1,6 @@
 package com.report_store.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -318,74 +317,4 @@ public class ReportStoreDAO implements ReportStoreDAO_interface{
 			}
 		}
 	}
-	
-	public static void main(String[] args){
-		ReportStoreDAO dao = new ReportStoreDAO();
-		ReportStoreVO rmVO = new ReportStoreVO();
-		
-		//insert
-//		rmVO.setSto_num("ST0000000001");
-//		rmVO.setMem_num("MB0000000003");
-//		rmVO.setCom_num("");
-//		rmVO.setStatus("待處理");
-//		dao.insert(rmVO);
-		
-		//sto_update
-//		rmVO.setScore(new Integer(5));
-//		rmVO.setRpt_snum("RS0000000003");
-//		dao.stoUpdate(rmVO);
-		
-		//sto_get_all_rpt		
-//		List<ReportStoreVO> list = dao.stoGetAllRpt("ST0000000001");
-//		for(ReportStoreVO all : list){
-//			System.out.print(all.getRpt_snum()+" , ");			
-//			System.out.print(all.getSto_num()+" , ");
-//			System.out.print(all.getMem_num()+" , ");
-//			System.out.print(all.getCom_num()+" , ");
-//			System.out.print(all.getRpt_time()+" , ");
-//			System.out.print(all.getStatus()+" , ");
-//			System.out.print(all.getStaff_num()+" , ");
-//			System.out.print(all.getScore()+" , ");
-//			System.out.print(all.getWay()+" , ");
-//			System.out.println();
-//		}
-		
-		//get_one_rpt
-//		rmVO = dao.getRptbyPrimaryKey("RM0000000001");
-//		System.out.print(rmVO.getRpt_mnum()+" , ");
-//		System.out.print(rmVO.getMem_num()+" , ");
-//		System.out.print(rmVO.getMem_num2()+" , ");
-//		System.out.print(rmVO.getSto_num()+" , ");
-//		System.out.print(rmVO.getCom_num()+" , ");
-//		System.out.print(rmVO.getRpt_time()+" , ");
-//		System.out.print(rmVO.getStatus()+" , ");
-//		System.out.print(rmVO.getStaff_num()+" , ");
-//		System.out.print(rmVO.getScore()+" , ");
-//		System.out.print(rmVO.getWay()+" , ");
-//		System.out.println();
-//		
-		//get_all
-//		List<ReportStoreVO> list = dao.getAll();
-//		for(ReportStoreVO all : list){
-//			System.out.print(all.getRpt_snum()+" , ");			
-//			System.out.print(all.getSto_num()+" , ");
-//			System.out.print(all.getMem_num()+" , ");
-//			System.out.print(all.getCom_num()+" , ");
-//			System.out.print(all.getRpt_time()+" , ");
-//			System.out.print(all.getStatus()+" , ");
-//			System.out.print(all.getStaff_num()+" , ");
-//			System.out.print(all.getScore()+" , ");
-//			System.out.print(all.getWay()+" , ");
-//			System.out.println();
-//		}
-		
-		//staff_update
-//		rmVO.setStatus("已處理");
-//		rmVO.setStaff_num("BM0000000002");
-//		rmVO.setWay("停權");
-//		rmVO.setRpt_snum("RS0000000003");
-//		dao.stfUpdate(rmVO);
-	
-	}
-
 }

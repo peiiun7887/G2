@@ -15,7 +15,7 @@ public class IceListDAO implements IceListDAO_interface {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/BA104G2");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -77,8 +77,6 @@ public class IceListDAO implements IceListDAO_interface {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
 		try {
 
 			con = ds.getConnection();
