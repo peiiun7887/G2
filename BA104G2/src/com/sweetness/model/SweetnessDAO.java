@@ -139,6 +139,7 @@ public class SweetnessDAO implements SweetnessDAO_interface {
 			while (rs.next()) {
 				sweetnessVO = new SweetnessVO();
 				sweetnessVO.setSweet_num(rs.getString("sweet_num"));
+				sweetnessVO.setSto_num(rs.getString("sto_num"));
 				sweetnessVO.setSweet_type(rs.getString("sweet_type"));
 				sweetnessVO.setStatus(rs.getString("status"));
 				sweetList.add(sweetnessVO);
