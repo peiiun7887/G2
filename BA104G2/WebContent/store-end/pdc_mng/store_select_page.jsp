@@ -34,7 +34,7 @@
 </table>
 
 <jsp:useBean id="store" scope="session" class="com.product.model.ProductVO" />
-<jsp:setProperty name="store" property="sto_num" value="ST0000000003"/>
+<jsp:setProperty name="store" property="sto_num" value="ST0000000001"/>
 
 <p>This is the Home page for Stroe_Product_management: ${store.sto_num}</p>
 

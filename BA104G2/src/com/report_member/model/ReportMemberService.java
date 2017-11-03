@@ -11,7 +11,6 @@ public class ReportMemberService {
 	}
 	
 	public ReportMemberVO addReport(ReportMemberVO reportMemberVO){
-		reportMemberVO.setStatus("待處理");
 		dao.insert(reportMemberVO);
 		return reportMemberVO;		
 	}

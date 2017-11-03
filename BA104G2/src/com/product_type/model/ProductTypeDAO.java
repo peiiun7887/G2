@@ -22,10 +22,44 @@ public class ProductTypeDAO implements ProductType_interface{
 			e.printStackTrace();
 		}
 	}
+	private static final String INSERT = 
+			"INSERT INTO PRODUCT_TYPE (PT_NUM,PT_NAME) "
+			+ " VALUES ('PT'||LPAD(to_char(SEQ_RPT_SNUM.NEXTVAL),3,'0'),?)";
 	private static final String GET_ALL_STMT="SELECT * FROM PRODUCT_TYPE";
 	private static final String GET_ONE_STMT = 
 			"SELECT * FROM PRODUCT_TYPE WHERE PT_NUM=?";
+	@Override
+	public void insert(ProductTypeVO productTypeVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(INSERT);
+			
+			pstmt.setString(1, productTypeVO.getPt_name());
+			pstmt.executeUpdate();
 	
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if(pstmt != null){
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}				
+			}
+			if(con != null){
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}		
+	}
 	@Override
 	public List<ProductTypeVO> getAll() {
 		List<ProductTypeVO> list = new ArrayList<ProductTypeVO>();

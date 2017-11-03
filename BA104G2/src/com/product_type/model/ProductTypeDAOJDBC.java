@@ -15,10 +15,48 @@ public class ProductTypeDAOJDBC implements ProductType_interface{
 	String userid = "BA104G2";
 	String passwd = "BA104G2";
 	
+	private static final String INSERT = 
+			"INSERT INTO PRODUCT_TYPE (PT_NUM,PT_NAME) "
+			+ " VALUES ('PT'||LPAD(to_char(SEQ_RPT_SNUM.NEXTVAL),3,'0'),?)";
 	private static final String GET_ALL_STMT=
 			"SELECT * FROM PRODUCT_TYPE";
 	private static final String GET_ONE_STMT = 
 			"SELECT * FROM PRODUCT_TYPE WHERE PT_NUM=?";
+	@Override
+	public void insert(ProductTypeVO productTypeVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(INSERT);
+			
+			pstmt.setString(1, productTypeVO.getPt_name());
+			pstmt.executeUpdate();
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());		
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if(pstmt != null){
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}				
+			}
+			if(con != null){
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}		
+	}
 	@Override
 	public List<ProductTypeVO> getAll() {
 		List<ProductTypeVO> list = new ArrayList<ProductTypeVO>();
@@ -126,7 +164,10 @@ public class ProductTypeDAOJDBC implements ProductType_interface{
 	
 	public static void main(String[] args){
 		ProductTypeDAOJDBC dao = new ProductTypeDAOJDBC();
-		
+		ProductTypeVO pdtVO = new ProductTypeVO();
+		//insert
+		pdtVO.setPt_name("草本養生茶");
+		dao.insert(pdtVO);
 		
 		//查全部
 //		List<ProductTypeVO> list = dao.getAll();
@@ -137,14 +178,9 @@ public class ProductTypeDAOJDBC implements ProductType_interface{
 //		}
 		
 		//查一個
-		ProductTypeVO pdtVO = dao.getOnePdcT("PT001");
-		System.out.print(pdtVO.getPt_num());
-		System.out.println(pdtVO.getPt_name());
-		System.out.println("------------------");
-		
-		
+//		ProductTypeVO pdtVO = dao.getOnePdcT("PT001");
+//		System.out.print(pdtVO.getPt_num());
+//		System.out.println(pdtVO.getPt_name());
+//		System.out.println("------------------");
 	}
-
-
-
 }

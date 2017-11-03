@@ -9,6 +9,10 @@ public class ProductTypeService {
 		dao = new ProductTypeDAO();
 	}
 	
+	public ProductTypeVO add(ProductTypeVO productTypeVO){
+		dao.insert(productTypeVO);
+		return productTypeVO;
+	}
 	public List<ProductTypeVO> getAll(){
 		return dao.getAll();
 	}

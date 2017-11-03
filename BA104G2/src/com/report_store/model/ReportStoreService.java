@@ -10,7 +10,6 @@ public class ReportStoreService {
 	}
 	
 	public ReportStoreVO addReport(ReportStoreVO reportStoreVO){
-		reportStoreVO.setStatus("待處理");
 		dao.insert(reportStoreVO);
 		return reportStoreVO;		
 	}

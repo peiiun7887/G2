@@ -2,12 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.sweetness.model.*"%>
-<%-- 此頁練習採用 EL 的寫法取值 --%>
-
 
 <%	
+// 	Object storeProfileVO=(String) session.getAttribute("storeProfileVO"); //從session取出店家編號
 	SweetnessService swtSvc = new SweetnessService();
-	List<SweetnessVO> list = swtSvc.getSweetness("ST0000000001");
+	List<SweetnessVO> list = swtSvc.getSweetness("");//仙
     pageContext.setAttribute("list",list);
 %>
 
@@ -71,6 +70,7 @@
 </c:if>
 
 list size: <%= list.size() %>
+string:  <%= str %>
 <table>
 	<tr>
 		<th>甜度編號</th>		
