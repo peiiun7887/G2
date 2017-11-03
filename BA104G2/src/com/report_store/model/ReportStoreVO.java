@@ -10,7 +10,7 @@ public class ReportStoreVO implements java.io.Serializable{
 	private Date rpt_time;
 	private String status;
 	private String staff_num;
-	private Double score;
+	private Integer score;
 	private String way;
 	
 	public String getRpt_snum() {
@@ -55,10 +55,10 @@ public class ReportStoreVO implements java.io.Serializable{
 	public void setStaff_num(String staff_num) {
 		this.staff_num = staff_num;
 	}
-	public Double getScore() {
+	public Integer getScore() {
 		return score;
 	}
-	public void setScore(Double score) {
+	public void setScore(Integer score) {
 		this.score = score;
 	}
 	public String getWay() {

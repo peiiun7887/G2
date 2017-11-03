@@ -140,7 +140,7 @@ public class ReportMemberDAO implements ReportMemberDAO_interface{
 				reportMemberVO.setRpt_time(rs.getDate("rpt_time"));
 				reportMemberVO.setStatus(rs.getString("status"));
 				reportMemberVO.setStaff_num(rs.getString("staff_num"));
-				reportMemberVO.setScore(rs.getDouble("score"));
+				reportMemberVO.setScore(rs.getInt("score"));
 				reportMemberVO.setWay(rs.getString("way"));
 				list.add(reportMemberVO);
 			}
@@ -196,7 +196,7 @@ public class ReportMemberDAO implements ReportMemberDAO_interface{
 				reportMemberVO.setRpt_time(rs.getDate("rpt_time"));
 				reportMemberVO.setStatus(rs.getString("status"));
 				reportMemberVO.setStaff_num(rs.getString("staff_num"));
-				reportMemberVO.setScore(rs.getDouble("score"));
+				reportMemberVO.setScore(rs.getInt("score"));
 				reportMemberVO.setWay(rs.getString("way"));
 			}
 		
@@ -251,7 +251,7 @@ public class ReportMemberDAO implements ReportMemberDAO_interface{
 				reportMemberVO.setRpt_time(rs.getDate("rpt_time"));
 				reportMemberVO.setStatus(rs.getString("status"));
 				reportMemberVO.setStaff_num(rs.getString("staff_num"));
-				reportMemberVO.setScore(rs.getDouble("score"));
+				reportMemberVO.setScore(rs.getInt("score"));
 				reportMemberVO.setWay(rs.getString("way"));
 				list.add(reportMemberVO);
 			}

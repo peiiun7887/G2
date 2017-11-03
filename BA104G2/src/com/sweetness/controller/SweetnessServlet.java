@@ -29,14 +29,16 @@ public class SweetnessServlet extends HttpServlet {
 			try {
 				/************ 1.接收請求參數 -輸入格式處理  ******************/					
 				String sto_num = req.getParameter("sto_num");
+				System.out.println();
 				String sweet_type = req.getParameter("sweet_type");
 				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,3}$";
 				if (sweet_type == null || sweet_type.trim().length() == 0){
 					errorMsgs.put("sweet_type","甜度名稱：請勿空白");
 				} else if (!sweet_type.trim().matches(nameReg)) {
-					errorMsgs.put("sweet_type","甜度名稱：只能是中、英文字母、數字和_ , 且長度必需在2到20之間");
+					errorMsgs.put("sweet_type","甜度名稱：只能是中、英文字母、數字和_ , 且長度必需在1到3之間");
 				}				
 				System.out.println("sweet insert :" +sto_num+","+sweet_type);
+				
 				SweetnessVO sweetnessVO = new SweetnessVO();
 				sweetnessVO.setSto_num(sto_num);
 				sweetnessVO.setSto_num(sto_num);
