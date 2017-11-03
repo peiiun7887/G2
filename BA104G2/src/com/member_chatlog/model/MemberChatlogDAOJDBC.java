@@ -1,4 +1,4 @@
-package com.store_chatlog.model;
+package com.member_chatlog.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,26 +8,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StoreChatlogDAOJDBC implements StoreChatlogDAO_interface{
+public class MemberChatlogDAOJDBC implements MemberChatlogDAO_interface{
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "BA104G2";
 	String passwd = "BA104G2";
 	
 	private static final String INSERT =
-			"INSERT INTO STORE_CHATLOG (SC_NUM,RPT_SNUM,CLOG_NAME,CONTENT,CLOG_TIME)"
-			+ " VALUES ('SC'||LPAD(to_char(SEQ_SC_NUM.NEXTVAL),10,'0'),?,?,?,CURRENT_TIMESTAMP)";
+			"INSERT INTO MEMBER_CHATLOG (MC_NUM,RPT_MNUM,CLOG_NAME,CONTENT,CLOG_TIME)"
+			+ " VALUES ('MC'||LPAD(to_char(SEQ_SC_NUM.NEXTVAL),10,'0'),?,?,?,CURRENT_TIMESTAMP)";
 	
 	private static final String STO_Get_ALL = 
-			" SELECT sc_num, SC.rpt_snum , clog_name , content , to_char(clog_time,'yyyy-mm-dd') clog_time "
-			+ " FROM STORE_CHATLOG SC LEFT JOIN (SELECT RPT_SNUM,STO_NUM FROM REPORT_STORE) RS "
-			+ " ON RS.RPT_SNUM = SC.RPT_SNUM WHERE sto_num=?";
+			"SELECT mc_num, MC.rpt_mnum , clog_name , content , to_char(clog_time,'yyyy-mm-dd') clog_time"
+			+ " FROM MEMBER_CHATLOG MC LEFT JOIN (SELECT RPT_MNUM, MEM_NUM FROM REPORT_MEMBER) RM "
+			+ " ON RM.RPT_MNUM = MC.RPT_MNUM WHERE MEM_num=?";
 	
 	private static final String GET_ALL = 
-			"SELECT * FROM STORE_CHATLOG";
-	
+			"SELECT * FROM MEMBER_CHATLOG";
 	@Override
-	public void insert(StoreChatlogVO storeChatlogVO) {
+	public void insert(MemberChatlogVO memberChatlogVO) {
 		Connection con =null;
 		PreparedStatement pstmt = null;
 		try {
@@ -35,9 +34,9 @@ public class StoreChatlogDAOJDBC implements StoreChatlogDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT);
 			
-			pstmt.setString(1, storeChatlogVO.getRpt_snum());
-			pstmt.setString(2, storeChatlogVO.getClog_name());
-			pstmt.setString(3, storeChatlogVO.getContent());
+			pstmt.setString(1, memberChatlogVO.getRpt_mnum());
+			pstmt.setString(2, memberChatlogVO.getClog_name());
+			pstmt.setString(3, memberChatlogVO.getContent());
 		
 			pstmt.executeUpdate();
 			
@@ -64,10 +63,11 @@ public class StoreChatlogDAOJDBC implements StoreChatlogDAO_interface{
 			}
 		}		
 	}
+	
 	@Override
-	public List<StoreChatlogVO> stoGetAll(String sto_num) {
-		List<StoreChatlogVO> list = new ArrayList<StoreChatlogVO>();
-		StoreChatlogVO storeChatlogVO = null;
+	public List<MemberChatlogVO> memGetAll(String mem_num) {
+		List<MemberChatlogVO> list = new ArrayList<MemberChatlogVO>();
+		MemberChatlogVO memberChatlogVO = null;
 		
 		Connection con =null;
 		PreparedStatement pstmt = null;
@@ -78,17 +78,17 @@ public class StoreChatlogDAOJDBC implements StoreChatlogDAO_interface{
 				con = DriverManager.getConnection(url, userid, passwd);
 				pstmt = con.prepareStatement(STO_Get_ALL);
 				
-				pstmt.setString(1, sto_num);
+				pstmt.setString(1, mem_num);
 				rs = pstmt.executeQuery();
 				
 				while(rs.next()){
-					storeChatlogVO = new StoreChatlogVO();
-					storeChatlogVO.setSc_num(rs.getString("sc_num"));
-					storeChatlogVO.setRpt_snum(rs.getString("rpt_snum"));
-					storeChatlogVO.setClog_name(rs.getString("clog_name"));
-					storeChatlogVO.setContent(rs.getString("content"));
-					storeChatlogVO.setClog_time(rs.getDate("clog_time"));
-					list.add(storeChatlogVO);
+					memberChatlogVO = new MemberChatlogVO();
+					memberChatlogVO.setMc_num(rs.getString("mc_num"));
+					memberChatlogVO.setRpt_mnum(rs.getString("rpt_mnum"));
+					memberChatlogVO.setClog_name(rs.getString("clog_name"));
+					memberChatlogVO.setContent(rs.getString("content"));
+					memberChatlogVO.setClog_time(rs.getDate("clog_time"));
+					list.add(memberChatlogVO);
 				}
 				
 			} catch (ClassNotFoundException e) {
@@ -122,10 +122,11 @@ public class StoreChatlogDAOJDBC implements StoreChatlogDAO_interface{
 			}		
 		return list;
 	}
+
 	@Override
-	public List<StoreChatlogVO> getAll() {
-		StoreChatlogVO storeChatlogVO = null;
-		List<StoreChatlogVO> list = new ArrayList<StoreChatlogVO>();
+	public List<MemberChatlogVO> getAll() {
+		MemberChatlogVO memberChatlogVO = null;
+		List<MemberChatlogVO> list = new ArrayList<MemberChatlogVO>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -137,13 +138,13 @@ public class StoreChatlogDAOJDBC implements StoreChatlogDAO_interface{
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()){
-				storeChatlogVO = new StoreChatlogVO();
-				storeChatlogVO.setSc_num(rs.getString("sc_num"));
-				storeChatlogVO.setRpt_snum(rs.getString("rpt_snum"));
-				storeChatlogVO.setClog_name(rs.getString("clog_name"));
-				storeChatlogVO.setContent(rs.getString("content"));
-				storeChatlogVO.setClog_time(rs.getDate("clog_time"));
-				list.add(storeChatlogVO);
+				memberChatlogVO = new MemberChatlogVO();
+				memberChatlogVO.setMc_num(rs.getString("mc_num"));
+				memberChatlogVO.setRpt_mnum(rs.getString("rpt_mnum"));
+				memberChatlogVO.setClog_name(rs.getString("clog_name"));
+				memberChatlogVO.setContent(rs.getString("content"));
+				memberChatlogVO.setClog_time(rs.getDate("clog_time"));
+				list.add(memberChatlogVO);
 			}
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "
@@ -181,34 +182,33 @@ public class StoreChatlogDAOJDBC implements StoreChatlogDAO_interface{
 	
 	public static void main(String[] args){
 		
-//		StoreChatlogDAOJDBC dao = new StoreChatlogDAOJDBC();
-//		StoreChatlogVO scVO = new StoreChatlogVO();
-//		
-		//insert
-//		scVO.setRpt_snum("RS0000000004");
-//		scVO.setClog_name("店家");
+		MemberChatlogDAOJDBC dao = new MemberChatlogDAOJDBC();
+		MemberChatlogVO scVO = new MemberChatlogVO();
+		
+//		//insert
+//		scVO.setRpt_mnum("RM0000000004");
+//		scVO.setClog_name("會員");
 //		scVO.setContent("不實廣告");
 //		dao.insert(scVO);
 		
-		//sto get all
-//		List<StoreChatlogVO> list = dao.stoGetAll("ST0000000001");
-//		
+//		//sto get all
+//		List<MemberChatlogVO> list = dao.memGetAll("MB0000000001");
 //		System.out.println(list.size());
-//		for(StoreChatlogVO scVO : list){			
-//			System.out.print(scVO.getSc_num() + ",");
-//			System.out.print(scVO.getRpt_snum() + ",");
-//			System.out.print(scVO.getClog_name() + ",");
-//			System.out.print(scVO.getContent() + ",");
-//			System.out.print(scVO.getClog_time() + ",");
+//		for(MemberChatlogVO mall : list){			
+//			System.out.print(mall.getMc_num() + ",");
+//			System.out.print(mall.getRpt_mnum() + ",");
+//			System.out.print(mall.getClog_name() + ",");
+//			System.out.print(mall.getContent() + ",");
+//			System.out.print(mall.getClog_time() + ",");
 //			System.out.println();
 //		}
 		
 		//get all
-//		List<StoreChatlogVO> list = dao.getAll();
+//		List<MemberChatlogVO> list = dao.getAll();
 //		System.out.println(list.size());
-//		for(StoreChatlogVO allSC : list){			
-//			System.out.print(allSC.getSc_num() + ",");
-//			System.out.print(allSC.getRpt_snum() + ",");
+//		for(MemberChatlogVO allSC : list){			
+//			System.out.print(allSC.getMc_num() + ",");
+//			System.out.print(allSC.getRpt_mnum() + ",");
 //			System.out.print(allSC.getClog_name() + ",");
 //			System.out.print(allSC.getContent() + ",");
 //			System.out.print(allSC.getClog_time() + ",");
@@ -218,5 +218,12 @@ public class StoreChatlogDAOJDBC implements StoreChatlogDAO_interface{
 
 
 
+
+
+
+
+
+
+	
 
 }
