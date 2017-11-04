@@ -21,38 +21,46 @@ public class IceListDAO implements IceListDAO_interface {
 		}
 	}
 
-	private static final String INSERT_ICELIST = "INSERT INTO ICE_LIST STO_NUM=?, ICE_TYPE=?, STATUS=?";
-	private static final String UPDATE = "UPDATE ICE_LIST SET STATUS=? WHERE ICE_NUM=?";
-	private static final String GET_ICELIST = "SELECT * FROM ICE_LIST WHERE STO_NUM=?";
-
+	private static final String INSERT_ICELIST = 
+			"INSERT INTO ICE_LIST (ICE_NUM,STO_NUM,ICE_TYPE,STATUS)"
+			+ " VALUES ('IC'||LPAD(to_char(SEQ_ICE_NUM.NEXTVAL),10,'0'),?,?,?)";
+	private static final String UPDATE =
+			"UPDATE ICE_LIST SET ICE_TYPE=?,STATUS=? WHERE ICE_NUM=?";
+	private static final String GET_ICELIST = 
+			"SELECT * FROM ICE_LIST WHERE STO_NUM=?";
+	private static final String GET_ONE_ICE=
+			"SELECT * FROM ICE_LIST WHERE ICE_NUM=?";
 	@Override
-	public void insert(IceListVO iceListVO) {
+	public String insert(IceListVO iceListVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
-
+		String ice_num = null;
 		try {
-
+			String[] col = {"ice_num"};
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(INSERT_ICELIST);
-
-			con.setAutoCommit(false);
+			pstmt = con.prepareStatement(INSERT_ICELIST,col);				
 
 			pstmt.setString(1, iceListVO.getSto_num());
 			pstmt.setString(2, iceListVO.getIce_type());
 			pstmt.setString(3, iceListVO.getStatus());
 
 			pstmt.executeUpdate();
-
-			con.commit();
-
+			
+			ResultSet rs = pstmt.getGeneratedKeys();
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int columnCount = rsmd.getColumnCount();
+			if (rs.next()) {
+				do {
+					for (int i = 1; i <= columnCount; i++) {
+						ice_num = rs.getString(i);						
+					}
+				} while (rs.next());
+			}			
+			rs.close();
+			
 		} catch (SQLException se) {
-			try {
-				con.rollback();
 				throw new RuntimeException("A database error occured. " + se.getMessage());
-			} catch (SQLException see) {
-				see.printStackTrace();
-			}
 		} finally {
 			if (pstmt != null) {
 				try {
@@ -70,6 +78,7 @@ public class IceListDAO implements IceListDAO_interface {
 				}
 			}
 		}
+		return ice_num;
 	}
 
 	@Override
@@ -82,22 +91,14 @@ public class IceListDAO implements IceListDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
-			con.setAutoCommit(false);
-
-			pstmt.setString(1, iceListVO.getStatus());
-			pstmt.setString(2, iceListVO.getIce_num());
+			pstmt.setString(1, iceListVO.getIce_type());
+			pstmt.setString(2, iceListVO.getStatus());
+			pstmt.setString(3, iceListVO.getIce_num());
 
 			pstmt.executeUpdate();
 
-			con.commit();
-
 		} catch (SQLException se) {
-			try {
-				con.rollback();
 				throw new RuntimeException("A database error occured. " + se.getMessage());
-			} catch (SQLException see) {
-				see.printStackTrace();
-			}
 		} finally {
 			if (pstmt != null) {
 				try {
@@ -117,7 +118,7 @@ public class IceListDAO implements IceListDAO_interface {
 	}
 
 	@Override
-	public List<IceListVO> getIceList(IceListVO iceListVO) {
+	public List<IceListVO> getIceList(String sto_num) {
 		IceListVO iceVO = null;
 		List<IceListVO> iceList = new ArrayList<IceListVO>();
 
@@ -128,14 +129,12 @@ public class IceListDAO implements IceListDAO_interface {
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ICELIST);
-
-			pstmt.setString(1, iceListVO.getSto_num());
-
+			pstmt.setString(1, sto_num);
 			rs = pstmt.executeQuery();
-
 			while (rs.next()) {
 				iceVO = new IceListVO();
 				iceVO.setIce_num(rs.getString("ICE_NUM"));
+				iceVO.setSto_num(sto_num);
 				iceVO.setIce_type(rs.getString("ICE_TYPE"));
 				iceVO.setStatus(rs.getString("STATUS"));
 				iceList.add(iceVO);
@@ -167,5 +166,54 @@ public class IceListDAO implements IceListDAO_interface {
 			}
 		}
 		return iceList;
+	}
+
+	@Override
+	public IceListVO getOneIce(String ice_num) {
+		IceListVO iceVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONE_ICE);
+			pstmt.setString(1, ice_num);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				iceVO = new IceListVO();
+				iceVO.setIce_num(rs.getString("ice_num"));
+				iceVO.setSto_num(rs.getString("sto_num"));
+				iceVO.setIce_type(rs.getString("ice_type"));
+				iceVO.setStatus(rs.getString("status"));
+			}
+			
+		} catch (Exception se){
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}	
+		
+		return iceVO;
 	}
 }

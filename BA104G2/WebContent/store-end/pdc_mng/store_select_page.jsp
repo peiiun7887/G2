@@ -87,6 +87,7 @@
 <ul>
   <li><a href='addProduct.jsp'>新增商品</a></li>
   <li><a href='addSweetness.jsp'>新增甜度</a></li>
+  <li><a href='add.jsp'>新增冰度</a></li>
 </ul>
 
 </body>

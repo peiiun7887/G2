@@ -1,22 +1,21 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.sweetness.model.*"%>
+<%@ page import="com.ice_list.model.*"%>
 <jsp:useBean id="store" scope="session" class="com.product.model.ProductVO" />
 <jsp:setProperty name="store" property="sto_num" value="ST0000000001"/>
 <%	
  //	Object storeProfileVO=(String) session.getAttribute("storeProfileVO"); //從session取出店家編號
-	SweetnessService swtSvc = new SweetnessService();
+	IceListService iceSvc = new IceListService();
  	String str = store.getSto_num();
-	List<SweetnessVO> list = swtSvc.getSweetness(str);
+	List<IceListVO> list = iceSvc.getSweetness(str);
     pageContext.setAttribute("list",list);
-
 %>
 
 
 <html>
 <head>
-<title>店家所有甜度商品 - stolistAllSweet.jsp</title>
+<title>店家所有冰塊商品 - stolistAllSweet.jsp</title>
 
 <style>
   table#table-1 {
@@ -57,7 +56,7 @@
 <h4>此頁練習採用 EL 的寫法取值:</h4>
 <table id="table-1">
 	<tr><td>
-		${store.sto_num}<h3>所有商品資料 - stoListAllSweet.jsp</h3> 
+		${store.sto_num}<h3>所有商品資料 - stoListAllIce.jsp</h3> 
 		 <h4><a href="<%= request.getContextPath() %>/store-end/pdc_mng/store_select_page.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
@@ -76,32 +75,32 @@ list size: <%= list.size() %>
 
 <table>
 	<tr>
-		<th>甜度編號</th>		
+		<th>冰塊編號</th>		
 		<th>店家編號</th>
-		<th>甜度名稱</th>
+		<th>冰塊名稱</th>
 		<th>狀態</th>
 		<th>修改</th>
 		<th>刪除</th>
 	</tr>
 	
-	<c:forEach var="swtVO" items="${list}">
+	<c:forEach var="iceVO" items="${list}">
 		
-		<tr ${(swtVO.sweet_num==param.sweet_num)?'bgcolor=#CCCCFF':''}>
-			<td>${swtVO.sweet_num}</td>	
-			<td>${swtVO.sto_num}</td>
-			<td>${swtVO.sweet_type}</td>
-			<td>${swtVO.status}</td>
+		<tr ${(iceVO.sweet_num==param.ice_num)?'bgcolor=#CCCCFF':''}>
+			<td>${iceVO.ice_num}</td>	
+			<td>${iceVO.sto_num}</td>
+			<td>${iceVO.ice_type}</td>
+			<td>${iceVO.status}</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/pdc_mng/StoSwtMng.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/pdc_mng/StoIceMng.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
-			     <input type="hidden" name="sweet_num" value="${swtVO.sweet_num}">
+			     <input type="hidden" name="ice_num" value="${iceVO.ice_num}">
 			     <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/pdc_mng/StoSwtMng.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/pdc_mng/StoIceMng.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="刪除">
-			     <input type="hidden" name="sweet_num"  value="${swtVO.sweet_num}">
+			     <input type="hidden" name="ice_num"  value="${iceVO.ice_num}">
 			     <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
 			     <input type="hidden" name="action" value="delete"></FORM>
 			</td>

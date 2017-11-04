@@ -18,15 +18,15 @@ public class SweetnessDAOJDBC implements SweetnessDAO_interface {
 	String userid = "BA104G2";
 	String passwd = "BA104G2";
 
-	//INSERT改成序列版本
 	private static final String INSERT_SWEETNESS = 
 			"INSERT INTO SWEETNESS (SWEET_NUM , STO_NUM , SWEET_TYPE, STATUS)"
-			+ " VALUES ('SW'||LPAD(to_char(SEQ_PRODUCT_NUM.NEXTVAL),10,'0'),?,?,?)";
-	private static final String UPDATE = "UPDATE SWEETNESS SET STATUS=? WHERE SWEET_NUM=?";
-	private static final String GET_SWEETNESS = "SELECT * FROM SWEETNESS WHERE STO_NUM=?";
-
-	//多加一個getone的指令
-	private static final String GET_ONE_SWEETNESS="SELECT * FROM SWEETNESS WHERE SWEET_NUM=?";
+			+ " VALUES ('SW'||LPAD(to_char(SEQ_SWEET_NUM.NEXTVAL),10,'0'),?,?,?)";
+	private static final String UPDATE = 
+			"UPDATE SWEETNESS SET STATUS=? WHERE SWEET_NUM=?";
+	private static final String GET_SWEETNESS = 
+			"SELECT * FROM SWEETNESS WHERE STO_NUM=?";
+	private static final String GET_ONE_SWEETNESS=
+			"SELECT * FROM SWEETNESS WHERE SWEET_NUM=?";
 	
 	@Override
 	public String insert(SweetnessVO sweetnessVO) {

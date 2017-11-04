@@ -23,7 +23,7 @@ public class SweetnessDAO implements SweetnessDAO_interface {
 	//INSERT改成序列版本
 	private static final String INSERT_SWEETNESS = 
 			"INSERT INTO SWEETNESS (SWEET_NUM , STO_NUM , SWEET_TYPE, STATUS)"
-			+ " VALUES ('SW'||LPAD(to_char(SEQ_ICE_NUM.NEXTVAL),10,'0'),?,?,?)";
+			+ " VALUES ('SW'||LPAD(to_char(SEQ_SWEET_NUM.NEXTVAL),10,'0'),?,?,?)";
 	private static final String UPDATE = "UPDATE SWEETNESS SET SWEET_TYPE=?,STATUS=? WHERE SWEET_NUM=?";
 	private static final String GET_SWEETNESS = "SELECT * FROM SWEETNESS WHERE STO_NUM=? AND STATUS<>'刪除'";
 
@@ -90,23 +90,15 @@ public class SweetnessDAO implements SweetnessDAO_interface {
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
-			
-			con.setAutoCommit(false);
+
 			pstmt.setString(1, sweetnessVO.getSweet_type());
 			pstmt.setString(2, sweetnessVO.getStatus());
 			pstmt.setString(3, sweetnessVO.getSweet_num());
 
 			pstmt.executeUpdate();
 
-			con.commit();
-
 		} catch (SQLException se) {
-			try {
-				con.rollback();
 				throw new RuntimeException("A database error occured. " + se.getMessage());
-			} catch (SQLException see) {
-				see.printStackTrace();
-			}
 		} finally {
 			if (pstmt != null) {
 				try {
@@ -143,7 +135,7 @@ public class SweetnessDAO implements SweetnessDAO_interface {
 			while (rs.next()) {
 				sweetnessVO = new SweetnessVO();
 				sweetnessVO.setSweet_num(rs.getString("sweet_num"));
-				sweetnessVO.setSto_num(rs.getString("sto_num"));
+				sweetnessVO.setSto_num(sto_num);
 				sweetnessVO.setSweet_type(rs.getString("sweet_type"));
 				sweetnessVO.setStatus(rs.getString("status"));
 				sweetList.add(sweetnessVO);

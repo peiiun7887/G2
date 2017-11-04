@@ -10,37 +10,22 @@ public class IceListService {
 		dao = new IceListDAO();
 	}
 
-	public IceListVO insertIceList(String sto_num, String ice_type) {
-
-		IceListVO iceListVO = new IceListVO();
-
-		iceListVO.setSto_num(sto_num);
-		iceListVO.setIce_type(ice_type);
-		iceListVO.setStatus("上架");
-
-		dao.insert(iceListVO);
-
+	public IceListVO insertIceList(IceListVO iceListVO) {
+		String ice_num = dao.insert(iceListVO);
+		iceListVO.setIce_num(ice_num);
 		return iceListVO;
 	}
 
-	public IceListVO updateIceList(String ice_num, String Status) {
-
-		IceListVO iceListVO = new IceListVO();
-
-		iceListVO.setIce_num(ice_num);
-		iceListVO.setStatus(Status);
-
+	public IceListVO updateIceList(IceListVO iceListVO) {
 		dao.update(iceListVO);
-
 		return iceListVO;
 	}
 
 	public List<IceListVO> getSweetness(String sto_num) {
-
-		IceListVO iceListVO = new IceListVO();
-
-		iceListVO.setSto_num(sto_num);
-
-		return dao.getIceList(iceListVO);
+		return dao.getIceList(sto_num);
+	}
+	
+	public IceListVO getOneIce(String ice_num){
+		return dao.getOneIce(ice_num);
 	}
 }

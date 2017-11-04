@@ -4,9 +4,11 @@ import java.util.List;
 
 public interface IceListDAO_interface {
 	
-	public void insert(IceListVO iceListVO);
+	public String insert(IceListVO iceListVO);
 	
 	public void update(IceListVO iceListVO);
 
-	public List<IceListVO> getIceList(IceListVO iceListVO);
+	public List<IceListVO> getIceList(String sto_num);
+	
+	public IceListVO getOneIce(String ice_num);
 }
