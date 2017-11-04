@@ -29,17 +29,16 @@ public class SweetnessDAOJDBC implements SweetnessDAO_interface {
 	private static final String GET_ONE_SWEETNESS="SELECT * FROM SWEETNESS WHERE SWEET_NUM=?";
 	
 	@Override
-	public void insert(SweetnessVO sweetnessVO) {
+	public String insert(SweetnessVO sweetnessVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
-
+		String sweet_num = null;
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(INSERT_SWEETNESS);
-
-			con.setAutoCommit(false);
+			String[] col = {"sweet_num"};
+			pstmt = con.prepareStatement(INSERT_SWEETNESS,col);
 
 			pstmt.setString(1, sweetnessVO.getSto_num());
 			pstmt.setString(2, sweetnessVO.getSweet_type());
@@ -47,7 +46,17 @@ public class SweetnessDAOJDBC implements SweetnessDAO_interface {
 
 			pstmt.executeUpdate();
 
-			con.commit();
+			ResultSet rs = pstmt.getGeneratedKeys();
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int columnCount = rsmd.getColumnCount();
+			if (rs.next()) {
+				do {
+					for (int i = 1; i <= columnCount; i++) {
+						sweet_num = rs.getString(i);						
+					}
+				} while (rs.next());
+			}			
+			rs.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,6 +85,7 @@ public class SweetnessDAOJDBC implements SweetnessDAO_interface {
 				}
 			}
 		}
+		return sweet_num;
 	}
 
 	@Override
@@ -125,6 +135,7 @@ public class SweetnessDAOJDBC implements SweetnessDAO_interface {
 				}
 			}
 		}
+
 	}
 
 	@Override

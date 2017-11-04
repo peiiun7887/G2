@@ -10,12 +10,13 @@
  	String str = store.getSto_num();
 	List<SweetnessVO> list = swtSvc.getSweetness(str);
     pageContext.setAttribute("list",list);
+
 %>
 
 
 <html>
 <head>
-<title>店家所有商品資料 - stolistAllProduct.jsp</title>
+<title>店家所有商品資料 - stolistAllSweet.jsp</title>
 
 <style>
   table#table-1 {
@@ -85,7 +86,7 @@ list size: <%= list.size() %>
 	
 	<c:forEach var="swtVO" items="${list}">
 		
-		<tr>
+		<tr ${(swtVO.sweet_num==param.sweet_num)?'bgcolor=#CCCCFF':''}>
 			<td>${swtVO.sweet_num}</td>	
 			<td>${swtVO.sto_num}</td>
 			<td>${swtVO.sweet_type}</td>
@@ -93,20 +94,22 @@ list size: <%= list.size() %>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/pdc_mng/StoSwtMng.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
-			     <input type="hidden" name="com_num" value="${swtVO.sweet_num}">
+			     <input type="hidden" name="sweet_num" value="${swtVO.sweet_num}">
+			     <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/pdc_mng/StoSwtMng.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="刪除">
-			     <input type="hidden" name="com_num"  value="${swtVO.sweet_num}">
-			     <input type="hidden" name="action" value="getOne_For_Delete"></FORM>
+			     <input type="hidden" name="sweet_num"  value="${swtVO.sweet_num}">
+			     <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
+			     <input type="hidden" name="action" value="delete"></FORM>
 			</td>
 		</tr>
 	</c:forEach>
-	
-	
 </table>
-
+<br>本網頁的路徑:<br><b>
+   <font color=blue>request.getServletPath():</font> <%=request.getServletPath()%><br>
+   <font color=blue>request.getRequestURI(): </font> <%=request.getRequestURI()%> </b>
 </body>
 </html>

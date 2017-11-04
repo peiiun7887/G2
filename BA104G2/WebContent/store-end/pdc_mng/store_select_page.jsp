@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:useBean id="store" scope="session" class="com.product.model.ProductVO" />
+<jsp:setProperty name="store" property="sto_num" value="ST0000000001"/>
 
 <html>
 <head>
@@ -33,8 +35,7 @@
    <tr><td><h3>Stroe_Product_management: Home</h3><h4>( MVC )</h4></td></tr>
 </table>
 
-<jsp:useBean id="store" scope="session" class="com.product.model.ProductVO" />
-<jsp:setProperty name="store" property="sto_num" value="ST0000000001"/>
+
 
 <p>This is the Home page for Stroe_Product_management: ${store.sto_num}</p>
 

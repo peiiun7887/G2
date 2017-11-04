@@ -3,11 +3,13 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.product.model.*"%>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
-
+<jsp:useBean id="store" scope="session" class="com.product.model.ProductVO" />
+<jsp:setProperty name="store" property="sto_num" value="ST0000000001"/>
 
 <%
 	ProductService pdcSvc = new ProductService();
-    List<ProductVO> list = pdcSvc.stoFindAllProduct("ST0000000003");
+	String str = store.getSto_num();
+    List<ProductVO> list = pdcSvc.stoFindAllProduct(str);
     pageContext.setAttribute("list",list);
 %>
 
@@ -87,7 +89,7 @@
 	<jsp:useBean id="pdcTSvc" scope="request" class="com.product_type.model.ProductTypeService" />	
 	<c:forEach var="PdcVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
-		<tr>
+		<tr ${(PdcVO.com_num==param.com_num)?'bgcolor=#CCCCFF':''}>
 			<td>${PdcVO.com_num}</td>	
 			<td>${PdcVO.com_name}</td>
 			<td>${PdcVO.m_price}</td>

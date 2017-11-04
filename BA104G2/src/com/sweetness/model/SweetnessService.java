@@ -10,28 +10,14 @@ public class SweetnessService {
 		dao = new SweetnessDAO();
 	}
 
-	public SweetnessVO insertSweetness(String sto_num, String sweet_type) {
-
-		SweetnessVO sweetnessVO = new SweetnessVO();
-
-		sweetnessVO.setSto_num(sto_num);
-		sweetnessVO.setSweet_type(sweet_type);
-		sweetnessVO.setStatus("上架");
-
-		dao.insert(sweetnessVO);
-
+	public SweetnessVO insertSweetness(SweetnessVO sweetnessVO) {
+		String sweet_num = dao.insert(sweetnessVO);
+		sweetnessVO.setSweet_num(sweet_num);
 		return sweetnessVO;
 	}
 
-	public SweetnessVO updateSweetness(String sweet_num, String Status) {
-
-		SweetnessVO sweetnessVO = new SweetnessVO();
-
-		sweetnessVO.setSweet_num(sweet_num);
-		sweetnessVO.setStatus(Status);
-
+	public SweetnessVO updateSweetness(SweetnessVO sweetnessVO) {
 		dao.update(sweetnessVO);
-
 		return sweetnessVO;
 	}
 

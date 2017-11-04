@@ -23,41 +23,44 @@ public class SweetnessDAO implements SweetnessDAO_interface {
 	//INSERT改成序列版本
 	private static final String INSERT_SWEETNESS = 
 			"INSERT INTO SWEETNESS (SWEET_NUM , STO_NUM , SWEET_TYPE, STATUS)"
-			+ " VALUES ('SW'||LPAD(to_char(SEQ_PRODUCT_NUM.NEXTVAL),10,'0'),?,?,?)";
-	private static final String UPDATE = "UPDATE SWEETNESS SET STATUS=? WHERE SWEET_NUM=?";
-	private static final String GET_SWEETNESS = "SELECT * FROM SWEETNESS WHERE STO_NUM=?";
+			+ " VALUES ('SW'||LPAD(to_char(SEQ_ICE_NUM.NEXTVAL),10,'0'),?,?,?)";
+	private static final String UPDATE = "UPDATE SWEETNESS SET SWEET_TYPE=?,STATUS=? WHERE SWEET_NUM=?";
+	private static final String GET_SWEETNESS = "SELECT * FROM SWEETNESS WHERE STO_NUM=? AND STATUS<>'刪除'";
 
 	//多加一個getone的指令
 	private static final String GET_ONE_SWEETNESS="SELECT * FROM SWEETNESS WHERE SWEET_NUM=?";
 	
 	@Override
-	public void insert(SweetnessVO sweetnessVO) {
+	public String insert(SweetnessVO sweetnessVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
-
+		String sweet_num = null;
 		try {
-
+			String[] col = {"sweet_num"};
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(INSERT_SWEETNESS);
-
-			con.setAutoCommit(false);
+			pstmt = con.prepareStatement(INSERT_SWEETNESS,col);
 
 			pstmt.setString(1, sweetnessVO.getSto_num());
 			pstmt.setString(2, sweetnessVO.getSweet_type());
 			pstmt.setString(3, sweetnessVO.getStatus());
 
 			pstmt.executeUpdate();
-
-			con.commit();
+			
+			ResultSet rs = pstmt.getGeneratedKeys();
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int columnCount = rsmd.getColumnCount();
+			if (rs.next()) {
+				do {
+					for (int i = 1; i <= columnCount; i++) {
+						sweet_num = rs.getString(i);						
+					}
+				} while (rs.next());
+			}			
+			rs.close();
 
 		} catch (SQLException se) {
-			try {
-				con.rollback();
 				throw new RuntimeException("A database error occured. " + se.getMessage());
-			} catch (SQLException see) {
-				see.printStackTrace();
-			}
 		} finally {
 			if (pstmt != null) {
 				try {
@@ -72,8 +75,9 @@ public class SweetnessDAO implements SweetnessDAO_interface {
 				} catch (Exception e) {
 					e.printStackTrace(System.err);
 				}
-			}
+			}			
 		}
+		return sweet_num;
 	}
 
 	@Override
@@ -88,9 +92,9 @@ public class SweetnessDAO implements SweetnessDAO_interface {
 			pstmt = con.prepareStatement(UPDATE);
 			
 			con.setAutoCommit(false);
-
-			pstmt.setString(1, sweetnessVO.getStatus());
-			pstmt.setString(2, sweetnessVO.getSweet_num());
+			pstmt.setString(1, sweetnessVO.getSweet_type());
+			pstmt.setString(2, sweetnessVO.getStatus());
+			pstmt.setString(3, sweetnessVO.getSweet_num());
 
 			pstmt.executeUpdate();
 

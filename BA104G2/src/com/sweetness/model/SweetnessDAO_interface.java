@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface SweetnessDAO_interface {
 	
-	public void insert(SweetnessVO sweetnessVO);
+	public String insert(SweetnessVO sweetnessVO);
 	
 	public void update(SweetnessVO sweetnessVO);
 

@@ -38,15 +38,15 @@ public class ProductDAO implements ProductDAO_interface{
 			+ " FROM (SELECT * FROM PRODUCT WHERE status<>'刪除') WHERE sto_num=? ORDER BY com_num desc ";
 	
 	@Override
-	public void insert(ProductVO productVO) {
+	public String insert(ProductVO productVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		
+		String com_num = null;
 		try {
 			
 			con =ds.getConnection();
-			pstmt = con.prepareStatement(INSERT_STMT);
-			con.setAutoCommit(false);
+			String[] col = {"com_num"};
+			pstmt = con.prepareStatement(INSERT_STMT,col);
 			pstmt.setString(1, productVO.getSto_num());
 			pstmt.setString(2, productVO.getCom_name());
 			pstmt.setDouble(3, productVO.getM_price());
@@ -57,18 +57,21 @@ public class ProductDAO implements ProductDAO_interface{
 			pstmt.setString(8, productVO.getStatus());
 			pstmt.setString(9, productVO.getMercom_num());
 			pstmt.executeUpdate();
-				
-			con.commit();
-		
+	
+			ResultSet rs = pstmt.getGeneratedKeys();
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int columnCount = rsmd.getColumnCount();
+			if (rs.next()) {
+				do {
+					for (int i = 1; i <= columnCount; i++) {
+						com_num = rs.getString(i);						
+					}
+				} while (rs.next());
+			}			
+			rs.close();
 		} catch (SQLException se) {
-			try {
-				con.rollback();
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
-			} catch (SQLException see) {
-				see.printStackTrace();
-			}
-			
 		} finally {
 			if(pstmt != null){
 				try {
@@ -84,7 +87,8 @@ public class ProductDAO implements ProductDAO_interface{
 					se.printStackTrace(System.err);
 				}
 			}
-		}		
+		}	
+		return com_num;
 	}
 
 	@Override

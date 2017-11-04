@@ -37,7 +37,7 @@
   
    <servlet>
     <servlet-name>SweetnessServlet</servlet-name>
-    <servlet-class>com.product.controller.SweetnessServlet</servlet-class>
+    <servlet-class>com.sweetness.controller.SweetnessServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>SweetnessServlet</servlet-name>

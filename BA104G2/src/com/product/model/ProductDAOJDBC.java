@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,14 +37,15 @@ public class ProductDAOJDBC implements ProductDAO_interface{
 			+ " FROM (SELECT * FROM PRODUCT WHERE status<>'刪除') WHERE sto_num=? ORDER BY com_num  ";
 	
 	@Override
-	public void insert(ProductVO productVO) {
+	public String insert(ProductVO productVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		
+		String com_num = null;
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(INSERT_STMT);
+			String[] col = {"com_num"};
+			pstmt = con.prepareStatement(INSERT_STMT,col);
 			
 			pstmt.setString(1, productVO.getSto_num());
 			pstmt.setString(2, productVO.getCom_name());
@@ -56,6 +58,18 @@ public class ProductDAOJDBC implements ProductDAO_interface{
 			pstmt.setString(9, productVO.getMercom_num());
 			pstmt.setString(10, productVO.getCom_num());
 			pstmt.executeUpdate();
+			
+			ResultSet rs = pstmt.getGeneratedKeys();
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int columnCount = rsmd.getColumnCount();
+			if (rs.next()) {
+				do {
+					for (int i = 1; i <= columnCount; i++) {
+						com_num = rs.getString(i);						
+					}
+				} while (rs.next());
+			}			
+			rs.close();
 						
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "
@@ -78,7 +92,8 @@ public class ProductDAOJDBC implements ProductDAO_interface{
 					se.printStackTrace(System.err);
 				}
 			}
-		}		
+		}
+		return com_num;
 	}
 
 	@Override

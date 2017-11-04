@@ -12,32 +12,12 @@ public class ProductService {
 	
 	
 	public ProductVO addProduct(ProductVO productVO){
-//		ProductVO productVO = new ProductVO();
-//		productVO.setSto_num(sto_num);
-//		productVO.setCom_name(com_name);
-//		productVO.setM_price(new Double(m_price));
-//		productVO.setL_price(new Double(l_price));
-//		productVO.setDiscribe(discribe);
-//		productVO.setImg(img);
-//		productVO.setPt_num(pt_num);
-//		productVO.setStatus(status);
-//		productVO.setMercom_num(mercom_num);
-		dao.insert(productVO);
-		
+		String com_num = dao.insert(productVO);
+		productVO.setCom_num(com_num);
 		return productVO;	
 	}
 	
 	public ProductVO updateProduct(ProductVO productVO){
-//		ProductVO productVO = new ProductVO();
-//		productVO.setCom_name(com_name);
-//		productVO.setM_price(new Double(m_price));
-//		productVO.setL_price(new Double(l_price));
-//		productVO.setDiscribe(discribe);
-//		productVO.setImg(img);
-//		productVO.setPt_num(pt_num);
-//		productVO.setStatus(status);
-//		productVO.setMercom_num(mercom_num);
-//		productVO.setCom_num(com_num);
 		dao.update(productVO);
 		return productVO;
 	}

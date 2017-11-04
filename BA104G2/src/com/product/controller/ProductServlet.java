@@ -110,10 +110,10 @@ public class ProductServlet extends HttpServlet {
 				
 				/************ 2.開始加入資料   ****************************/
 				ProductService pdcSvc = new ProductService();
-				pdcSvc.addProduct(productVO);
-				
+				productVO = pdcSvc.addProduct(productVO);
+				String com_num = productVO.getCom_num();
 				/************ 3.加入完成,準備轉交(Send the Success view)**/	
-				String url = "/store-end/pdc_mng/stolistAllProduct.jsp";
+				String url = "/store-end/pdc_mng/stolistAllProduct.jsp?com_num="+com_num;
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交stolistAllProduct.jsp
 				successView.forward(req, res);
 				
@@ -271,8 +271,10 @@ public class ProductServlet extends HttpServlet {
 				Part imgs= req.getPart("img");
 				byte[] img = null;
 				if(imgs.getSize()!=0){
+					System.out.println("new img");
 					img = getPictureByteArray(imgs); 
 				} else {
+					System.out.println("orgin img");
 					img = productVOORG.getImg();
 				}
 				
@@ -281,10 +283,9 @@ public class ProductServlet extends HttpServlet {
 					errorMsgs.put("pt_num","商品類別：請勿空白");
 				}
 				
-				String status = req.getParameter("status");
-				
+				String status = req.getParameter("status");				
 				String mercom_num = req.getParameter("mercom_num");
-				System.out.println("update what:"+sto_num+com_name+m_price+l_price+discribe+pt_num+status+mercom_num+com_num);
+				
 				ProductVO productVO = new ProductVO();
 				productVO.setSto_num(sto_num);
 				productVO.setCom_num(com_num);
@@ -340,9 +341,9 @@ public class ProductServlet extends HttpServlet {
 		while ((i = in.read(buffer)) != -1) {
 			baos.write(buffer, 0, i); //(哪個陣列,開始索引值,緩衝區資料大小)
 		}
-		baos.close();
+		
 		in.close();
-
+		baos.close();
 		return baos.toByteArray();
 	}
 
