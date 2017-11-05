@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.ice_list.model.*;
-import com.sweetness.model.SweetnessService;
 
 public class IceListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -72,6 +71,111 @@ public class IceListServlet extends HttpServlet {
 			}	
 		}
 		
+		if("getOne_For_Update".equals(action)){
+			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
+			req.setAttribute("errorMsgs",errorMsgs);
+			String requestURL = req.getParameter("requestURL");
+			try{
+				/************ 1.接收請求參數 -輸入格式處理  ******************/
+				String ice_num = req.getParameter("ice_num");
+				
+				/************ 2.開始查詢資料   ****************************/
+				IceListService iceSvc = new IceListService();
+				IceListVO iceListVO = iceSvc.getOneIce(ice_num);
+				
+				/************ 3.查詢完成,準備轉交(Send the Success view)**/				
+				req.setAttribute("requestURL", requestURL);
+				req.setAttribute("iceListVO", iceListVO);
+				String url = "/store-end/pdc_mng/update_ice_input.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_pdc_input.jsp
+				successView.forward(req, res);				
+				
+				/************ 其他錯誤處理  ******************************/					
+			} catch (Exception e) {
+				errorMsgs.put("修改資料失敗:",e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher(requestURL);
+				failureView.forward(req, res);
+			}	
+		}
+		
+		if("update".equals(action)){
+			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
+			req.setAttribute("errorMsgs",errorMsgs);
+			String requestURL = req.getParameter("requestURL");
+			req.setAttribute("requestURL", requestURL);
+			try{
+				/************ 1.接收請求參數 -輸入格式處理  ******************/
+				String ice_num = req.getParameter("ice_num");
+				String sto_num = req.getParameter("sto_num");
+				String ice_type = req.getParameter("ice_type");
+				String status = req.getParameter("status");
+				
+				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,3}$";
+				if (ice_type == null || ice_type.trim().length() == 0){
+					errorMsgs.put("sweet_type","冰塊名稱：請勿空白");
+				} else if (!ice_type.trim().matches(nameReg)) {
+					errorMsgs.put("sweet_type","冰塊名稱：只能是中、英文字母、數字和_ , 且長度必需在1到3之間");
+				}
+				IceListVO iceListVO = new IceListVO();
+				iceListVO.setIce_num(ice_num);
+				iceListVO.setSto_num(sto_num);
+				iceListVO.setIce_type(ice_type);
+				iceListVO.setStatus(status);
+				
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("iceListVO", iceListVO); // 含有輸入格式錯誤的empVO物件,也存入req
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/store-end/pdc_mng/update_ice_input.jsp");
+					failureView.forward(req, res);
+					return; //程式中斷
+				}	
+				
+				/************ 2.開始修改資料   ****************************/
+				IceListService iceSvc = new IceListService();
+				iceListVO = iceSvc.updateIceList(iceListVO);
+		
+				/************ 3.修改完成，準備轉交   ***********************/
+				String url = requestURL+"?ice_num="+ice_num; // 送出修改的來源網頁(listAllSweet)和修改的是哪一筆
+				RequestDispatcher successView = req.getRequestDispatcher(url);   // 修改成功後,轉交回送出修改的來源網頁
+				successView.forward(req, res);
+				
+				/************ 其他錯誤處理  ******************************/	
+			} catch (Exception e){
+				errorMsgs.put("修改資料失敗:",e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/store-end/pdc_mng/update_ice_input.jsp");
+				failureView.forward(req, res);
+			}
+		}
+	
+		if(("delete").equals(action)){
+			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
+			req.setAttribute("errorMsgs",errorMsgs);
+			String requestURL = req.getParameter("requestURL");
+			try{
+				/************ 1.接收請求參數 -輸入格式處理  ******************/
+				String ice_num = req.getParameter("ice_num");	
+								
+				/************ 2.開始修改資料   ****************************/
+				IceListService iceSvc = new IceListService();
+				IceListVO iceListVO = iceSvc.getOneIce(ice_num);
+				iceListVO.setStatus("刪除");
+				iceListVO = iceSvc.updateIceList(iceListVO);
+				
+				/************ 3.修改完成，準備轉交   ***********************/
+				String url = requestURL; // 送出修改的來源網頁(listAllSweet)和修改的是哪一筆
+				RequestDispatcher successView = req.getRequestDispatcher(url);   // 修改成功後,轉交回送出修改的來源網頁
+				successView.forward(req, res);
+				
+				/************ 其他錯誤處理  ******************************/	
+			} catch (Exception e){
+				errorMsgs.put("刪除資料失敗:",e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher(requestURL);
+				failureView.forward(req, res);
+			}
+		}
 	}
-
 }

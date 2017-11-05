@@ -85,7 +85,7 @@ list size: <%= list.size() %>
 	
 	<c:forEach var="iceVO" items="${list}">
 		
-		<tr ${(iceVO.sweet_num==param.ice_num)?'bgcolor=#CCCCFF':''}>
+		<tr ${(iceVO.ice_num==param.ice_num)?'bgcolor=#CCCCFF':''}>
 			<td>${iceVO.ice_num}</td>	
 			<td>${iceVO.sto_num}</td>
 			<td>${iceVO.ice_type}</td>

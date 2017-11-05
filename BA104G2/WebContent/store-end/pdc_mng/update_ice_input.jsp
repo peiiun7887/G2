@@ -1,15 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.sweetness.model.*"%>
+<%@ page import="com.ice_list.model.*"%>
 
 <% 
-	SweetnessVO sweetnessVO = (SweetnessVO) request.getAttribute("sweetnessVO"); 
+	IceListVO iceListVO = (IceListVO) request.getAttribute("iceListVO"); 
 %>
 
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>商品資料修改 - update_swt_input.jsp</title>
+<title>冰塊資料修改 - update_ice_input.jsp</title>
 <style>
   table#table-1 {
 	background-color: #CCCCFF;
@@ -47,7 +47,7 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>商品資料修改 - update_swt_input.jsp</h3>
+		 <h3>冰塊資料修改 - update_ice_input.jsp</h3>
 		 <h4><a href="<%= request.getContextPath() %>/store-end/pdc_mng/store_select_page.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
@@ -64,31 +64,31 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="<%= request.getContextPath() %>/pdc_mng/StoSwtMng.do">
+<FORM METHOD="post" ACTION="<%= request.getContextPath() %>/pdc_mng/StoIceMng.do">
 <table>
 	<tr>
-		<td>甜度編號</td>
-		<td><input type="TEXT" name="sweet_num" size="45" 
-			 value="${sweetnessVO.sweet_num}" disabled/>			
+		<td>冰塊編號</td>
+		<td><input type="TEXT" name="ice_num" size="45" 
+			 value="${iceListVO.ice_num}" disabled/>			
 		</td>	
 	</tr>
 	<tr>
 		<td>店家編號</td>
 		<td><input type="TEXT" name="sto_num" size="45" 
-			 value="${sweetnessVO.sto_num}" disabled/>			
+			 value="${iceListVO.sto_num}" disabled/>			
 		</td>	
 	</tr>
 	<tr>
-		<td>甜度名稱</td>
-		<td><input type="TEXT" name="sweet_type" size="45" 
-			 value="${sweetnessVO.sweet_type}" /></td>
+		<td>冰塊名稱</td>
+		<td><input type="TEXT" name="ice_type" size="45" 
+			 value="${iceListVO.ice_type}" /></td>
 	</tr>	
 	<tr>
-		<td>甜度狀態:</td>
+		<td>冰塊狀態:</td>
 		<td>
 			<select size="1" name="status">
-			<option value="上架" ${(sweetnessVO.status=='上架')? 'selected':'' } >上架
-			<option value="下架" ${(sweetnessVO.status=='下架')? 'selected':'' } >下架
+			<option value="上架" ${(iceListVO.status=='上架')? 'selected':'' } >上架
+			<option value="下架" ${(iceListVO.status=='下架')? 'selected':'' } >下架
 			</select>
 		</td>
 	</tr>
@@ -96,12 +96,12 @@
 
 <br>
 <input type="hidden" name="action" value="update">
-<input type="hidden" name="sweet_num" value="${sweetnessVO.sweet_num}">
-<input type="hidden" name="sto_num" value="${sweetnessVO.sto_num}">
+<input type="hidden" name="ice_num" value="${iceListVO.ice_num}">
+<input type="hidden" name="sto_num" value="${iceListVO.sto_num}">
 <input type="hidden" name="requestURL" value="<%=request.getAttribute("requestURL")%>">
 <input type="submit" value="送出修改">
 </FORM>
 <font color=blue>request.getAttribute("requestURL"):</font> <%=request.getAttribute("requestURL")%><br>
-<font color=blue>request.getAttribute("sweetnessVO"):</font> <%=request.getAttribute("sweetnessVO")%><br>
+<font color=blue>request.getAttribute("iceListVO"):</font> <%=request.getAttribute("iceListVO")%><br>
 </body>
 </html>
