@@ -91,6 +91,7 @@
   <li><a href='addSweetness.jsp'>新增甜度</a></li>
   <li><a href='addIce.jsp'>新增冰度</a></li>
   <li><a href='addExtra.jsp'>新增加料</a></li>
+  <li><a href='addMerge.jsp'>合併商品</a></li>
   
 </ul>
 

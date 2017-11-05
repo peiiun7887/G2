@@ -2,9 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.product.model.*"%>
-<%-- 此頁練習採用 EL 的寫法取值 --%>
 <jsp:useBean id="store" scope="session" class="com.product.model.ProductVO" />
 <jsp:setProperty name="store" property="sto_num" value="ST0000000001"/>
+<jsp:useBean id="pdcTSvc" scope="request" class="com.product_type.model.ProductTypeService" />	
 
 <%
 	ProductService pdcSvc = new ProductService();
@@ -12,10 +12,14 @@
     List<ProductVO> list = pdcSvc.stoFindAllProduct(str);
     pageContext.setAttribute("list",list);
 %>
+<%
+  ProductVO productVO = (ProductVO) request.getAttribute("productVO");
+%>
 
 <html>
 <head>
-<title>店家所有商品資料 - stolistAllProduct.jsp</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<title>資料新增 - addProduct.jsp</title>
 
 <style>
   table#table-1 {
@@ -53,25 +57,28 @@
 </head>
 <body bgcolor='white'>
 
-<h4>此頁練習採用 EL 的寫法取值:</h4>
 <table id="table-1">
 	<tr><td>
-		${store.sto_num}<h3>所有商品資料 - stoListAllProduct.jsp</h3> 
+		 <h3>商品資料新增 - addProduct.jsp</h3></td><td>
 		 <h4><a href="<%= request.getContextPath() %>/store-end/pdc_mng/store_select_page.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
+
+<h3>資料新增:</h3>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
 	<ul>
 		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
+			<li style="color:red">${message.value}</li>
 		</c:forEach>
 	</ul>
 </c:if>
 
-<table>
+<FORM METHOD="get" ACTION="<%= request.getContextPath() %>/pdc_mng/StoPdcMng.do">
+	
+<table border=1>
 	<tr>
 		<th>商品編號</th>		
 		<th>商品名稱</th>
@@ -81,14 +88,10 @@
 		<th>圖片</th>
 		<th>商品類別</th>
 		<th>狀態</th>
-		<th>修改</th>
-		<th>刪除</th>
+		<th>合併</th>
 	</tr>
 	
-	
-	<%@ include file="page1.file" %> 
-	<jsp:useBean id="pdcTSvc" scope="request" class="com.product_type.model.ProductTypeService" />	
-	<c:forEach var="PdcVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+	<c:forEach var="PdcVO" items="${list}" >
 		
 		<tr ${(PdcVO.com_num==param.com_num)?'bgcolor=#CCCCFF':''}>
 			<td>${PdcVO.com_num}</td>	
@@ -97,33 +100,17 @@
 			<td>${PdcVO.l_price}</td>
 			<td>${PdcVO.discribe}</td>
 			<td><img height=100 src="<%=request.getContextPath()%>/DBGifReader4?com_num=${PdcVO.com_num}"></td> 
-<%-- 			 <c:forEach var="pdcTSvc" items="${pdcTSvc.all}" >  --%>
-<%-- 	         	<c:if test="${pdcTSvc.pt_num==PdcVO.pt_num}" var="condition" scope="page"> --%>
-<%-- 	         		<td>${pdcTSvc.pt_name}</td> --%>
-<%-- 	         	</c:if> --%>
-<%-- 	         </c:forEach> --%>
 			<td>${pdcTSvc.getOnePdcT(PdcVO.pt_num).pt_name}</td>
 			<td>${PdcVO.status}</td>
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/pdc_mng/StoPdcMng.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改">
-			     <input type="hidden" name="com_num" value="${PdcVO.com_num}">
-			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
-			</td>
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/pdc_mng/StoPdcMng.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="刪除">
-			     <input type="hidden" name="com_num"  value="${PdcVO.com_num}">
-			     <input type="hidden" name="action" value="getOne_For_Delete"></FORM>
-			</td>
+			<td><input type="checkbox" name="merge" value="${PdcVO.com_num}"></td>
+			
 		</tr>
-	</c:forEach>
-	
-	
+	</c:forEach>	
 </table>
-
-
-<%@ include file="page2.file" %>
+	<input type="submit" value="MERGE!">
+	<input type="hidden" name="action" value="getOne_For_merge">
+</FORM>
 
 </body>
+
 </html>
