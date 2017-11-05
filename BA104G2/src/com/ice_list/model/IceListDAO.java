@@ -27,7 +27,7 @@ public class IceListDAO implements IceListDAO_interface {
 	private static final String UPDATE =
 			"UPDATE ICE_LIST SET ICE_TYPE=?,STATUS=? WHERE ICE_NUM=?";
 	private static final String GET_ICELIST = 
-			"SELECT * FROM ICE_LIST WHERE STO_NUM=?";
+			"SELECT * FROM ICE_LIST WHERE STO_NUM=? AND STATUS<>'刪除'";
 	private static final String GET_ONE_ICE=
 			"SELECT * FROM ICE_LIST WHERE ICE_NUM=?";
 	@Override

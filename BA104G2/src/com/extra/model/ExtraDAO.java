@@ -26,7 +26,7 @@ public class ExtraDAO implements Extra_interface {
 	private static final String UPDATE = 
 			"UPDATE EXTRA SET EXT_NAME=?, EXT_AMOUNT=?, STATUS=? WHERE EXT_NUM=?";
 	private static final String GET_EXTRAS = 
-			"SELECT * FROM EXTRA WHERE STO_NUM=? AND AND STATUS<>'刪除'";
+			"SELECT * FROM EXTRA WHERE STO_NUM=? AND STATUS<>'刪除'";
 	private static final String GET_ONE_EXT =
 			"SELECT * FROM EXTRA WHERE EXT_NUM=?";
 	@Override

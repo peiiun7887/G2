@@ -25,8 +25,7 @@ public class IceListServlet extends HttpServlet {
 		if("insert".equals(action)){
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs",errorMsgs);
-			String requestURL = req.getParameter("requestURL");
-			req.setAttribute("requestURL", requestURL); 
+	
 			try{
 				/************ 1.接收請求參數 -輸入格式處理  ******************/	
 				String sto_num = req.getParameter("sto_num");
@@ -59,7 +58,7 @@ public class IceListServlet extends HttpServlet {
 				
 				/************ 3.加入完成,準備轉交(Send the Success view)**/	
 				String url = "/store-end/pdc_mng/stolistAllIce.jsp?ice_num="+ice_num;
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交stolistAllProduct.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);				
 				
 				/************ 其他錯誤處理  ******************************/

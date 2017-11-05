@@ -38,7 +38,7 @@
   <servlet-mapping>
     <servlet-name>SweetnessServlet</servlet-name>
     <url-pattern>/pdc_mng/StoSwtMng.do</url-pattern>
-  </servlet-mapping>  
+  </servlet-mapping>
   <servlet>
     <servlet-name>IceListServlet</servlet-name>
     <servlet-class>com.ice_list.controller.IceListServlet</servlet-class>
@@ -46,5 +46,13 @@
   <servlet-mapping>
     <servlet-name>IceListServlet</servlet-name>
     <url-pattern>/pdc_mng/StoIceMng.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ExtraServlet</servlet-name>
+    <servlet-class>com.exrta.controller.ExtraServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ExtraServlet</servlet-name>
+    <url-pattern>/pdc_mng/StoExtMng.do</url-pattern>
   </servlet-mapping>
 </web-app>

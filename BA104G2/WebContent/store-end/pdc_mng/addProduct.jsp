@@ -78,22 +78,22 @@
 	<tr>
 		<td>商品名稱</td>
 		<td><input type="TEXT" name="com_name" size="45" 
-			 value="${param.com_name}" /></td>
+			 value="${productVO.com_name}" /></td>
 	</tr>
 	<tr>
 		<td>小杯商品價位:</td>
 		<td><input type="TEXT" name="m_price" size="45"
-			 value="${param.m_price}" /></td>
+			 value="${productVO.m_price}" /></td>
 	</tr>
 	<tr>
 		<td>大杯商品價位:</td>
 		<td><input type="TEXT" name="l_price" size="45"
-			 value="${param.l_price}" /></td>
+			 value="${productVO.l_price}" /></td>
 	</tr>
 	<tr>
 		<td>商品敘述:</td>
 		<td><input type="text" name="discribe" size="45" 
-		value="${param.discribe}"></td>
+		value="${productVO.discribe}"></td>
 	</tr>
 	<tr>
 		<td>商品圖片:</td>
@@ -106,7 +106,7 @@
 		<td>
 			<select size="1" name="pt_num">
 	         <c:forEach var="pdcTVO" items="${pdcTSvc.all}" > 
-	         	<option value="${pdcTVO.pt_num}" ${(param.pt_num==pdcTVO.pt_num)? 'selected':'' } >${pdcTVO.pt_name}
+	         	<option value="${pdcTVO.pt_num}" ${(productVO.pt_num==pdcTVO.pt_num)? 'selected':'' } >${pdcTVO.pt_name}
 	         </c:forEach>   
        		</select>
        </td>

@@ -169,8 +169,8 @@ public class ProductDAOJDBC implements ProductDAO_interface{
 				productVO = new ProductVO();
 				productVO.setCom_num(rs.getString("com_num"));
 				productVO.setCom_name(rs.getString("com_name"));
-				productVO.setM_price(rs.getDouble("m_price"));
-				productVO.setL_price(rs.getDouble("l_price"));
+				productVO.setM_price(rs.getInt("m_price"));
+				productVO.setL_price(rs.getInt("l_price"));
 				productVO.setDiscribe(rs.getString("discribe"));
 				productVO.setImg(rs.getBytes("img"));
 				productVO.setPt_num(rs.getString("pt_num"));
@@ -236,8 +236,8 @@ public class ProductDAOJDBC implements ProductDAO_interface{
 				productVO = new ProductVO();
 				productVO.setCom_num(rs.getString("com_num"));
 				productVO.setCom_name(rs.getString("com_name"));
-				productVO.setM_price(rs.getDouble("m_price"));
-				productVO.setL_price(rs.getDouble("l_price"));
+				productVO.setM_price(rs.getInt("m_price"));
+				productVO.setL_price(rs.getInt("l_price"));
 				productVO.setDiscribe(rs.getString("discribe"));
 				productVO.setImg(rs.getBytes("img"));
 				productVO.setPt_num(rs.getString("pt_num"));
@@ -301,8 +301,8 @@ public class ProductDAOJDBC implements ProductDAO_interface{
 				productVO.setCom_num(rs.getString("com_num"));
 				productVO.setSto_num(rs.getString("sto_num"));
 				productVO.setCom_name(rs.getString("com_name"));
-				productVO.setM_price(rs.getDouble("m_price"));
-				productVO.setL_price(rs.getDouble("l_price"));
+				productVO.setM_price(rs.getInt("m_price"));
+				productVO.setL_price(rs.getInt("l_price"));
 				productVO.setDiscribe(rs.getString("discribe"));
 				productVO.setImg(rs.getBytes("img"));
 				productVO.setPt_num(rs.getString("pt_num"));
@@ -364,8 +364,8 @@ public class ProductDAOJDBC implements ProductDAO_interface{
 				productVO.setCom_num(rs.getString("com_num"));
 				productVO.setSto_num(rs.getString("sto_num"));
 				productVO.setCom_name(rs.getString("com_name"));
-				productVO.setM_price(rs.getDouble("m_price"));
-				productVO.setL_price(rs.getDouble("l_price"));
+				productVO.setM_price(rs.getInt("m_price"));
+				productVO.setL_price(rs.getInt("l_price"));
 				productVO.setDiscribe(rs.getString("discribe"));
 				productVO.setImg(rs.getBytes("img"));
 				productVO.setPt_num(rs.getString("pt_num"));

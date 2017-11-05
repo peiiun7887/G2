@@ -37,49 +37,49 @@ public class ProductServlet extends HttpServlet {
 				} else if (!com_name.trim().matches(com_nameReg)) {
 					errorMsgs.put("com_name","商品名稱：只能是中、英文字母、數字和_ , 且長度必需在2到20之間");
 				}
-				String price_nameReg = "^[0-9.]{1,10}+$";
-				Double m_price = null;
-				Double l_price = null;
 				
+				String price_nameReg = "^[0-9]{1,10}+$";
+				Integer m_price = null;
+				Integer l_price = null;				
 				String m_price2 =req.getParameter("m_price");
-				System.out.println(m_price2);
+				String l_price2 =req.getParameter("l_price");
 				if (m_price2.trim().matches(price_nameReg)){
 					try{
-					m_price = new Double(Double.parseDouble(m_price2));
+					m_price = new Integer(Integer.parseInt(m_price2));	
 					} catch(NumberFormatException e) {
-						errorMsgs.put("em_price","小杯空");
+						errorMsgs.put("em_price","小杯值錯誤");
 					}
 				}else{
-					m_price= 0.0;
-					errorMsgs.put("m_price","小杯價錢：請輸入數字");
-				}
-				System.out.println(errorMsgs.toString());
-			
-				String l_price2 =req.getParameter("l_price");
-				System.out.println(l_price2);
+					m_price = new Integer(0);
+					errorMsgs.put("m_price","小杯價錢：請輸入1-10位數數字");
+				}				
 				if (l_price2.trim().matches(price_nameReg)){
 					try{
-						l_price = new Double( Double.parseDouble(l_price2));
+						l_price = new Integer( Integer.parseInt(l_price2));
 					} catch(NumberFormatException e) {
-						errorMsgs.put("el_price","大杯空");
+						errorMsgs.put("el_price","大杯值錯誤");
 					}
 				}else{
-					l_price=0.0;
-					errorMsgs.put("l_price","大杯價錢：請輸入數字");
-				}
-							
+					l_price = new Integer(0);
+					errorMsgs.put("l_price","大杯價錢：請輸入1-10位數數字");
+				}							
 				if( errorMsgs.containsKey("em_price") && errorMsgs.containsKey("el_price")){
 					errorMsgs.remove("em_price");
 					errorMsgs.remove("el_price");
 					errorMsgs.put("price","價錢請勿都為空白");				
-				}		
+				}
+				if(l_price==0 && m_price==0){
+					errorMsgs.put("price","價錢請勿都為0");	
+				}
+								
 				String discribe = req.getParameter("discribe");
 				if (discribe == null || discribe.trim().length() == 0){
 					discribe = "無商品敘述";
 				}
-				System.out.println(errorMsgs.toString());
+				
 				Part imgs= req.getPart("img");
 				byte[] img = getPictureByteArray(imgs); 
+				
 				String pt_num = req.getParameter("pt_num");
 				if ( pt_num == null || pt_num.trim().length() == 0 ){
 					errorMsgs.put("pt_num","商品類別：請勿空白");
@@ -222,51 +222,44 @@ public class ProductServlet extends HttpServlet {
 					errorMsgs.put("com_name","商品名稱：只能是中、英文字母、數字和_ , 且長度必需在2到20之間");
 				}				
 				
-				String price_nameReg = "^[0-9.]{1,10}+$";
-				Double m_price = null;
-				Double l_price = null;
-				
+				String price_nameReg = "^[0-9]{1,10}+$";
+				Integer m_price = null;
+				Integer l_price = null;				
 				String m_price2 =req.getParameter("m_price");
-				System.out.println(m_price2);
+				String l_price2 =req.getParameter("l_price");
 				if (m_price2.trim().matches(price_nameReg)){
 					try{
-					m_price = new Double(Double.parseDouble(m_price2));
+					m_price = new Integer(Integer.parseInt(m_price2));
 					} catch(NumberFormatException e) {
-						errorMsgs.put("em_price","小杯空");
+						errorMsgs.put("em_price","小杯值錯誤");
 					}
 				}else{
-					m_price= 0.0;
-					errorMsgs.put("m_price","小杯價錢：請輸入數字");
-				}
-				System.out.println(errorMsgs.toString());
-			
-				String l_price2 =req.getParameter("l_price");
-				System.out.println(l_price2);
+					m_price = new Integer(0);
+					errorMsgs.put("m_price","小杯價錢：請輸入1-10位數數字");
+				}				
 				if (l_price2.trim().matches(price_nameReg)){
 					try{
-						l_price = new Double( Double.parseDouble(l_price2));
+						l_price = new Integer( Integer.parseInt(l_price2));
 					} catch(NumberFormatException e) {
-						errorMsgs.put("el_price","大杯空");
+						errorMsgs.put("el_price","大杯值錯誤");
 					}
 				}else{
-					l_price=0.0;
-					errorMsgs.put("l_price","大杯價錢：請輸入數字");
-				}
-							
+					l_price = new Integer(0);
+					errorMsgs.put("l_price","大杯價錢：請輸入1-10位數數字");
+				}							
 				if( errorMsgs.containsKey("em_price") && errorMsgs.containsKey("el_price")){
 					errorMsgs.remove("em_price");
 					errorMsgs.remove("el_price");
 					errorMsgs.put("price","價錢請勿都為空白");				
-				}else if (l_price==0.0 && m_price==0.0){
+				}
+				if(l_price==0 && m_price==0){
 					errorMsgs.put("price","價錢請勿都為0");	
 				}
-				System.out.println(errorMsgs.toString());
+				
 				String discribe = req.getParameter("discribe");
-				System.out.println(discribe);
 				if (discribe == null || discribe.trim().length() == 0){
 					discribe = "無商品敘述";
 				}
-				System.out.println(errorMsgs.toString());
 				
 				Part imgs= req.getPart("img");
 				byte[] img = null;
@@ -284,7 +277,10 @@ public class ProductServlet extends HttpServlet {
 				}
 				
 				String status = req.getParameter("status");				
+				
 				String mercom_num = req.getParameter("mercom_num");
+				
+				System.out.println(errorMsgs.toString());
 				
 				ProductVO productVO = new ProductVO();
 				productVO.setSto_num(sto_num);

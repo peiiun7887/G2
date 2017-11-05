@@ -29,7 +29,7 @@ public class ExtraService {
 		return dao.getExtras(sto_num);
 	}
 	
-	public ExtraVO getOneExrta(String ext_num){
+	public ExtraVO getOneExtra(String ext_num){
 		return dao.getOneExtra(ext_num);
 	}
 }

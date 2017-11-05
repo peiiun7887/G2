@@ -4,8 +4,8 @@ public class ProductVO implements java.io.Serializable{
 	private String com_num;
 	private String sto_num;
 	private String com_name;
-	private Double m_price;
-	private Double l_price;
+	private Integer m_price;
+	private Integer l_price;
 	private String discribe;
 	private byte[] img;
 	private	String pt_num;
@@ -30,16 +30,16 @@ public class ProductVO implements java.io.Serializable{
 	public void setCom_name(String com_name) {
 		this.com_name = com_name;
 	}
-	public Double getM_price() {
+	public Integer getM_price() {
 		return m_price;
 	}
-	public void setM_price(Double m_price) {
+	public void setM_price(Integer m_price) {
 		this.m_price = m_price;
 	}
-	public Double getL_price() {
+	public Integer getL_price() {
 		return l_price;
 	}
-	public void setL_price(Double l_price) {
+	public void setL_price(Integer l_price) {
 		this.l_price = l_price;
 	}
 	public String getDiscribe() {

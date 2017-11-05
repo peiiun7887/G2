@@ -54,6 +54,8 @@
 <ul>
   <li><a href='stolistAllProduct.jsp'>List</a> my product.  <br><br></li>
   <li><a href='stolistAllSweet.jsp'>List</a> my sweet.  <br><br></li>
+  <li><a href='stolistAllIce.jsp'>List</a> my ice.  <br><br></li>
+  <li><a href='stolistAllExtra.jsp'>List</a> my extra.  <br><br></li>
   
   <li>
     <FORM METHOD="post" ACTION="<%= request.getContextPath() %>/pdc_mng/StoPdcMng.do" >
@@ -88,6 +90,8 @@
   <li><a href='addProduct.jsp'>新增商品</a></li>
   <li><a href='addSweetness.jsp'>新增甜度</a></li>
   <li><a href='addIce.jsp'>新增冰度</a></li>
+  <li><a href='addExtra.jsp'>新增加料</a></li>
+  
 </ul>
 
 </body>

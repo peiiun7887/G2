@@ -24,11 +24,12 @@ public class SweetnessDAO implements SweetnessDAO_interface {
 	private static final String INSERT_SWEETNESS = 
 			"INSERT INTO SWEETNESS (SWEET_NUM , STO_NUM , SWEET_TYPE, STATUS)"
 			+ " VALUES ('SW'||LPAD(to_char(SEQ_SWEET_NUM.NEXTVAL),10,'0'),?,?,?)";
-	private static final String UPDATE = "UPDATE SWEETNESS SET SWEET_TYPE=?,STATUS=? WHERE SWEET_NUM=?";
-	private static final String GET_SWEETNESS = "SELECT * FROM SWEETNESS WHERE STO_NUM=? AND STATUS<>'刪除'";
-
-	//多加一個getone的指令
-	private static final String GET_ONE_SWEETNESS="SELECT * FROM SWEETNESS WHERE SWEET_NUM=?";
+	private static final String UPDATE =
+			"UPDATE SWEETNESS SET SWEET_TYPE=?,STATUS=? WHERE SWEET_NUM=?";
+	private static final String GET_SWEETNESS =
+			"SELECT * FROM SWEETNESS WHERE STO_NUM=? AND STATUS<>'刪除'";
+	private static final String GET_ONE_SWEETNESS=
+			"SELECT * FROM SWEETNESS WHERE SWEET_NUM=?";
 	
 	@Override
 	public String insert(SweetnessVO sweetnessVO) {
@@ -168,7 +169,8 @@ public class SweetnessDAO implements SweetnessDAO_interface {
 		}
 		return sweetList;
 	}
-
+	
+	@Override
 	public SweetnessVO getOneSweetness(String sweet_num){
 		
 		SweetnessVO sweetnessVO = null;
