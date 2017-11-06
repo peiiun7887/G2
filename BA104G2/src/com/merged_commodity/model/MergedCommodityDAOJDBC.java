@@ -10,23 +10,17 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 
-public class MergedCommodityDAO implements MergedCommodityDAO_interface {
-
-	private static DataSource ds = null;
-	static {
-		try {
-			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/BA104G2");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
-	}
+public class MergedCommodityDAOJDBC implements MergedCommodityDAO_interface {
+	String driver = "oracle.jdbc.driver.OracleDriver";
+	String url = "jdbc:oracle:thin:@localhost:1521:XE";
+	String userid = "BA104G2";
+	String passwd = "BA104G2";	
 
 	private static final String INSERT = 
 			"INSERT INTO MERGED_COMMODITY (MERCOM_NUM, COM_NUM) "
 			+ " VALUES ('MC'||LPAD(to_char(SEQ_MERCOM_NUM.CURRVAL),10,'0'), ? ) ";
-	private static final String NEXTVAL= "SELECT SEQ_MERCOM_NUM.NEXTVAL FROM DUAL";
-	
+	private static final String NEXTVAL= "SELECT SEQ_MERCOM_NUM.NEXTVAL FROM DUAL";//抓下一個流水號
+
 	@Override
 	public String insert(List<String> list) {
 		PreparedStatement pstmt = null;
@@ -34,11 +28,10 @@ public class MergedCommodityDAO implements MergedCommodityDAO_interface {
 		Connection con = null;
 		String mercom_num = null;
 		try {
-			
-			con = ds.getConnection();
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
 			con.setAutoCommit(false);
-			
-			pstmt = con.prepareStatement(NEXTVAL);
+			pstmt = con.prepareStatement(NEXTVAL);//抓下一個流水號
 			ResultSet rs = pstmt.executeQuery();
 
 			while(rs.next()){
@@ -56,6 +49,8 @@ public class MergedCommodityDAO implements MergedCommodityDAO_interface {
 			
 			 con.commit();
 
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		} catch (SQLException se) {
 			try {
 				con.rollback();
@@ -81,5 +76,18 @@ public class MergedCommodityDAO implements MergedCommodityDAO_interface {
 			}
 		}
 		return mercom_num;
+	}
+	
+	public static void main (String[] args){
+		List<String> list = new ArrayList<String>();
+		list.add("CN0000000007");
+		list.add("CN0000000009");
+		list.add("CN0000000008");
+		
+		MergedCommodityDAOJDBC dao = new MergedCommodityDAOJDBC();
+		String mercom_num = dao.insert(list);
+		
+		System.out.println(mercom_num);
+		
 	}
 }

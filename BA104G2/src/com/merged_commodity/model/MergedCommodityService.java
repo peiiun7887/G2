@@ -15,14 +15,8 @@ public class MergedCommodityService {
 		dao = new MergedCommodityDAO();
 	}
 
-	public MergedCommodityVO addMergedCommodity(String com_num) {
-
-		MergedCommodityVO mergedCommodityVO = new MergedCommodityVO();
-
-		mergedCommodityVO.setCom_num(com_num);
-
-		dao.insert(mergedCommodityVO);
-
-		return mergedCommodityVO;
+	public String addMergedCommodity(List<String> list) {
+		String mercom_num = dao.insert(list);		
+		return mercom_num;
 	}
 }
