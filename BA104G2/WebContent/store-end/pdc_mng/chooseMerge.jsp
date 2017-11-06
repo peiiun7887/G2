@@ -107,6 +107,7 @@
 	</c:forEach>	
 </table>
 	<input type="submit" value="MERGE!">
+	<input type="hidden" value="${list}">
 	<input type="hidden" name="action" value="get_For_merge">
 </FORM>
 

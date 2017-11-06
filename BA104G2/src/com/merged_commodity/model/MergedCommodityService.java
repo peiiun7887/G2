@@ -1,11 +1,6 @@
 package com.merged_commodity.model;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
-
-import javax.servlet.http.Part;
 
 public class MergedCommodityService {
 

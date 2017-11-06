@@ -321,6 +321,10 @@ public class ProductServlet extends HttpServlet {
 			}
 		}
 		
+		if("get_For_merge".equals(action)){
+			
+		}
+		
 		if ("delete".equals(action)){		//來自allProduct or allProduct2 的請求
 			//如果原商品有被加到是合併商品不給刪喔
 			//但首先你要先有合併商品R
