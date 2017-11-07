@@ -405,6 +405,7 @@ public class ProductServlet extends HttpServlet {
 				//send back if errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("productVO", productVO);
+					req.setAttribute("ckList", ckList);
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/store-end/pdc_mng/setMerge.jsp");
 					failureView.forward(req, res);
@@ -416,13 +417,13 @@ public class ProductServlet extends HttpServlet {
 				ProductService pdcSvc = new ProductService();
 				productVO = pdcSvc.addProduct(productVO);
 				String com_num = productVO.getCom_num();//取到新增合併商品的商品編號
-System.out.println("------new merge-----");	
+
 				//新增合併商品
 				MergedCommodityService mcSvc = new MergedCommodityService();
 				String mercom_num = mcSvc.addMergedCommodity(ckList);//取到合併商品編號
 				productVO.setCom_num(com_num);
 				productVO.setMercom_num(mercom_num);
-System.out.println("------update-----");				
+			
 				//新增合併商品編號到剛新增的商品
 				pdcSvc.updateProduct(productVO);				
 				

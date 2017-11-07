@@ -14,4 +14,8 @@ public class MergedCommodityService {
 		String mercom_num = dao.insert(list);		
 		return mercom_num;
 	}
+	
+	public void delete(String mercom_num){
+		dao.delete(mercom_num);
+	}
 }

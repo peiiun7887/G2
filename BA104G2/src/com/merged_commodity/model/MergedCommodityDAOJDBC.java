@@ -20,8 +20,8 @@ public class MergedCommodityDAOJDBC implements MergedCommodityDAO_interface {
 			"INSERT INTO MERGED_COMMODITY (MERCOM_NUM, COM_NUM) "
 			+ " VALUES ('MC'||LPAD(to_char(SEQ_MERCOM_NUM.CURRVAL),10,'0'), ? ) ";
 	private static final String NEXTVAL= "SELECT SEQ_MERCOM_NUM.NEXTVAL FROM DUAL";//抓下一個流水號
-	private static final String CURR= "SELECT * FROM MERGED_COMMODITY";
-
+	private static final String CURR= "SELECT * FROM MERGED_COMMODITY ORDER BY MERCOM_NUM";
+	private static final String DELETE = "DELETE FROM MERGED_COMMODITY WHERE MERCOM_NUM = ?";
 	@Override
 	public String insert(List<String> list) {
 		PreparedStatement pstmt = null;
@@ -83,16 +83,56 @@ public class MergedCommodityDAOJDBC implements MergedCommodityDAO_interface {
 		return mercom_num;
 	}
 	
+	@Override
+	public void delete(String mercom_num) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try{			
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(DELETE);
+			pstmt.setString(1, mercom_num);
+			pstmt.executeUpdate();
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
 	public static void main (String[] args){
-		List<String> list = new ArrayList<String>();
-		list.add("CN0000000007");
-		list.add("CN0000000009");
-		list.add("CN0000000008");
-		
 		MergedCommodityDAOJDBC dao = new MergedCommodityDAOJDBC();
-		String mercom_num = dao.insert(list);
+		//insert
+//		List<String> list = new ArrayList<String>();
+//		list.add("CN0000000007");
+//		list.add("CN0000000009");
+//		list.add("CN0000000008");	
+//		String mercom_num = dao.insert(list);	
+//		System.out.println(mercom_num);
 		
-		System.out.println(mercom_num);
+		//delete
+		dao.delete("MC0000000182");
 		
 	}
+
+	
 }

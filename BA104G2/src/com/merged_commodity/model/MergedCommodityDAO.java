@@ -27,6 +27,8 @@ public class MergedCommodityDAO implements MergedCommodityDAO_interface {
 			+ " VALUES ('MC'||LPAD(to_char(SEQ_MERCOM_NUM.CURRVAL),10,'0'), ? ) ";
 	private static final String NEXTVAL= "SELECT SEQ_MERCOM_NUM.NEXTVAL FROM DUAL";
 	private static final String CURR= "SELECT * FROM MERGED_COMMODITY";
+	private static final String DELETE = "DELETE FROM MERGED_COMMODITY WHERE MERCOM_NUM = ?";
+
 	
 	@Override
 	public String insert(List<String> list) {
@@ -84,5 +86,37 @@ public class MergedCommodityDAO implements MergedCommodityDAO_interface {
 			}
 		}
 		return mercom_num;
+	}
+
+
+	@Override
+	public void delete(String mercom_num) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try{			
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(DELETE);
+			pstmt.setString(1, mercom_num);
+			pstmt.executeUpdate();
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 	}
 }

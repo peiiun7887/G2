@@ -14,6 +14,7 @@
 %>
 <%
   ProductVO productVO = (ProductVO) request.getAttribute("productVO");
+  List<String> ckList = (List<String>) request.getAttribute("ckList");	
 %>
 
 <html>
@@ -83,10 +84,11 @@
 		
 	</tr>
 	
+	
+	
 	<c:forEach var="PdcVO" items="${list}" >
-		
 		<tr ${(PdcVO.com_num==param.com_num)?'bgcolor=#CCCCFF':''}>
-			<td><input type="checkbox" name="checkbox" value="${PdcVO.com_num}"></td>
+			<td><input type="checkbox" name="checkbox" value="${PdcVO.com_num}" ></td>
 			<td>${PdcVO.com_num}</td>	
 			<td class="com_name">${PdcVO.com_name}</td>
 			<td class="m_price">${PdcVO.m_price}</td>
@@ -176,6 +178,8 @@ $(document).ready(function () {
 		$("input[name=m_price]").val(m_price);
 		$("input[name=l_price]").val(l_price);
 	});
+	
+	
 
 });
 </script>
