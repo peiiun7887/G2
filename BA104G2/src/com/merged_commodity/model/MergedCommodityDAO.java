@@ -26,25 +26,23 @@ public class MergedCommodityDAO implements MergedCommodityDAO_interface {
 			"INSERT INTO MERGED_COMMODITY (MERCOM_NUM, COM_NUM) "
 			+ " VALUES ('MC'||LPAD(to_char(SEQ_MERCOM_NUM.CURRVAL),10,'0'), ? ) ";
 	private static final String NEXTVAL= "SELECT SEQ_MERCOM_NUM.NEXTVAL FROM DUAL";
+	private static final String CURR= "SELECT * FROM MERGED_COMMODITY";
 	
 	@Override
 	public String insert(List<String> list) {
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
+		PreparedStatement pstmt3 = null;
 		Connection con = null;
+		ResultSet rs = null;
 		String mercom_num = null;
 		try {
 			
 			con = ds.getConnection();
 			con.setAutoCommit(false);
+			pstmt = con.prepareStatement(NEXTVAL);//抓下一個流水號
+			pstmt.executeQuery();
 			
-			pstmt = con.prepareStatement(NEXTVAL);
-			ResultSet rs = pstmt.executeQuery();
-
-			while(rs.next()){
-				mercom_num = rs.getString(1);
-			}
-			rs.close();			
 			pstmt2 = con.prepareStatement(INSERT);	
 			
 			for(int i =0;i<list.size();i++){
@@ -54,8 +52,13 @@ public class MergedCommodityDAO implements MergedCommodityDAO_interface {
 			}		
 			 pstmt2.executeBatch();
 			
+			
+			 pstmt3 = con.prepareStatement(CURR,ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			 rs = pstmt3.executeQuery();
+			 rs.absolute(-1);
+			 mercom_num = rs.getString("MERCOM_NUM");			 
+			 
 			 con.commit();
-
 		} catch (SQLException se) {
 			try {
 				con.rollback();

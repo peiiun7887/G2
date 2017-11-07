@@ -42,6 +42,7 @@ public class ProductDAO implements ProductDAO_interface{
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String com_num = null;
+		ResultSet rs = null;
 		try {
 			
 			con =ds.getConnection();
@@ -58,7 +59,7 @@ public class ProductDAO implements ProductDAO_interface{
 			pstmt.setString(9, productVO.getMercom_num());
 			pstmt.executeUpdate();
 	
-			ResultSet rs = pstmt.getGeneratedKeys();
+			rs = pstmt.getGeneratedKeys();
 			ResultSetMetaData rsmd = rs.getMetaData();
 			int columnCount = rsmd.getColumnCount();
 			if (rs.next()) {
@@ -68,11 +69,18 @@ public class ProductDAO implements ProductDAO_interface{
 					}
 				} while (rs.next());
 			}			
-			rs.close();
+
 		} catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
 		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if(pstmt != null){
 				try {
 					pstmt.close();
@@ -101,7 +109,7 @@ public class ProductDAO implements ProductDAO_interface{
 			
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_STMT);
-			con.setAutoCommit(false);
+
 			pstmt.setString(1, productVO.getCom_name());
 			pstmt.setDouble(2, productVO.getM_price());
 			pstmt.setDouble(3, productVO.getL_price());
@@ -112,16 +120,10 @@ public class ProductDAO implements ProductDAO_interface{
 			pstmt.setString(8, productVO.getMercom_num());
 			pstmt.setString(9, productVO.getCom_num());
 			pstmt.executeUpdate();
-			con.commit();
-		
-		} catch (SQLException se) {
-			try {
-				con.rollback();
+
+		} catch (SQLException se) {		
 				throw new RuntimeException("A database error occured. "
-						+ se.getMessage());
-			} catch (SQLException see) {
-				see.printStackTrace();
-			}
+						+ se.getMessage());		
 		} finally {
 			if (pstmt != null) {
 				try {
@@ -149,7 +151,6 @@ public class ProductDAO implements ProductDAO_interface{
 		ResultSet rs = null;
 		
 		try {
-
 			
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(STO_GET_BY_COM_NAME);
@@ -176,7 +177,6 @@ public class ProductDAO implements ProductDAO_interface{
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
-			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
 				try {
@@ -239,7 +239,6 @@ public class ProductDAO implements ProductDAO_interface{
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
-			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
 				try {
