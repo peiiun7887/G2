@@ -2,14 +2,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.product.model.*"%>
+<%@ page import="com.merged_commodity.model.*"%>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 <jsp:useBean id="store" scope="session" class="com.product.model.ProductVO" />
 <jsp:setProperty name="store" property="sto_num" value="ST0000000001"/>
-
+<jsp:useBean id="pdcTSvc" scope="request" class="com.product_type.model.ProductTypeService" />
+<jsp:useBean id="pdSvc" scope="request" class="com.product.model.ProductService" />
+<jsp:useBean id="mcSvc" scope="request" class="com.merged_commodity.model.MergedCommodityService" />
 <%
 	ProductService pdcSvc = new ProductService();
 	String str = store.getSto_num();
     List<ProductVO> list = pdcSvc.stoFindAllProduct(str);
+    List<MergedCommodityVO> listm = mcSvc.getMerList("MC0000000197");
     pageContext.setAttribute("list",list);
 %>
 
@@ -36,7 +40,7 @@
 
 <style>
   table {
-	width: 800px;
+	width: 1000px;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -81,14 +85,13 @@
 		<th>圖片</th>
 		<th>商品類別</th>
 		<th>狀態</th>
+		<th>合併狀態</th>
 		<th>修改</th>
 		<th>刪除</th>
 	</tr>
 	
-	
-	<%@ include file="page1.file" %> 
-	<jsp:useBean id="pdcTSvc" scope="request" class="com.product_type.model.ProductTypeService" />	
-	<c:forEach var="PdcVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+
+	<c:forEach var="PdcVO" items="${list}" >
 		
 		<tr ${(PdcVO.com_num==param.com_num)?'bgcolor=#CCCCFF':''}>
 			<td>${PdcVO.com_num}</td>	
@@ -97,13 +100,17 @@
 			<td>${PdcVO.l_price}</td>
 			<td>${PdcVO.discribe}</td>
 			<td><img height=100 src="<%=request.getContextPath()%>/DBGifReader4?com_num=${PdcVO.com_num}"></td> 
-<%-- 			 <c:forEach var="pdcTSvc" items="${pdcTSvc.all}" >  --%>
-<%-- 	         	<c:if test="${pdcTSvc.pt_num==PdcVO.pt_num}" var="condition" scope="page"> --%>
-<%-- 	         		<td>${pdcTSvc.pt_name}</td> --%>
-<%-- 	         	</c:if> --%>
-<%-- 	         </c:forEach> --%>
 			<td>${pdcTSvc.getOnePdcT(PdcVO.pt_num).pt_name}</td>
 			<td>${PdcVO.status}</td>
+			<td width=200>				
+			<c:forEach var="mcVO" items="${mcSvc.getMerList(PdcVO.mercom_num)}" varStatus="p">
+				<p>${p.count} -
+				${pdSvc.getOneProduct(mcVO.com_num).com_name} 
+				小杯 ${pdSvc.getOneProduct(mcVO.com_num).m_price}
+				大杯 ${pdSvc.getOneProduct(mcVO.com_num).l_price}</p>
+			</c:forEach>
+			</td>
+			
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/pdc_mng/StoPdcMng.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
@@ -123,9 +130,6 @@
 	
 	
 </table>
-
-
-<%@ include file="page2.file" %>
 
 </body>
 </html>

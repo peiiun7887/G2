@@ -2,7 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.product.model.*"%>
-
+<jsp:useBean id="pdcTSvc" scope="request" class="com.product_type.model.ProductTypeService" />	
+<jsp:useBean id="pdSvc" scope="request" class="com.product.model.ProductService" />
+<jsp:useBean id="mcSvc" scope="request" class="com.merged_commodity.model.MergedCommodityService" />
 <%
 	List<ProductVO> list = (List<ProductVO>) session.getAttribute("stolistAllProduct2");
 	pageContext.setAttribute("list",list);
@@ -79,12 +81,13 @@
 		<th>圖片</th>
 		<th>商品類別</th>
 		<th>狀態</th>
+		<th>合併狀態</th>
 		<th>修改</th>
 		<th>刪除</th>
 	</tr>
-	<%@ include file="page1.file" %> 
-	<jsp:useBean id="pdcTSvc" scope="request" class="com.product_type.model.ProductTypeService" />	
-	<c:forEach var="PdcVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+
+
+	<c:forEach var="PdcVO" items="${list}" >
 		
 		<tr>
 			<td>${PdcVO.com_num}</td>	
@@ -92,13 +95,22 @@
 			<td>${PdcVO.m_price}</td>
 			<td>${PdcVO.l_price}</td>
 			<td>${PdcVO.discribe}</td>
-			<td><img height=200 src="<%=request.getContextPath()%>/DBGifReader4?com_num=${PdcVO.com_num}"></td> 
+			<td><img height=100 src="<%=request.getContextPath()%>/DBGifReader4?com_num=${PdcVO.com_num}"></td> 
 			 <c:forEach var="pdcTSvc" items="${pdcTSvc.all}" > 
 	         	<c:if test="${pdcTSvc.pt_num==PdcVO.pt_num}" var="condition" scope="page">
 	         		<td>${pdcTSvc.pt_name}</td>
 	         	</c:if>
 	         </c:forEach>
 			<td>${PdcVO.status}</td>
+			<td width=200>				
+			<c:forEach var="mcVO" items="${mcSvc.getMerList(PdcVO.mercom_num)}" varStatus="p">
+				<p>${p.count} -
+				${pdSvc.getOneProduct(mcVO.com_num).com_name} 
+				小杯 ${pdSvc.getOneProduct(mcVO.com_num).m_price}
+				大杯 ${pdSvc.getOneProduct(mcVO.com_num).l_price}</p>
+			</c:forEach>
+			</td>
+			
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/pdc_mng/StoPdcMng.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
@@ -116,7 +128,7 @@
 		</tr>
 	</c:forEach>
 </table>
-<%@ include file="page2.file" %>
+
 
 </body>
 </html>

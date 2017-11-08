@@ -1,6 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.product.model.*"%>
+<%@ page import="com.merged_commodity.model.*"%>
+<jsp:useBean id="pdSvc" scope="request" class="com.product.model.ProductService" />
+<jsp:useBean id="mcSvc" scope="request" class="com.merged_commodity.model.MergedCommodityService" />
 <% 
 	ProductVO productVO = (ProductVO) request.getAttribute("productVO"); //ProductServlet.java (Concroller), 存入req的productVO物件 (包括輸入資料錯誤時的productVO物件)
 %>
@@ -124,9 +127,22 @@
 			</select>
 		</td>
 	</tr>
+	<tr>
+		<td>合併狀態</td>
+		<td>
+			<c:forEach var="mcVO" items="${mcSvc.getMerList(productVO.mercom_num)}" varStatus="p">
+				<p>${p.count} -
+				${pdSvc.getOneProduct(mcVO.com_num).com_name} 
+				小杯 ${pdSvc.getOneProduct(mcVO.com_num).m_price}
+				大杯 ${pdSvc.getOneProduct(mcVO.com_num).l_price}</p>
+			</c:forEach>
+		</td>
+	</tr>
+	
 </table>
 
 <br>
+<input type="hidden" name="mercom_num" value="${productVO.mercom_num}">
 <input type="hidden" name="action" value="update">
 <input type="submit" value="送出修改">
 </FORM>

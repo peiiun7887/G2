@@ -28,7 +28,7 @@ public class MergedCommodityDAO implements MergedCommodityDAO_interface {
 	private static final String NEXTVAL= "SELECT SEQ_MERCOM_NUM.NEXTVAL FROM DUAL";
 	private static final String CURR= "SELECT * FROM MERGED_COMMODITY";
 	private static final String DELETE = "DELETE FROM MERGED_COMMODITY WHERE MERCOM_NUM = ?";
-
+	private static final String GET_BY_MERNUM = "SELECT * FROM MERGED_COMMODITY WHERE MERCOM_NUM = ?";
 	
 	@Override
 	public String insert(List<String> list) {
@@ -118,5 +118,49 @@ public class MergedCommodityDAO implements MergedCommodityDAO_interface {
 				}
 			}
 		}
+	}
+
+
+	@Override
+	public List<MergedCommodityVO> getMerList(String mercom_num) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		MergedCommodityVO mcVO = null;
+		List<MergedCommodityVO> list= new ArrayList<MergedCommodityVO>();
+		try{			
+			
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_BY_MERNUM);
+			pstmt.setString(1, mercom_num);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				mcVO = new MergedCommodityVO();
+				mcVO.setMercom_num(mercom_num);
+				mcVO.setCom_num(rs.getString("com_num"));
+				list.add(mcVO);
+			}			
+			
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}		
+		return list;
 	}
 }

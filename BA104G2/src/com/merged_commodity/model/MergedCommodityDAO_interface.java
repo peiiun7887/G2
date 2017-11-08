@@ -5,4 +5,5 @@ import java.util.List;
 public interface MergedCommodityDAO_interface {
 	public String insert(List<String> list);
 	public void delete(String mercom_num);
+	List<MergedCommodityVO> getMerList(String mercom_num);
 }

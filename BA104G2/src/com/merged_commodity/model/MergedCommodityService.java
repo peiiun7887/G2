@@ -18,4 +18,8 @@ public class MergedCommodityService {
 	public void delete(String mercom_num){
 		dao.delete(mercom_num);
 	}
+	
+	public List<MergedCommodityVO> getMerList(String mercom_num){
+		return dao.getMerList(mercom_num);		
+	}
 }

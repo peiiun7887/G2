@@ -22,6 +22,7 @@ public class MergedCommodityDAOJDBC implements MergedCommodityDAO_interface {
 	private static final String NEXTVAL= "SELECT SEQ_MERCOM_NUM.NEXTVAL FROM DUAL";//抓下一個流水號
 	private static final String CURR= "SELECT * FROM MERGED_COMMODITY ORDER BY MERCOM_NUM";
 	private static final String DELETE = "DELETE FROM MERGED_COMMODITY WHERE MERCOM_NUM = ?";
+	private static final String GET_BY_MERNUM = "SELECT * FROM MERGED_COMMODITY WHERE MERCOM_NUM = ?";
 	@Override
 	public String insert(List<String> list) {
 		PreparedStatement pstmt = null;
@@ -119,6 +120,53 @@ public class MergedCommodityDAOJDBC implements MergedCommodityDAO_interface {
 		}
 	}
 	
+	@Override
+	public List<MergedCommodityVO> getMerList(String mercom_num) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		MergedCommodityVO mcVO = null;
+		List<MergedCommodityVO> list= new ArrayList<MergedCommodityVO>();
+		try{			
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_BY_MERNUM);
+			pstmt.setString(1, mercom_num);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				mcVO = new MergedCommodityVO();
+				mcVO.setMercom_num(mercom_num);
+				mcVO.setCom_num(rs.getString("com_num"));
+				list.add(mcVO);
+			}			
+			
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}		
+		return list;
+	}
+	
 	public static void main (String[] args){
 		MergedCommodityDAOJDBC dao = new MergedCommodityDAOJDBC();
 		//insert
@@ -130,9 +178,18 @@ public class MergedCommodityDAOJDBC implements MergedCommodityDAO_interface {
 //		System.out.println(mercom_num);
 		
 		//delete
-		dao.delete("MC0000000182");
+//		dao.delete("MC0000000182");
 		
+		//getONE
+//		List<MergedCommodityVO> list = dao.getOneMernum("MC0000000197");		
+//		System.out.println(list.size());
+//		for(MergedCommodityVO mcVO : list){
+//			System.out.print(mcVO.getMercom_num()+",");
+//			System.out.println(mcVO.getCom_num());
+//		}
 	}
+
+
 
 	
 }

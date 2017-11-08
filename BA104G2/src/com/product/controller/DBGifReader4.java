@@ -29,7 +29,7 @@ public class DBGifReader4 extends HttpServlet {
 			if (rs.next()) {
 				InputStream in;
 				if(rs.wasNull()){
-					in = getServletContext().getResourceAsStream("/img/fin-ayu.png");
+					in = getServletContext().getResourceAsStream("/img/LOGO_150x150.png");
 					byte[] b = new byte[in.available()];
 					in.read(b);
 					out.write(b);
@@ -44,7 +44,7 @@ public class DBGifReader4 extends HttpServlet {
 					in.close();
 				}
 			}else{
-				InputStream in = getServletContext().getResourceAsStream("/images/nopic.gif");
+				InputStream in = getServletContext().getResourceAsStream("/images/LOGO_150x150.gif");
 				System.out.println("===========================");
 				byte[] b = new byte[in.available()];
 				in.read(b);
@@ -56,7 +56,7 @@ public class DBGifReader4 extends HttpServlet {
 			stmt.close();
 			
 		} catch (Exception e) {
-			InputStream in = getServletContext().getResourceAsStream("/img/fin-ayu.png");
+			InputStream in = getServletContext().getResourceAsStream("/img/LOGO_150x150.png");
 			byte[] b = new byte[in.available()];
 			in.read(b);
 			out.write(b);
