@@ -103,13 +103,15 @@
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/pdc_mng/StoPdcMng.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="­×§ï">
 			     <input type="hidden" name="com_num"  value="${PdcVO.com_num}">
+			      <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/pdc_mng/StoPdcMng.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="§R°£">
 			     <input type="hidden" name="com_num"  value="${PdcVO.com_num}">
-			     <input type="hidden" name="action" value="getOne_For_Delete"></FORM>
+			      <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
+			     <input type="hidden" name="action" value="delete"></FORM>
 			</td>
 		</tr>
 	</c:forEach>

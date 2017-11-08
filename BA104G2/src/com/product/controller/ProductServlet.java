@@ -10,6 +10,7 @@ import javax.servlet.http.*;
 
 import com.merged_commodity.model.MergedCommodityService;
 import com.product.model.*;
+
 @WebServlet("/ProductServlet")
 @MultipartConfig()
 public class ProductServlet extends HttpServlet {
@@ -401,11 +402,12 @@ public class ProductServlet extends HttpServlet {
 				for(int i =0; i<checkbox.length;i++){
 					ckList.add(checkbox[i]);
 				}
-								
+
+				req.setAttribute("ckList",ckList);
 				//send back if errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("productVO", productVO);
-					req.setAttribute("ckList", ckList);
+
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/store-end/pdc_mng/setMerge.jsp");
 					failureView.forward(req, res);
@@ -442,8 +444,33 @@ public class ProductServlet extends HttpServlet {
 		}
 		
 		if ("delete".equals(action)){		//來自allProduct or allProduct2 的請求
-			//如果原商品有被加到是合併商品不給刪喔
-			//但首先你要先有合併商品R
+			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
+			req.setAttribute("errorMsgs",errorMsgs);
+			String requestURL = req.getParameter("requestURL");
+			System.out.println(requestURL);
+			try{
+				/************ 1.接收請求參數 -輸入格式處理  ******************/
+				String com_num = req.getParameter("com_num");	
+								
+				/************ 2.開始修改資料   ****************************/
+				ProductService pdcSvc = new ProductService();
+				ProductVO productVO = pdcSvc.getOneProduct(com_num);
+				productVO.setStatus("刪除");
+				productVO = pdcSvc.updateProduct(productVO);
+				
+				/************ 3.修改完成，準備轉交   ***********************/
+				req.setAttribute("productVO", productVO);
+				String url = requestURL; // 送出修改的來源網頁(listAllSweet)和修改的是哪一筆
+				RequestDispatcher successView = req.getRequestDispatcher(url);   // 修改成功後,轉交回送出修改的來源網頁
+				successView.forward(req, res);
+				
+				/************ 其他錯誤處理  ******************************/	
+			} catch (Exception e){
+				errorMsgs.put("刪除資料失敗:",e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher(requestURL);
+				failureView.forward(req, res);
+			}
 		}
 			
 	}

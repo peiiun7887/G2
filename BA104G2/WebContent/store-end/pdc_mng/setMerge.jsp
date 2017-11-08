@@ -13,14 +13,13 @@
     pageContext.setAttribute("list",list);
 %>
 <%
-  ProductVO productVO = (ProductVO) request.getAttribute("productVO");
-  List<String> ckList = (List<String>) request.getAttribute("ckList");	
+  ProductVO productVO = (ProductVO) request.getAttribute("productVO");  	
 %>
 
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>資料新增 - addProduct.jsp</title>
+<title>合併商品資料新增 - addProduct.jsp</title>
 
 <style>
   table#table-1 {
@@ -57,7 +56,6 @@
 </style>
 
 </head>
-<body bgcolor='white'>
 
 <table id="table-1">
 	<tr><td>
@@ -67,12 +65,13 @@
 </table>
 
 
-<button id="getcheckbox"><a href="#Info">MERGE PRODUCE</a></button>
+
 <FORM METHOD="post" ACTION="<%= request.getContextPath() %>/pdc_mng/StoPdcMng.do"  enctype="multipart/form-data">
-	
+
+<div id=pdclist>
 <table border=1>
 	<tr>
-		<th>合併</th>
+		<th><input type="checkbox" name="selectall"></th>
 		<th>商品編號</th>		
 		<th>商品名稱</th>
 		<th>小杯價錢</th>
@@ -80,15 +79,21 @@
 		<th>描述</th>
 		<th>圖片</th>
 		<th>商品類別</th>
-		<th>狀態</th>
-		
+		<th>狀態</th>		
 	</tr>
 	
 	
 	
 	<c:forEach var="PdcVO" items="${list}" >
-		<tr ${(PdcVO.com_num==param.com_num)?'bgcolor=#CCCCFF':''}>
-			<td><input type="checkbox" name="checkbox" value="${PdcVO.com_num}" ></td>
+		<tr "${(PdcVO.com_num==param.com_num)?'bgcolor=#CCCCFF':''}>
+			<td>
+			
+			<input type="checkbox" name="checkbox" value="${PdcVO.com_num}" 
+				<c:forEach var="ckList" items="${ckList}">
+					${( ckList==PdcVO.com_num)? 'checked':'' } 
+				</c:forEach>
+			>
+			</td>
 			<td>${PdcVO.com_num}</td>	
 			<td class="com_name">${PdcVO.com_name}</td>
 			<td class="m_price">${PdcVO.m_price}</td>
@@ -100,7 +105,9 @@
 		</tr>
 	</c:forEach>	
 </table>
-
+</div>	
+<button id="getcheckbox">MERGE PRODUCE</button>	
+<button id="reset">RESET</button>	
 <hr>
 <h3>資料新增:</h3>
 
@@ -113,8 +120,9 @@
 		</c:forEach>
 	</ul>
 </c:if>
-			
+	
 <table>
+		<tr><td>合併商品清單</td><td id="mercom"></td></tr>
 		<tr><td>商品名稱</td><td><input type="text" name="com_name" value="${productVO.com_name}"></td></tr>
 		<tr><td>小杯價錢</td><td><input type="text" name="m_price" value="${productVO.m_price}"></td></tr>
 		<tr><td>大杯價錢</td><td><input type="text" name="l_price" value="${productVO.l_price}"></td></tr>
@@ -150,36 +158,58 @@
 </FORM>
 <script src="https://code.jquery.com/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript">
+<script>
 var add="";
 var mprice,lprice;
-$(document).ready(function () {
-	
-
-	$('#getcheckbox').on('click',function(){
-		var pname="";
-		var m_price=0;
-		var l_price=0;
-		$("input[type=checkbox]:checked").each(function(i){
-		 pname = pname+$(this).parent().siblings("td.com_name").text()+"_";
-		 m_price = m_price+parseInt($(this).parent().siblings("td.m_price").text());
-		 l_price = l_price+parseInt($(this).parent().siblings("td.l_price").text());
-		})
-	
-	console.log(pname);console.log(m_price);console.log(l_price);
-	
-		if(pname.length>0){
-	 		pname = pname.substr(0,pname.length-1);
-		}
-	console.log("final:"+pname);console.log("final:"+m_price);console.log("final:"+l_price);
-	
-		//塞值進去下面的FORM
-		$("input[name=com_name]").val(pname);
-		$("input[name=m_price]").val(m_price);
-		$("input[name=l_price]").val(l_price);
-	});
-	
-	
+	$(document).ready(function () {
+		
+		$("input[name=selectall]").change('click',function(){
+			var checkboxes = $('input[name="checkbox"]');
+		    // 「其他選項」CheckBox 會依據「全部」CheckBox 的 Checked 狀態改變
+		    $(this).is(':checked') ? checkboxes.prop('checked', 'checked') : checkboxes.removeAttr('checked');
+		});
+		
+		$('#getcheckbox').on('click',function(){
+			var pname="";
+			var m_price=0;
+			var l_price=0;
+			$("input[name=selectall]").removeAttr('checked');
+			$("input[type=checkbox]:checked").each(function(i){
+			 pname = pname+$(this).parent().siblings("td.com_name").text()+" ";
+			 m_price = m_price+parseInt($(this).parent().siblings("td.m_price").text());
+			 l_price = l_price+parseInt($(this).parent().siblings("td.l_price").text());
+			})
+		
+		console.log(pname);console.log(m_price);console.log(l_price);
+		
+			if(pname.length>0){//砍前後底線
+		 		pname = pname.substr(0,pname.length-1);
+			}
+		console.log("final:"+pname);console.log("final:"+m_price);console.log("final:"+l_price);
+		
+			//塞值進去下面的FORM
+			$("#mercom").text(pname);
+			$("input[name=com_name]").val(pname.trim());
+			$("input[name=m_price]").val(m_price);
+			$("input[name=l_price]").val(l_price);
+			
+			//商品清單隱藏
+			$("#pdclist").toggle();
+			
+			return false;
+		});
+		
+		
+		
+		$('#reset').on('click',function(){
+			$("input[type=checkbox]").each(function(){
+				$(this).prop("checked",false);
+			});
+			var all_Inputs = $("input[type=text]");
+			all_Inputs.val("");
+			$("#pdclist").show();
+			return false;
+		});
 
 });
 </script>
