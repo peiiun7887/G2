@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:useBean id="pdcTSvc" scope="request" class="com.product_type.model.ProductTypeService"/>
 
@@ -6,114 +6,97 @@
 
 <html>
 <head>
-<title>©±®a°Ó«~ºŞ²z</title>
-
+<title>åº—å®¶å•†å“ç®¡ç†</title>
 <style>
-  table#table-1 {
-	width: 450px;
-	background-color: #CCCCFF;
-	margin-top: 5px;
-	margin-bottom: 10px;
-    border: 3px ridge Gray;
-    height: 80px;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-
+	.btn-green-group{
+		background:#3C9682; /*ï°green*/
+		color:#FFFFFF;
+	}
+	.hide{
+		display:none;
+	}
 </style>
 
 </head>
 <body>
 	<jsp:include page="/store-end/store_top.jsp" /> <!-- navbar -->
-	<!-- 1¼h¤j®Ø®Ø -->
+	<!-- 1å±¤å¤§æ¡†æ¡† -->
 	<div class="container-fluid">
 		<div class="row">
-	<!-- 2¼h®Ø¥ª -->	
+	<!-- 2å±¤æ¡†å·¦ -->	
 			<jsp:include page="/store-end/store_left.jsp" /> <!-- leftSidebar -->
-	<!-- 2¼h®Ø¥k -->		
+	<!-- 2å±¤æ¡†å³ -->		
 			<div class="col-xs-12 col-sm-8 col-sm-offset-3" bgcolor="#AAAAAA">				
 				<div class="block-center panelheight">
-	<!--========================== ¥\¯à©ñ³oÃä =============================================-->
+	<!--========================== åŠŸèƒ½æ”¾é€™é‚Š =============================================-->
 		
-					<table id="table-1">
-					   <tr><td><h3>${sto_num}-©±®a°Ó«~ºŞ²z</h3><h4>( MVC )</h4></td></tr>
-					</table>
-					
-						<form method="get" action="<%= request.getContextPath() %>/pdc_mng/StoPdcMng.do">
-						<input type="hidden" name="sto_num"value="${sto_num}">
-						<input type="hidden" name="action"value="logoutout">
-						<input type="submit" value="µn¥X">
-						</form>
-					
-					
-					<h3>¸ê®Æ¬d¸ß:</h3>
+				<div class="page-header">
+				   <h3>${sto_num}-åº—å®¶å•†å“ç®¡ç†</h3>
+				
+					<form method="get" action="<%= request.getContextPath() %>/pdc_mng/StoPdcMng.do">
+					<input type="hidden" name="sto_num"value="${sto_num}">
+					<input type="hidden" name="action"value="logoutout">
+					<input type="submit" value="æ¸¬è©¦ç”¨ç™»å‡º">
+					</form>
+				</div>		
 						
-					<%-- ¿ù»~ªí¦C --%>
-					<c:if test="${not empty errorMsgs}">
-						<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
-						<ul>
-						    <c:forEach var="message" items="${errorMsgs}">
-								<li style="color:red">${message.value}</li>
-							</c:forEach>
-						</ul>
-					</c:if>
-					
+				<%-- éŒ¯èª¤è¡¨åˆ— --%>
+				<c:if test="${not empty errorMsgs}">
+					<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 					<ul>
-					  <li><a href='stolistAllProduct.jsp'>¥ş³¡°Ó«~¦Cªí</a></li>
-					  <li><a href='stolistAllSweet.jsp'>¥ş³¡²¢«×¦Cªí</a></li>
-					  <li><a href='stolistAllIce.jsp'>¥ş³¡¦B¶ô¦Cªí</a></li>
-					  <li><a href='stolistAllExtra.jsp'>¥ş³¡¥[®Æ¦Cªí</a></li>
-					  
-					  <li>
-					    <FORM METHOD="post" ACTION="<%= request.getContextPath() %>/pdc_mng/StoPdcMng.do" >
-					        <b>¿é¤J°Ó«~¦WºÙ (¦p ¥¤¯ù):</b>
-					        <input type="text" name="com_name" value="¥¤¯ù">
-					        <input type="hidden" name="action" value="getName_For_Display">
-					        <input type="hidden" name="sto_num" value="${store.sto_num}">
-					        <input type="submit" value="°e¥X">
-					    </FORM>
-					  </li>
+					    <c:forEach var="message" items="${errorMsgs}">
+							<li style="color:red">${message.value}</li>
+						</c:forEach>
+					</ul>
+				</c:if>
+				
+				
+					<div class=" btn-group" >						
+						  <a href='stolistAllProduct.jsp' class="btn btn-green-group">å•†å“åˆ—è¡¨</a>
+						  <a href='stolistAllSweet.jsp' class="btn btn-green-group">ç”œåº¦åˆ—è¡¨</a>
+						  <a href='stolistAllIce.jsp' class="btn btn-green-group">å†°å¡Šåˆ—è¡¨</a>
+						  <a href='stolistAllExtra.jsp' class="btn btn-green-group">åŠ æ–™åˆ—è¡¨</a>							
+					</div>
 					
+					<form class="navbar-left input-group" METHOD="post" ACTION="<%= request.getContextPath() %>/pdc_mng/StoPdcMng.do">
+						<div class="input-group"> 
+					    <input type="text" name="com_name" value="å¥¶èŒ¶" class="form-control" placeholder="æœå°‹å•†å“">
+						<input type="hidden" name="action" value="getName_For_Display">
+						<input type="hidden" name="sto_num" value="${sto_num}">
+						<span class="input-group-btn">
+							<input type="submit" value="é€å‡º" class="btn btn-green">
+					    </span>    
+						</div>					
+					</form>		
+					
+				
+
+<!-- æœ‰ç©ºå†å¯« -->
+<div class="hide">
+   <FORM METHOD="post" ACTION="StoPdcMng.do">
+       <b>é¸æ“‡å•†å“ç¨®é¡:</b>
+       <select size="1" name="pt_name">
+         <c:forEach var="pdcTVO" items="${pdcTSvc.all}" > 
+          <option value="${pdcTVO.pt_num}">${pdcTVO.pt_name}
+         </c:forEach>   
+       </select>
+       <input type="hidden" name="action" value="">
+       <input type="submit" value="é€å‡º" disabled>
+    </FORM>
+</div>				
 					
 					 
-					  <li>
-					     <FORM METHOD="post" ACTION="StoPdcMng.do">
-					       <b>¿ï¾Ü°Ó«~ºØÃş:</b>
-					       <select size="1" name="pt_name">
-					         <c:forEach var="pdcTVO" items="${pdcTSvc.all}" > 
-					          <option value="${pdcTVO.pt_num}">${pdcTVO.pt_name}
-					         </c:forEach>   
-					       </select>
-					       <input type="hidden" name="action" value="">
-					       <input type="submit" value="°e¥X" disabled>
-					     </FORM>
-					  </li>
-					</ul>
-					
-					
-					<h3>·s¼W°Ó«~</h3>
-					
-					<ul>
-					  <li><a href='addProduct.jsp'>·s¼W°Ó«~</a></li>
-					  <li><a href='addSweetness.jsp'>·s¼W²¢«×</a></li>
-					  <li><a href='addIce.jsp'>·s¼W¦B«×</a></li>
-					  <li><a href='addExtra.jsp'>·s¼W¥[®Æ</a></li>
-					  <li><a href='addMerge.jsp'>¦X¨Ö°Ó«~</a></li>
+
 					  
-					</ul>		
+					
+
+					
+					
+					
 		
 		
 		
-		
-	<!--========================== ¥\¯à©ñ³oÃä =============================================-->			
+	<!--========================== åŠŸèƒ½æ”¾é€™é‚Š =============================================-->			
 				</div><!-- class="block-center panelheight" -->			
 			</div><!-- class="col-xs-12 col-sm-8 col-sm-offset-3" -->
 		</div><!-- div class="row" -->

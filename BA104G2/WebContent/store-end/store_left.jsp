@@ -8,6 +8,13 @@
 		<title>店家首頁</title>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/store_base.css">
+		<style>
+
+		.active{
+			background-color:#3C9682;
+		}
+		</style>
+	
 	</head>
 <body>	
 		
@@ -53,10 +60,10 @@
 						          <div class="panel-title funcbtn-normal">商品管理</div>
 						        </a>				      
 						    </div>
-						    <div id="func2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="panel2">
+						    <div id="func2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="panel2">
 						        <div class="list-group">
-						        	<a href="#" class="list-group-item active">新增商品</a>
-						        	<a href="#" class="list-group-item">修改商品</a>
+						        	<a href="<%= request.getContextPath() %>/store-end/pdc_mng/store_select_page.jsp" class="list-group-item">修改商品</a>
+						        	<a href="<%= request.getContextPath() %>/store-end/pdc_mng/store_add_page.jsp" class="list-group-item ">新增商品</a>
 						        </div>
 						    </div>
 						</div>
@@ -144,7 +151,7 @@
 						<!-- 8.教學專區 -->
 						<div class="panel panel-default">
 						    <div class="panel-heading" role="tab" id="panel8">
-						    	<a href="#func8" data-parent="#accordion1" data-toggle="collapse" role="button" class="collapsed" aria-expanded="false" aria-controls="func8">
+						    	<a href="#func8" data-parent="#accordion1" data-toggle="collapse" role="button" class="collapsed" aria-expanded="false" aria-controls="func8" >
 						           <div class="panel-title funcbtn-normal">教學專區</div>
 						        </a>
 						    </div>
@@ -163,14 +170,22 @@
 		<script src="https://code.jquery.com/jquery.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<script >
-			// 改 panel裡面 active 項目顏色
-			$("[class~='active']").css("background-color","#3C9682");
+			
 
 			// 改 panel外面 hover 顏色
 			$("[class~='panel-heading']").hover(function(){$(this).css("background-color","#DCE6D2")},function(){$(this).css("background-color"," #FFFFFF")});
 			
 			// 改 panel裡面 hover 顏色
 			$(".list-group > [class|='list-group-item']").hover(function(){$(this).css({"background-color":"#DCE6D2","color":"#595942"})},function(){$(this).css({"background-color":"#FFFFFF","color":"#595942"})});
+			
+			//目前active業面
+			var loc = window.location.pathname;
+			console.log(loc);
+			$('.panel-collapse').find('a').each(function() {
+			     $(this).toggleClass('active', $(this).attr('href') == loc);
+			  });
+			$('.active').css("background","#3C9682");
+
 		</script>	
 </body>
 </html>
