@@ -31,12 +31,12 @@ public class SweetnessServlet extends HttpServlet {
 				/************ 1.接收請求參數 -輸入格式處理  ******************/					
 				String sto_num = req.getParameter("sto_num");
 				String sweet_type = req.getParameter("sweet_type");
-				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,3}$";
+				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_\r\t\n\f)]{1,6}$";
 				
 				if (sweet_type == null || sweet_type.trim().length() == 0){
 					errorMsgs.put("sweet_type","甜度名稱：請勿空白");
 				} else if (!sweet_type.trim().matches(nameReg)) {
-					errorMsgs.put("sweet_type","甜度名稱：只能是中、英文字母、數字和_ , 且長度必需在1到3之間");
+					errorMsgs.put("sweet_type","甜度名稱：請勿含有特殊符號, 長度必需在1到6之間");
 				}				
 				
 				SweetnessVO sweetnessVO = new SweetnessVO();
@@ -111,11 +111,11 @@ public class SweetnessServlet extends HttpServlet {
 				String sweet_type = req.getParameter("sweet_type");
 				String status = req.getParameter("status");
 				
-				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,3}$";
+				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_\r\t\n\f)]{1,6}$";
 				if (sweet_type == null || sweet_type.trim().length() == 0){
 					errorMsgs.put("sweet_type","甜度名稱：請勿空白");
 				} else if (!sweet_type.trim().matches(nameReg)) {
-					errorMsgs.put("sweet_type","甜度名稱：只能是中、英文字母、數字和_ , 且長度必需在1到3之間");
+					errorMsgs.put("sweet_type","甜度名稱：請勿含有特殊符號, 長度必需在1到6之間");
 				}
 				SweetnessVO sweetnessVO = new SweetnessVO();
 				sweetnessVO.setSweet_num(sweet_num);

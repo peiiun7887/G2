@@ -3,59 +3,58 @@
 <%@ page import="com.sweetness.model.*"%>
 
 <%
-  SweetnessVO swtVO = (SweetnessVO) request.getAttribute("sweetnessVO");
+  SweetnessVO sweetnessVO = (SweetnessVO) request.getAttribute("sweetnessVO");
 %>
 
 <html>
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>甜度資料新增 - addSweetness.jsp</title>
-
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
-
-<style>
-  table {
-	width: 450px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-  }
-  table, th, td {
-    border: 0px solid #CCCCFF;
-  }
-  th, td {
-    padding: 1px;
-  }
-</style>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<title>新增甜度</title>
+	
+	<style>
+	  table#table-1 {
+		background-color: #CCCCFF;
+	    border: 2px solid black;
+	    text-align: center;
+	  }
+	  table#table-1 h4 {
+	    color: red;
+	    display: block;
+	    margin-bottom: 1px;
+	  }
+	  h4 {
+	    color: blue;
+	    display: inline;
+	  }
+	</style>
+	
+	<style>
+	  table {
+		width: 450px;
+		background-color: white;
+		margin-top: 1px;
+		margin-bottom: 1px;
+	  }
+	  table, th, td {
+	    border: 0px solid #CCCCFF;
+	  }
+	  th, td {
+	    padding: 1px;
+	  }
+	</style>
 
 </head>
-<body bgcolor='white'>
+<body>
 
-<table id="table-1">
-	<tr><td>
-		 <h3>甜度資料新增 - addSweetness.jsp</h3></td><td>
-		 <h4><a href="<%= request.getContextPath() %>/store-end/pdc_mng/store_select_page.jsp">回首頁</a></h4>
-	</td></tr>
-</table>
-
-<h3>資料新增:</h3>
+	<table id="table-1">
+		<tr>
+			<td><h3>新增甜度</h3></td>
+			<td><h4><a href="<%= request.getContextPath() %>/store-end/pdc_mng/store_select_page.jsp">回商品管理首頁</a></h4></td>
+		</tr>
+	</table>
 
 <%-- 錯誤表列 --%>
+
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
 	<ul>
@@ -65,25 +64,26 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="<%= request.getContextPath() %>/pdc_mng/StoSwtMng.do">
-<table>
-	<tr>
-		<td>店家編號</td>
-		<td><input type="TEXT" name="sto_num" size="45" 
-			 value="${store.sto_num}" disabled/>			
-		</td>
-		
-	</tr>
-	<tr>
-		<td>甜度名稱</td>
-		<td><input type="TEXT" name="sweet_type" size="45" 
-			 value="${swtVO.sweet_type}" /></td>
-	</tr>	
-</table>
-<br>
-<input type="hidden" name="sto_num" value="${store.sto_num}">
-<input type="hidden" name="action" value="insert">
-<input type="submit" value="送出新增"></FORM>
-</body>
+	<FORM METHOD="post" ACTION="<%= request.getContextPath() %>/pdc_mng/StoSwtMng.do">
+		<table>
+			<tr>
+				<td>店家編號</td>
+				<td><input type="TEXT" name="sto_num" size="45" 
+					 value="${sto_num}" disabled/>			
+				</td>
+				
+			</tr>
+			<tr>
+				<td>甜度名稱</td>
+				<td><input type="TEXT" name="sweet_type" size="45" 
+					 value="${sweetnessVO.sweet_type}" /></td>
+			</tr>	
+		</table>
 
+		<input type="hidden" name="sto_num" value="${sto_num}">
+		<input type="hidden" name="action" value="insert">
+		<input type="submit" value="送出新增">
+	</FORM>
+
+</body>
 </html>

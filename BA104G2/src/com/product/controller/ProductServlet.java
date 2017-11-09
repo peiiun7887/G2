@@ -32,7 +32,7 @@ public class ProductServlet extends HttpServlet {
 				/************ 1.接收請求參數 -輸入格式處理  ******************/
 				String sto_num = req.getParameter("sto_num");
 				String com_name = req.getParameter("com_name");
-				String com_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,20}$";
+				String com_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_\r\t\n\f-)]{2,20}$";
 				if (com_name == null || com_name.trim().length() == 0){
 					errorMsgs.put("com_name","商品名稱：請勿空白");
 				} else if (!com_name.trim().matches(com_nameReg)) {
@@ -71,6 +71,9 @@ public class ProductServlet extends HttpServlet {
 				}
 				if(l_price==0 && m_price==0){
 					errorMsgs.put("price","價錢請勿都為0");	
+				}
+				if(m_price>l_price && l_price!=0){
+					errorMsgs.put("price","小杯價格比大杯貴喔O_O!");	
 				}
 								
 				String discribe = req.getParameter("discribe");
@@ -216,7 +219,7 @@ public class ProductServlet extends HttpServlet {
 				
 				String com_name = req.getParameter("com_name");
 				System.out.println("update com_name:"+com_name);
-				String com_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,20}$";
+				String com_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_\r\t\n\f-)]{2,20}$";
 				if (com_name == null || com_name.trim().length() == 0){
 					errorMsgs.put("com_name","商品名稱：請勿空白");
 				} else if (!com_name.trim().matches(com_nameReg)) {
@@ -255,6 +258,9 @@ public class ProductServlet extends HttpServlet {
 				}
 				if(l_price==0 && m_price==0){
 					errorMsgs.put("price","價錢請勿都為0");	
+				}
+				if(m_price>l_price && l_price!=0){
+					errorMsgs.put("price","小杯價格比大杯貴喔O_O!");	
 				}
 				
 				String discribe = req.getParameter("discribe");
@@ -329,7 +335,7 @@ public class ProductServlet extends HttpServlet {
 				/************ 1.接收請求參數 -輸入格式處理  ******************/
 				String sto_num = req.getParameter("sto_num");
 				String com_name = req.getParameter("com_name");
-				String com_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,20}$";
+				String com_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_\r\t\n\f)]{2,20}$";
 				if (com_name == null || com_name.trim().length() == 0){
 					errorMsgs.put("com_name","商品名稱：請勿空白");
 				} else if (!com_name.trim().matches(com_nameReg)) {
@@ -368,6 +374,9 @@ public class ProductServlet extends HttpServlet {
 				}
 				if(l_price==0 && m_price==0){
 					errorMsgs.put("price","價錢請勿都為0");	
+				}
+				if(m_price>l_price && l_price!=0){
+					errorMsgs.put("price","小杯價格比大杯貴喔O_O!");	
 				}
 								
 				String discribe = req.getParameter("discribe");
@@ -409,7 +418,7 @@ public class ProductServlet extends HttpServlet {
 					req.setAttribute("productVO", productVO);
 
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/store-end/pdc_mng/setMerge.jsp");
+							.getRequestDispatcher("/store-end/pdc_mng/addMerge.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -438,9 +447,10 @@ public class ProductServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.put("Exception",e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/store-end/pdc_mng/setMerge.jsp");
+						.getRequestDispatcher("/store-end/pdc_mng/addMerge.jsp");
 				failureView.forward(req, res);
 			}
+			return;
 		}
 		
 		if ("delete".equals(action)){		//來自allProduct or allProduct2 的請求
@@ -463,7 +473,7 @@ public class ProductServlet extends HttpServlet {
 				String url = requestURL; // 送出修改的來源網頁(listAllSweet)和修改的是哪一筆
 				RequestDispatcher successView = req.getRequestDispatcher(url);   // 修改成功後,轉交回送出修改的來源網頁
 				successView.forward(req, res);
-				
+				return;
 				/************ 其他錯誤處理  ******************************/	
 			} catch (Exception e){
 				errorMsgs.put("刪除資料失敗:",e.getMessage());
@@ -471,7 +481,32 @@ public class ProductServlet extends HttpServlet {
 						.getRequestDispatcher(requestURL);
 				failureView.forward(req, res);
 			}
+			
 		}
+		
+		//////       測試用假登入               //////////////////////////////////
+		if("loginin".equals(action)){
+			String sto_num = req.getParameter("sto_num");
+			String mem_num = req.getParameter("mem_num");
+			System.out.println(sto_num+","+mem_num);
+			HttpSession session = req.getSession();
+			session.setAttribute("sto_num", sto_num);
+			session.setAttribute("mem_num", mem_num);
+			res.sendRedirect(req.getContextPath()+"/store-end/pdc_mng/store_select_page.jsp");	
+			return;
+		}
+		
+		if ("logoutout".equals(action)) {
+			String sto_num = req.getParameter("sto_num");
+			String mem_num = req.getParameter("mem_num");
+			HttpSession session = req.getSession();
+			session.invalidate();
+			System.out.println(sto_num+"logout");
+			//整個連線拔掉
+			res.sendRedirect(req.getContextPath()+"/store-end/form.jsp");
+		    return;
+		}
+		//////  測試用假登出               //////////////////////////////////
 			
 	}
 	

@@ -2,13 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.sweetness.model.*"%>
-<jsp:useBean id="store" scope="session" class="com.product.model.ProductVO" />
-<jsp:setProperty name="store" property="sto_num" value="ST0000000001"/>
+
 <%	
- //	Object storeProfileVO=(String) session.getAttribute("storeProfileVO"); //從session取出店家編號
+	String sto_num = (String) session.getAttribute("sto_num");
 	SweetnessService swtSvc = new SweetnessService();
- 	String str = store.getSto_num();
-	List<SweetnessVO> list = swtSvc.getSweetness(str);
+	List<SweetnessVO> list = swtSvc.getSweetness(sto_num);
     pageContext.setAttribute("list",list);
 
 %>
@@ -16,51 +14,50 @@
 
 <html>
 <head>
-<title>店家所有甜度商品 - stolistAllSweet.jsp</title>
-
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
-
-<style>
-  table {
-	width: 800px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
-</style>
+	<title>所有甜度商品</title>
+	
+	<style>
+	  table#table-1 {
+		background-color: #CCCCFF;
+	    border: 2px solid black;
+	    text-align: center;
+	  }
+	  table#table-1 h4 {
+	    color: red;
+	    display: block;
+	    margin-bottom: 1px;
+	  }
+	  h4 {
+	    color: blue;
+	    display: inline;
+	  }
+	</style>
+	
+	<style>
+	  table {
+		width: 800px;
+		background-color: white;
+		margin-top: 5px;
+		margin-bottom: 5px;
+	  }
+	  table, th, td {
+	    border: 1px solid #CCCCFF;
+	  }
+	  th, td {
+	    padding: 5px;
+	    text-align: center;
+	  }
+	</style>
 
 </head>
-<body bgcolor='white'>
+<body >
 
-<h4>此頁練習採用 EL 的寫法取值:</h4>
-<table id="table-1">
-	<tr><td>
-		${store.sto_num}<h3>所有商品資料 - stoListAllSweet.jsp</h3> 
-		 <h4><a href="<%= request.getContextPath() %>/store-end/pdc_mng/store_select_page.jsp">回首頁</a></h4>
-	</td></tr>
-</table>
+	<table id="table-1">
+			<tr>
+				<td><h3>所有甜度商品</h3></td>
+				<td><h4><a href="<%= request.getContextPath() %>/store-end/pdc_mng/store_select_page.jsp">回商品管理首頁</a></h4></td>
+			</tr>
+	</table>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -72,44 +69,42 @@
 	</ul>
 </c:if>
 
-list size: <%= list.size() %>
-
-<table>
-	<tr>
-		<th>甜度編號</th>		
-		<th>店家編號</th>
-		<th>甜度名稱</th>
-		<th>狀態</th>
-		<th>修改</th>
-		<th>刪除</th>
-	</tr>
-	
-	<c:forEach var="swtVO" items="${list}">
-		
-		<tr ${(swtVO.sweet_num==param.sweet_num)?'bgcolor=#CCCCFF':''}>
-			<td>${swtVO.sweet_num}</td>	
-			<td>${swtVO.sto_num}</td>
-			<td>${swtVO.sweet_type}</td>
-			<td>${swtVO.status}</td>
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/pdc_mng/StoSwtMng.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改">
-			     <input type="hidden" name="sweet_num" value="${swtVO.sweet_num}">
-			     <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
-			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
-			</td>
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/pdc_mng/StoSwtMng.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="刪除">
-			     <input type="hidden" name="sweet_num"  value="${swtVO.sweet_num}">
-			     <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
-			     <input type="hidden" name="action" value="delete"></FORM>
-			</td>
+	<table>
+		<tr>
+			<th>甜度編號</th>		
+			<th>店家編號</th>
+			<th>甜度名稱</th>
+			<th>狀態</th>
+			<th>修改</th>
+			<th>刪除</th>
 		</tr>
-	</c:forEach>
-</table>
-<br>本網頁的路徑:<br><b>
-   <font color=blue>request.getServletPath():</font> <%=request.getServletPath()%><br>
-   <font color=blue>request.getRequestURI(): </font> <%=request.getRequestURI()%> </b>
+		
+		<c:forEach var="swtVO" items="${list}">
+			
+			<tr ${(swtVO.sweet_num==param.sweet_num)?'bgcolor=#CCCCFF':''}>
+				<td>${swtVO.sweet_num}</td>	
+				<td>${swtVO.sto_num}</td>
+				<td>${swtVO.sweet_type}</td>
+				<td>${swtVO.status}</td>
+				<td>
+				  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/pdc_mng/StoSwtMng.do" style="margin-bottom: 0px;">
+				     <input type="submit" value="修改">
+				     <input type="hidden" name="sweet_num" value="${swtVO.sweet_num}">
+				     <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
+				     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+				</td>
+				<td>
+				  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/pdc_mng/StoSwtMng.do" style="margin-bottom: 0px;">
+				     <input type="submit" value="刪除">
+				     <input type="hidden" name="sweet_num"  value="${swtVO.sweet_num}">
+				     <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
+				     <input type="hidden" name="action" value="delete"></FORM>
+				</td>
+			</tr>
+			
+		</c:forEach>
+		
+	</table>
+
 </body>
 </html>

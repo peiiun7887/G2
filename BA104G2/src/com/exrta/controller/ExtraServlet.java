@@ -33,12 +33,12 @@ public class ExtraServlet extends HttpServlet {
 				/************ 1.接收請求參數 -輸入格式處理  ******************/	
 				String sto_num = req.getParameter("sto_num");
 				String ext_name = req.getParameter("ext_name");
-				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,3}$";
+				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_\r\t\n\f)]{1,6}$";
 								
 				if (ext_name == null || ext_name.trim().length() == 0){
 					errorMsgs.put("ext_name","加料名稱：請勿空白");
 				} else if (!ext_name.trim().matches(nameReg)) {
-					errorMsgs.put("ext_name","加料名稱：只能是中、英文字母、數字和_ , 且長度必需在1到3之間");
+					errorMsgs.put("ext_name","加料名稱：請勿含有特殊符號, 長度必需在1到6之間");
 				}
 				
 				String price_nameReg = "^[0-9]{1,3}$";	
@@ -127,11 +127,11 @@ public class ExtraServlet extends HttpServlet {
 				String sto_num = req.getParameter("sto_num");
 				String ext_name = req.getParameter("ext_name");
 				
-				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,3}$";
+				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_\r\t\n\f)]{1,6}$";
 				if (ext_name == null || ext_name.trim().length() == 0){
 					errorMsgs.put("ext_name","加料名稱：請勿空白");
 				} else if (!ext_name.trim().matches(nameReg)) {
-					errorMsgs.put("ext_name","加料名稱：只能是中、英文字母、數字和_ , 且長度必需在1到3之間");
+					errorMsgs.put("ext_name","加料名稱：請勿含有特殊符號, 長度必需在1到6之間");
 				}
 				
 				String price_nameReg = "^[0-9]{1,3}$";	

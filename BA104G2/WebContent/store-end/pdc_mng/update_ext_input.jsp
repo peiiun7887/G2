@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.extra.model.*"%>
 
@@ -8,55 +8,54 @@
 
 <html>
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>°Ó«~¸ê®Æ­×§ï - update_ext_input.jsp</title>
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
-
-<style>
-  table {
-	width: 450px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-  }
-  table, th, td {
-    border: 0px solid #CCCCFF;
-  }
-  th, td {
-    padding: 1px;
-  }
-</style>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<title>ä¿®æ”¹åŠ æ–™å•†å“</title>
+	<style>
+	  table#table-1 {
+		background-color: #CCCCFF;
+	    border: 2px solid black;
+	    text-align: center;
+	  }
+	  table#table-1 h4 {
+	    color: red;
+	    display: block;
+	    margin-bottom: 1px;
+	  }
+	  h4 {
+	    color: blue;
+	    display: inline;
+	  }
+	</style>
+	
+	<style>
+	  table {
+		width: 450px;
+		background-color: white;
+		margin-top: 1px;
+		margin-bottom: 1px;
+	  }
+	  table, th, td {
+	    border: 0px solid #CCCCFF;
+	  }
+	  th, td {
+	    padding: 1px;
+	  }
+	</style>
 
 </head>
+
 <body bgcolor='white'>
 
 <table id="table-1">
-	<tr><td>
-		 <h3>¥[®Æ°Ó«~¸ê®Æ­×§ï - update_ext_input.jsp</h3>
-		 <h4><a href="<%= request.getContextPath() %>/store-end/pdc_mng/store_select_page.jsp">¦^­º­¶</a></h4>
-	</td></tr>
+	<tr>
+		<td><h3>ä¿®æ”¹åŠ æ–™å•†å“</h3></td>
+		<td><h4><a href="<%= request.getContextPath() %>/store-end/pdc_mng/store_select_page.jsp">å›å•†å“ç®¡ç†é¦–é </a></h4></td>
+	</tr>
 </table>
 
-<h3>¸ê®Æ­×§ï:</h3>
-
-<%-- ¿ù»~ªí¦C --%>
+<%-- éŒ¯èª¤è¡¨åˆ— --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
+	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 	<ul>
 		<c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message.value}</li>
@@ -64,49 +63,47 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="<%= request.getContextPath() %>/pdc_mng/StoExtMng.do">
-<table>
-	<tr>
-		<td>¥[®Æ½s¸¹</td>
-		<td><input type="TEXT" name="ext_num" size="45" 
-			 value="${extraVO.ext_num}" disabled/>			
-		</td>	
-	</tr>
-	<tr>
-		<td>©±®a½s¸¹</td>
-		<td><input type="TEXT" name="sto_num" size="45" 
-			 value="${extraVO.sto_num}" disabled/>			
-		</td>	
-	</tr>
-	<tr>
-		<td>¥[®Æ¦WºÙ</td>
-		<td><input type="TEXT" name="ext_name" size="45" 
-			 value="${extraVO.ext_name}" /></td>
-	</tr>
-	<tr>
-		<td>¥[®Æª÷ÃB</td>
-		<td><input type="TEXT" name="ext_amount" size="45" 
-			 value="${extraVO.ext_amount}" /></td>
-	</tr>		
-	<tr>
-		<td>¥[®Æª¬ºA:</td>
-		<td>
-			<select size="1" name="status">
-			<option value="¤W¬[" ${(extraVO.status=='¤W¬[')? 'selected':'' } >¤W¬[
-			<option value="¤U¬[" ${(extraVO.status=='¤U¬[')? 'selected':'' } >¤U¬[
-			</select>
-		</td>
-	</tr>
-</table>
+	<FORM METHOD="post" ACTION="<%= request.getContextPath() %>/pdc_mng/StoExtMng.do">
+		<table>
+			<tr>
+				<td>åŠ æ–™ç·¨è™Ÿ</td>
+				<td><input type="TEXT" name="ext_num" size="45" 
+					 value="${extraVO.ext_num}" disabled/>			
+				</td>	
+			</tr>
+			<tr>
+				<td>åº—å®¶ç·¨è™Ÿ</td>
+				<td><input type="TEXT" name="sto_num" size="45" 
+					 value="${extraVO.sto_num}" disabled/>			
+				</td>	
+			</tr>
+			<tr>
+				<td>åŠ æ–™åç¨±</td>
+				<td><input type="TEXT" name="ext_name" size="45" 
+					 value="${extraVO.ext_name}" /></td>
+			</tr>
+			<tr>
+				<td>åŠ æ–™é‡‘é¡</td>
+				<td><input type="TEXT" name="ext_amount" size="45" 
+					 value="${extraVO.ext_amount}" /></td>
+			</tr>		
+			<tr>
+				<td>åŠ æ–™ç‹€æ…‹:</td>
+				<td>
+					<select size="1" name="status">
+					<option value="ä¸Šæ¶" ${(extraVO.status=='ä¸Šæ¶')? 'selected':'' } >ä¸Šæ¶
+					<option value="ä¸‹æ¶" ${(extraVO.status=='ä¸‹æ¶')? 'selected':'' } >ä¸‹æ¶
+					</select>
+				</td>
+			</tr>
+		</table>
 
-<br>
-<input type="hidden" name="action" value="update">
-<input type="hidden" name="ext_num" value="${extraVO.ext_num}">
-<input type="hidden" name="sto_num" value="${extraVO.sto_num}">
-<input type="hidden" name="requestURL" value="<%=request.getAttribute("requestURL")%>">
-<input type="submit" value="°e¥X­×§ï">
-</FORM>
-<font color=blue>request.getAttribute("requestURL"):</font> <%=request.getAttribute("requestURL")%><br>
-<font color=blue>request.getAttribute("extraVO"):</font> <%=request.getAttribute("extraVO")%><br>
+		<input type="hidden" name="action" value="update">
+		<input type="hidden" name="ext_num" value="${extraVO.ext_num}">
+		<input type="hidden" name="sto_num" value="${extraVO.sto_num}">
+		<input type="hidden" name="requestURL" value="<%=request.getAttribute("requestURL")%>">
+		<input type="submit" value="é€å‡ºä¿®æ”¹">
+	</FORM>
+
 </body>
 </html>

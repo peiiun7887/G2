@@ -8,51 +8,50 @@
 
 <html>
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>冰塊資料修改 - update_ice_input.jsp</title>
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
-
-<style>
-  table {
-	width: 450px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-  }
-  table, th, td {
-    border: 0px solid #CCCCFF;
-  }
-  th, td {
-    padding: 1px;
-  }
-</style>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<title>修改冰塊資料</title>
+	<style>
+	  table#table-1 {
+		background-color: #CCCCFF;
+	    border: 2px solid black;
+	    text-align: center;
+	  }
+	  table#table-1 h4 {
+	    color: red;
+	    display: block;
+	    margin-bottom: 1px;
+	  }
+	  h4 {
+	    color: blue;
+	    display: inline;
+	  }
+	</style>
+	
+	<style>
+	  table {
+		width: 450px;
+		background-color: white;
+		margin-top: 1px;
+		margin-bottom: 1px;
+	  }
+	  table, th, td {
+	    border: 0px solid #CCCCFF;
+	  }
+	  th, td {
+	    padding: 1px;
+	  }
+	</style>
 
 </head>
+
 <body bgcolor='white'>
 
-<table id="table-1">
-	<tr><td>
-		 <h3>冰塊資料修改 - update_ice_input.jsp</h3>
-		 <h4><a href="<%= request.getContextPath() %>/store-end/pdc_mng/store_select_page.jsp">回首頁</a></h4>
-	</td></tr>
-</table>
-
-<h3>資料修改:</h3>
+	<table id="table-1">
+		<tr>
+			<td><h3>修改冰塊資料</h3></td>
+			<td><h4><a href="<%= request.getContextPath() %>/store-end/pdc_mng/store_select_page.jsp">回商品管理首頁</a></h4></td>
+		</tr>
+	</table>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -64,44 +63,43 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="<%= request.getContextPath() %>/pdc_mng/StoIceMng.do">
-<table>
-	<tr>
-		<td>冰塊編號</td>
-		<td><input type="TEXT" name="ice_num" size="45" 
-			 value="${iceListVO.ice_num}" disabled/>			
-		</td>	
-	</tr>
-	<tr>
-		<td>店家編號</td>
-		<td><input type="TEXT" name="sto_num" size="45" 
-			 value="${iceListVO.sto_num}" disabled/>			
-		</td>	
-	</tr>
-	<tr>
-		<td>冰塊名稱</td>
-		<td><input type="TEXT" name="ice_type" size="45" 
-			 value="${iceListVO.ice_type}" /></td>
-	</tr>	
-	<tr>
-		<td>冰塊狀態:</td>
-		<td>
-			<select size="1" name="status">
-			<option value="上架" ${(iceListVO.status=='上架')? 'selected':'' } >上架
-			<option value="下架" ${(iceListVO.status=='下架')? 'selected':'' } >下架
-			</select>
-		</td>
-	</tr>
-</table>
+	<FORM METHOD="post" ACTION="<%= request.getContextPath() %>/pdc_mng/StoIceMng.do">
+		<table>
+			<tr>
+				<td>冰塊編號</td>
+				<td><input type="TEXT" name="ice_num" size="45" 
+					 value="${iceListVO.ice_num}" disabled/>			
+				</td>	
+			</tr>
+			<tr>
+				<td>店家編號</td>
+				<td><input type="TEXT" name="sto_num" size="45" 
+					 value="${iceListVO.sto_num}" disabled/>			
+				</td>	
+			</tr>
+			<tr>
+				<td>冰塊名稱</td>
+				<td><input type="TEXT" name="ice_type" size="45" 
+					 value="${iceListVO.ice_type}" /></td>
+			</tr>	
+			<tr>
+				<td>冰塊狀態:</td>
+				<td>
+					<select size="1" name="status">
+					<option value="上架" ${(iceListVO.status=='上架')? 'selected':'' } >上架
+					<option value="下架" ${(iceListVO.status=='下架')? 'selected':'' } >下架
+					</select>
+				</td>
+			</tr>
+		</table>
 
-<br>
-<input type="hidden" name="action" value="update">
-<input type="hidden" name="ice_num" value="${iceListVO.ice_num}">
-<input type="hidden" name="sto_num" value="${iceListVO.sto_num}">
-<input type="hidden" name="requestURL" value="<%=request.getAttribute("requestURL")%>">
-<input type="submit" value="送出修改">
-</FORM>
-<font color=blue>request.getAttribute("requestURL"):</font> <%=request.getAttribute("requestURL")%><br>
-<font color=blue>request.getAttribute("iceListVO"):</font> <%=request.getAttribute("iceListVO")%><br>
+	
+		<input type="hidden" name="action" value="update">
+		<input type="hidden" name="ice_num" value="${iceListVO.ice_num}">
+		<input type="hidden" name="sto_num" value="${iceListVO.sto_num}">
+		<input type="hidden" name="requestURL" value="<%=request.getAttribute("requestURL")%>">
+		<input type="submit" value="送出修改">
+	</FORM>
+
 </body>
 </html>

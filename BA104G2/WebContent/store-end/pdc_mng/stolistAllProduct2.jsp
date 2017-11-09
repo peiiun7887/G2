@@ -13,51 +13,50 @@
 
 <html>
 <head>
-<title>店家查商品名稱 - stolistAllProduct2.jsp</title>
+<title>店家查商品名稱</title>
 
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
-
-<style>
-  table {
-	width: 800px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
-</style>
+	<style>
+	  table#table-1 {
+		background-color: #CCCCFF;
+	    border: 2px solid black;
+	    text-align: center;
+	  }
+	  table#table-1 h4 {
+	    color: red;
+	    display: block;
+	    margin-bottom: 1px;
+	  }
+	  h4 {
+	    color: blue;
+	    display: inline;
+	  }
+	</style>
+	
+	<style>
+	  table {
+		width: 800px;
+		background-color: white;
+		margin-top: 5px;
+		margin-bottom: 5px;
+	  }
+	  table, th, td {
+	    border: 1px solid #CCCCFF;
+	  }
+	  th, td {
+	    padding: 5px;
+	    text-align: center;
+	  }
+	</style>
 
 </head>
-<body bgcolor='white'>
 
-<h4>此頁練習採用 EL 的寫法取值:</h4>
+<body >
+
 <table id="table-1">
-	<tr><td>
-		${store.sto_num}<h3>所有商品資料 - stoListAllProduct2.jsp</h3> 
-		 <h4><a href="<%= request.getContextPath() %>/store-end/pdc_mng/store_select_page.jsp">回首頁</a></h4>
-		
-	</td></tr>
+	<tr>
+		<td><h3>查詢商品資料結果</h3></td>
+		<td><h4><a href="<%= request.getContextPath() %>/store-end/pdc_mng/store_select_page.jsp">回商品管理首頁</a></h4></td>
+	</tr>
 </table>
 
 <%-- 錯誤表列 --%>
@@ -71,21 +70,20 @@
 </c:if>
 
 
-<table>
-	<tr>
-		<th>商品編號</th>		
-		<th>商品名稱</th>
-		<th>小杯價錢</th>
-		<th>大杯價錢</th>
-		<th>描述</th>
-		<th>圖片</th>
-		<th>商品類別</th>
-		<th>狀態</th>
-		<th>合併狀態</th>
-		<th>修改</th>
-		<th>刪除</th>
-	</tr>
-
+	<table>
+		<tr>
+			<th>商品編號</th>		
+			<th>商品名稱</th>
+			<th>小杯價錢</th>
+			<th>大杯價錢</th>
+			<th>描述</th>
+			<th>圖片</th>
+			<th>商品類別</th>
+			<th>狀態</th>
+			<th>合併狀態</th>
+			<th>修改</th>
+			<th>刪除</th>
+		</tr>
 
 	<c:forEach var="PdcVO" items="${list}" >
 		
@@ -95,7 +93,7 @@
 			<td>${PdcVO.m_price}</td>
 			<td>${PdcVO.l_price}</td>
 			<td>${PdcVO.discribe}</td>
-			<td><img height=100 src="<%=request.getContextPath()%>/DBGifReader4?com_num=${PdcVO.com_num}"></td> 
+			<td><img height=50 src="<%=request.getContextPath()%>/DBGifReader4?com_num=${PdcVO.com_num}"></td> 
 			 <c:forEach var="pdcTSvc" items="${pdcTSvc.all}" > 
 	         	<c:if test="${pdcTSvc.pt_num==PdcVO.pt_num}" var="condition" scope="page">
 	         		<td>${pdcTSvc.pt_name}</td>
@@ -104,10 +102,10 @@
 			<td>${PdcVO.status}</td>
 			<td width=200>				
 			<c:forEach var="mcVO" items="${mcSvc.getMerList(PdcVO.mercom_num)}" varStatus="p">
-				<p>${p.count} -
+				<span>${p.count} -
 				${pdSvc.getOneProduct(mcVO.com_num).com_name} 
 				小杯 ${pdSvc.getOneProduct(mcVO.com_num).m_price}
-				大杯 ${pdSvc.getOneProduct(mcVO.com_num).l_price}</p>
+				大杯 ${pdSvc.getOneProduct(mcVO.com_num).l_price}</span>
 			</c:forEach>
 			</td>
 			
@@ -127,8 +125,7 @@
 			</td>
 		</tr>
 	</c:forEach>
-</table>
-
+	</table>
 
 </body>
 </html>
