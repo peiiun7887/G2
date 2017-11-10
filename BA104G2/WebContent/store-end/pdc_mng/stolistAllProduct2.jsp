@@ -6,7 +6,7 @@
 <jsp:useBean id="pdSvc" scope="request" class="com.product.model.ProductService" />
 <jsp:useBean id="mcSvc" scope="request" class="com.merged_commodity.model.MergedCommodityService" />
 <%
-	List<ProductVO> list = (List<ProductVO>) session.getAttribute("stolistAllProduct2");
+	List<ProductVO> list = (List<ProductVO>) request.getAttribute("stolistAllProduct2");
 	pageContext.setAttribute("list",list);
 %>
 

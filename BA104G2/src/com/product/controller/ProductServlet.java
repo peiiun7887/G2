@@ -169,7 +169,7 @@ public class ProductServlet extends HttpServlet {
 				String sto_num = req.getParameter("sto_num");
 				String com_name = req.getParameter("com_name");
 				if (com_name == null || com_name.trim().length() == 0){
-					errorMsgs.put("e_name","請輸入關鍵字");
+					errorMsgs.put("com_name","請輸入關鍵字");
 				}
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
@@ -181,9 +181,9 @@ public class ProductServlet extends HttpServlet {
 				ProductService pdcSvc = new ProductService();
 				List<ProductVO> list = pdcSvc.stoFindProductbyName(com_name, sto_num);
 				if(list.size()==0){
-					errorMsgs.put("e_name","查無資料");
+					errorMsgs.put("com_name","查無資料");
 				}
-				System.out.println(list.size());
+
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/store-end/pdc_mng/store_select_page.jsp");
@@ -191,8 +191,8 @@ public class ProductServlet extends HttpServlet {
 					return;//程式中斷
 				}
 				/************ 3.查詢完成,準備轉交(Send the Success view)**/				
-				req.getSession().setAttribute("stolistAllProduct2", list);
-				req.setAttribute("stolistAllProduct2", "stolistAllProduct2");
+				req.setAttribute("stolistAllProduct2", list);
+				
 				String url = "/store-end/pdc_mng/store_select_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 stoListAllProduct2.jsp
 				successView.forward(req, res);

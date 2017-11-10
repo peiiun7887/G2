@@ -52,19 +52,10 @@
 				<div class="block-center panelheight">
 	<!--========================== 功能放這邊 =============================================-->
 <% 
-	String attrName = null;
-	Enumeration<String> em = request.getAttributeNames();
-	
-	while(em.hasMoreElements()){
-		attrName = (String) em.nextElement();
-		out.println(attrName+" : "+request.getAttribute(attrName).toString());
-	}
-	if(request.getAttribute("attrName")==null ){
+	if(request.getAttribute("stolistAllProduct2")==null){
 		String getAllPdc = "getAllPdc";
- 		request.setAttribute("getAllPdc",getAllPdc);
+ 		request.setAttribute("getAllPdc",getAllPdc);	
 	}
-	
-
 %>
 				<div class="page-header">
 				   <h3>${sto_num}-店家商品管理</h3>
@@ -76,16 +67,6 @@
 					</form>
 				</div>		
 						
-				<%-- 錯誤表列 --%>
-				<c:if test="${not empty errorMsgs}">
-					<font style="color:red">請修正以下錯誤:</font>
-					<ul>
-					    <c:forEach var="message" items="${errorMsgs}">
-							<li style="color:red">${message.value}</li>
-						</c:forEach>
-					</ul>
-				</c:if>
-				
 				
 					<div class=" btn-group" >
 						<form class="navbar-left input-group" METHOD="post" ACTION="<%= request.getContextPath() %>/store-end/pdc_mng/store_select_page.jsp">
@@ -108,7 +89,7 @@
 					
 					<form class="navbar-left input-group" METHOD="post" ACTION="<%= request.getContextPath() %>/pdc_mng/StoPdcMng.do">
 						<div class="input-group"> 
-					    <input type="text" name="com_name" value="奶茶" class="form-control" placeholder="搜尋商品">
+					    <input type="text" name="com_name" value="" class="form-control" placeholder="搜尋商品">
 						<input type="hidden" name="action" value="getName_For_Display">
 						<input type="hidden" name="sto_num" value="${sto_num}">
 						<span class="input-group-btn">
@@ -116,7 +97,7 @@
 					    </span>    
 						</div>					
 					</form>		
-				<hr color=blue>	
+
 				
 			<div id="listAll">
 				<% if (request.getAttribute("getAllExt")!=null){
@@ -175,9 +156,6 @@
 	<script>
 		$(document).ready(function () {
 
-			$("input[value*='修改']").on('click',function(){
-				$("#listAll").addClass("hide");
-			});	
 		});	
 	</script>
 </body>
