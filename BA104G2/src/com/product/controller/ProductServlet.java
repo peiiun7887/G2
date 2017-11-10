@@ -146,6 +146,7 @@ public class ProductServlet extends HttpServlet {
 				
 				/************ 3.查詢完成,準備轉交(Send the Success view)**/				
 				req.setAttribute("productVO", productVO);
+				req.setAttribute("update_pdc_input", "update_pdc_input");
 				String url = "/store-end/pdc_mng/update_pdc_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_pdc_input.jsp
 				successView.forward(req, res);
@@ -191,7 +192,8 @@ public class ProductServlet extends HttpServlet {
 				}
 				/************ 3.查詢完成,準備轉交(Send the Success view)**/				
 				req.getSession().setAttribute("stolistAllProduct2", list);
-				String url = "/store-end/pdc_mng/stolistAllProduct2.jsp";
+				req.setAttribute("stolistAllProduct2", "stolistAllProduct2");
+				String url = "/store-end/pdc_mng/store_select_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 stoListAllProduct2.jsp
 				successView.forward(req, res);
 				
@@ -304,6 +306,7 @@ public class ProductServlet extends HttpServlet {
 				//send back if errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("productVO", productVO);
+					req.setAttribute("update_pdc_input", "update_pdc_input");
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/store-end/pdc_mng/update_pdc_input.jsp");
 					failureView.forward(req, res);
@@ -315,7 +318,7 @@ public class ProductServlet extends HttpServlet {
 				
 				/************ 3.加入完成,準備轉交(Send the Success view)**/	
 				req.setAttribute("productVO", productVO); // 資料庫update成功後,正確的VO物件
-				String url = "/store-end/pdc_mng/listOneProduct.jsp";
+				String url = "/store-end/pdc_mng/store_select_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 				
@@ -469,7 +472,7 @@ public class ProductServlet extends HttpServlet {
 				productVO = pdcSvc.updateProduct(productVO);
 				
 				/************ 3.修改完成，準備轉交   ***********************/
-				req.setAttribute("productVO", productVO);
+				req.setAttribute("productVOu", productVO);
 				String url = requestURL; // 送出修改的來源網頁(listAllSweet)和修改的是哪一筆
 				RequestDispatcher successView = req.getRequestDispatcher(url);   // 修改成功後,轉交回送出修改的來源網頁
 				successView.forward(req, res);
@@ -484,7 +487,21 @@ public class ProductServlet extends HttpServlet {
 			
 		}
 		
-		//////       測試用假登入               //////////////////////////////////
+		if("getAllPdc".equals(action)){	
+		System.out.println("---");
+			String sto_num = req.getParameter("sto_num");
+			ProductService pdcSvc = new ProductService();
+			
+			List<ProductVO> getAllPdc = pdcSvc.stoFindAllProduct(sto_num);	
+		System.out.println("---"+getAllPdc.size());
+			req.setAttribute("getAllPdc", getAllPdc);			
+			RequestDispatcher successView = req.getRequestDispatcher("/store-end/pdc_mng/store_select_page.jsp");
+			successView.forward(req, res);
+		}
+		
+		
+
+	///////////       測試用假登入               //////////////////////////////////
 		if("loginin".equals(action)){
 			String sto_num = req.getParameter("sto_num");
 			String mem_num = req.getParameter("mem_num");
@@ -506,7 +523,7 @@ public class ProductServlet extends HttpServlet {
 			res.sendRedirect(req.getContextPath()+"/store-end/form.jsp");
 		    return;
 		}
-		//////  測試用假登出               //////////////////////////////////
+	////////       測試用假登出               //////////////////////////////////
 			
 	}
 	

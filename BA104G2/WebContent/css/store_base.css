@@ -2,19 +2,19 @@
 
 		
 			body{
-				font-family: 微軟正黑體, Gotham;
-				color:#595942;/*深橄欖綠*/
+				font-family: 敺株�迤暺��, Gotham;
+				color:#595942;/*瘛望����*/
 				padding-top:50px;
 				padding-bottom: 70px;
 			}
 			p ,span {
 				font-size: 10pt;
 				margin: 0px 0px 5px 0px;
-				color:#DCE6D2; /*淡綠*/
+				color:#DCE6D2; /*瘛∠��*/
 			}
 
 			.navbars{
-				background-color: #3C9682;/*主色*/
+				background-color: #3C9682;/*銝餉*/
 			}
 
 			.item-color{
@@ -31,13 +31,13 @@
 			}
 			
 			.btn-green{
-				background:#3C9682; /*主色green*/
+				background:#3C9682; /*銝餉green*/
 				color:#FFFFFF;
 				margin-right: 15px;
 			}
 
 			.btn-org{
-				background: #FA5532; /*橘色der*/
+				background: #FA5532; /*璈der*/
 				color:#FFFFFF;
 			}
 
@@ -50,13 +50,13 @@
 			}
 
 			.funcbtn-normal{
-				color:#3C9682;/*橄欖綠*/	
+				color:#3C9682;/*璈���*/	
 				
 			}
 
 			.panelheight{
 				border-color: #CCCCCC;
 				
-				height:1200px;  
+				height:1500px;  
 			}
 

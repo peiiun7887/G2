@@ -177,5 +177,12 @@ public class SweetnessServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+		if("getAllSwt".equals(action)){			
+			String getAllSwt = "getAllSwt";
+			req.setAttribute("getAllSwt", getAllSwt);
+			RequestDispatcher successView = req.getRequestDispatcher("/store-end/pdc_mng/store_select_page.jsp");
+			successView.forward(req, res);
+		}
 	}
 }

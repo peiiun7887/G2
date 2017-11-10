@@ -2,6 +2,7 @@ package com.exrta.controller;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -169,7 +170,8 @@ public class ExtraServlet extends HttpServlet {
 				ExtraService extSvc = new ExtraService();
 				extraVO = extSvc.updateExtra(extraVO);
 				
-				/************ 3.查詢完成,準備轉交(Send the Success view)**/				
+				/************ 3.查詢完成,準備轉交(Send the Success view)**/	
+				req.setAttribute("getAllExt", "getAllExt");
 				String url = requestURL+"?ext_num="+ext_num;
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);				
@@ -209,6 +211,13 @@ public class ExtraServlet extends HttpServlet {
 						.getRequestDispatcher(requestURL);
 				failureView.forward(req, res);
 			}
+		}
+		
+		if("getAllExt".equals(action)){			
+			String getAllExt = "getAllExt";
+			req.setAttribute("getAllExt", getAllExt);			
+			RequestDispatcher successView = req.getRequestDispatcher("/store-end/pdc_mng/store_select_page.jsp");
+			successView.forward(req, res);
 		}
 		
 		

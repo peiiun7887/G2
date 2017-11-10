@@ -4,7 +4,7 @@
 <jsp:useBean id="pdcTSvc" scope="request" class="com.product_type.model.ProductTypeService" />	
 
 <%
-  ProductVO productVO = (ProductVO) request.getAttribute("productVO");
+  ProductVO productVOerr = (ProductVO) request.getAttribute("productVOerr");
 %>
 
 <html>
@@ -78,7 +78,7 @@
 			<tr>
 				<td>商品名稱</td>
 				<td><input type="TEXT" name="com_name" size="45" 
-					 value="${productVO.com_name}" /></td>
+					 value="${productVOerr.com_name}" /></td>
 			</tr>
 			<tr>
 				<td>小杯商品價位:</td>

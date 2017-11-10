@@ -176,7 +176,7 @@
 			$("[class~='panel-heading']").hover(function(){$(this).css("background-color","#DCE6D2")},function(){$(this).css("background-color"," #FFFFFF")});
 			
 			// 改 panel裡面 hover 顏色
-			$(".list-group > [class|='list-group-item']").hover(function(){$(this).css({"background-color":"#DCE6D2","color":"#595942"})},function(){$(this).css({"background-color":"#FFFFFF","color":"#595942"})});
+// 			$(".list-group > [class|='list-group-item']").hover(function(){$(this).css({"background-color":"#DCE6D2","color":"#595942"})},function(){$(this).css({"background-color":"#FFFFFF","color":"#595942"})});
 			
 			//目前active業面
 			var loc = window.location.pathname;

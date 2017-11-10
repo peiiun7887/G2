@@ -136,6 +136,7 @@ public class IceListServlet extends HttpServlet {
 				iceListVO = iceSvc.updateIceList(iceListVO);
 		
 				/************ 3.修改完成，準備轉交   ***********************/
+				req.setAttribute("getAllIce", "getAllIce");
 				String url = requestURL+"?ice_num="+ice_num; // 送出修改的來源網頁(listAllSweet)和修改的是哪一筆
 				RequestDispatcher successView = req.getRequestDispatcher(url);   // 修改成功後,轉交回送出修改的來源網頁
 				successView.forward(req, res);
@@ -175,6 +176,12 @@ public class IceListServlet extends HttpServlet {
 						.getRequestDispatcher(requestURL);
 				failureView.forward(req, res);
 			}
+		}
+		
+		if("getAllIce".equals(action)){			
+			req.setAttribute("getAllIce", "getAllIce");
+			RequestDispatcher successView = req.getRequestDispatcher("/store-end/pdc_mng/store_select_page.jsp");
+			successView.forward(req, res);
 		}
 	}
 }
