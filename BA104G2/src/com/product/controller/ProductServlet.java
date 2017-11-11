@@ -490,8 +490,7 @@ public class ProductServlet extends HttpServlet {
 		if("getAllPdc".equals(action)){	
 		System.out.println("---");
 			String sto_num = req.getParameter("sto_num");
-			ProductService pdcSvc = new ProductService();
-			
+			ProductService pdcSvc = new ProductService();			
 			List<ProductVO> getAllPdc = pdcSvc.stoFindAllProduct(sto_num);	
 		System.out.println("---"+getAllPdc.size());
 			req.setAttribute("getAllPdc", getAllPdc);			

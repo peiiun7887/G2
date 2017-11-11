@@ -5,10 +5,32 @@
 
 <body>
 
+					<form class="navbar-left input-group" METHOD="post" ACTION="<%= request.getContextPath() %>/pdc_mng/StoPdcMng.do">
+						
+						<div class="input-group"> 
+					    <input type="text" name="com_name" value="" class="form-control" placeholder="搜尋商品">
+						<input type="hidden" name="action" value="getName_For_Display">
+						<input type="hidden" name="sto_num" value="${sto_num}">
+						<span class="input-group-btn">
+							<input type="submit" value="送出" class="btn btn-green">
+					    </span>    
+						</div>	
+										
+					</form>	
+						
+					<div class=" btn-group" >	
 				
+					  <a href='<%= request.getContextPath() %>/store-end/pdc_mng/addProduct.jsp' class="btn btn-green-group">新增商品</a>
+					  <a href='<%= request.getContextPath() %>/store-end/pdc_mng/addSweetness.jsp' class="btn btn-green-group">新增甜度</a>
+					  <a href='<%= request.getContextPath() %>/store-end/pdc_mng/addIce.jsp' class="btn btn-green-group">新增冰度</a>
+					  <a href='<%= request.getContextPath() %>/store-end/pdc_mng/addExtra.jsp' class="btn btn-green-group">新增加料</a>
+					  <a href='<%= request.getContextPath() %>/store-end/pdc_mng/addMerge.jsp' class="btn btn-green-group">合併商品</a>
+				
+					</div>
+					
 					<div class=" btn-group" >
-						<form class="navbar-left input-group" METHOD="post" ACTION="<%= request.getContextPath() %>/store-end/pdc_mng/store_select_page.jsp">
-							<input type="submit" value="商品列表" class="btn btn-green">
+						<form class="input-group" METHOD="post" ACTION="<%= request.getContextPath() %>/store-end/pdc_mng/store_select_page.jsp">
+							<input type="submit" value="商品列表" class="btn btn-green-group">
 							<input type="hidden" name="action" value="getAllPdc">
 						</form>														
 						<form class="navbar-left input-group " METHOD="post" ACTION="<%= request.getContextPath() %>/pdc_mng/StoExtMng.do">
@@ -25,22 +47,12 @@
 						</form>	
 					</div>
 					
-					<form class="navbar-left input-group" METHOD="post" ACTION="<%= request.getContextPath() %>/pdc_mng/StoPdcMng.do">
-						<div class="input-group"> 
-					    <input type="text" name="com_name" value="" class="form-control" placeholder="搜尋商品">
-						<input type="hidden" name="action" value="getName_For_Display">
-						<input type="hidden" name="sto_num" value="${sto_num}">
-						<span class="input-group-btn">
-							<input type="submit" value="送出" class="btn btn-green">
-					    </span>    
-						</div>					
-					</form>		
+
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script>
 		$(document).ready(function () {
-
-			});	
+			
 		});	
 	</script>
 </body>

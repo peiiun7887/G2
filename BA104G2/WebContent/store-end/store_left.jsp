@@ -60,7 +60,7 @@
 						          <div class="panel-title funcbtn-normal">商品管理</div>
 						        </a>				      
 						    </div>
-						    <div id="func2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="panel2">
+						    <div id="func2" class="panel-collapse collapse " role="tabpanel" aria-labelledby="panel2">
 						        <div class="list-group">
 						        	<a href="<%= request.getContextPath() %>/store-end/pdc_mng/store_select_page.jsp" class="list-group-item">修改商品</a>
 						        	<a href="<%= request.getContextPath() %>/store-end/pdc_mng/store_add_page.jsp" class="list-group-item ">新增商品</a>
@@ -178,7 +178,7 @@
 			// 改 panel裡面 hover 顏色
 // 			$(".list-group > [class|='list-group-item']").hover(function(){$(this).css({"background-color":"#DCE6D2","color":"#595942"})},function(){$(this).css({"background-color":"#FFFFFF","color":"#595942"})});
 			
-			//目前active業面
+			//目前active頁面
 			var loc = window.location.pathname;
 			console.log(loc);
 			$('.panel-collapse').find('a').each(function() {
