@@ -9,7 +9,7 @@
 <BODY>
 
 
-  <FORM METHOD="get" ACTION="<%= request.getContextPath() %>/pdc_mng/StoPdcMng.do">
+  <FORM METHOD="get" ACTION="<%= request.getContextPath() %>/fakeLogin">
       
 ·|­û½s¸¹
     <INPUT TYPE="TEXT" NAME="mem_num" VALUE="MB0000000001"><p>

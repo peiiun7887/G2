@@ -499,29 +499,7 @@ public class ProductServlet extends HttpServlet {
 		
 		
 
-	///////////       測試用假登入               //////////////////////////////////
-		if("loginin".equals(action)){
-			String sto_num = req.getParameter("sto_num");
-			String mem_num = req.getParameter("mem_num");
-			System.out.println(sto_num+","+mem_num);
-			HttpSession session = req.getSession();
-			session.setAttribute("sto_num", sto_num);
-			session.setAttribute("mem_num", mem_num);
-			res.sendRedirect(req.getContextPath()+"/store-end/pdc_mng/store_select_page.jsp");	
-			return;
-		}
-		
-		if ("logoutout".equals(action)) {
-			String sto_num = req.getParameter("sto_num");
-			String mem_num = req.getParameter("mem_num");
-			HttpSession session = req.getSession();
-			session.invalidate();
-			System.out.println(sto_num+"logout");
-			//整個連線拔掉
-			res.sendRedirect(req.getContextPath()+"/store-end/form.jsp");
-		    return;
-		}
-	////////       測試用假登出               //////////////////////////////////
+
 			
 	}
 	

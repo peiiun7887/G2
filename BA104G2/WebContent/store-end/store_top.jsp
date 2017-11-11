@@ -28,7 +28,7 @@
 					<ul class="nav navbar-nav navbar-right ">	
 						<li>
 							
-							<a class="item-color " href="<%= request.getContextPath() %>/pdc_mng/StoPdcMng.do?action=logoutout">
+							<a class="item-color " href="<%= request.getContextPath() %>/fakeLogin?action=logoutout">
 							<span class="glyphicon glyphicon-log-out icons"></span>
 								登出							
 							</a>
