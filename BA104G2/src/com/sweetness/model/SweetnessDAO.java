@@ -27,7 +27,7 @@ public class SweetnessDAO implements SweetnessDAO_interface {
 	private static final String UPDATE =
 			"UPDATE SWEETNESS SET SWEET_TYPE=?,STATUS=? WHERE SWEET_NUM=?";
 	private static final String GET_SWEETNESS =
-			"SELECT * FROM SWEETNESS WHERE STO_NUM=? AND STATUS<>'刪除'";
+			"SELECT * FROM SWEETNESS WHERE STO_NUM=? AND STATUS<>'刪除' ORDER BY SWEET_NUM DESC";
 	private static final String GET_ONE_SWEETNESS=
 			"SELECT * FROM SWEETNESS WHERE SWEET_NUM=?";
 	

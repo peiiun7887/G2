@@ -164,6 +164,8 @@
 
 	$(document).ready(function () {
 		$('#insert').hide();
+		//已是合併商品標示灰色
+		$("input[type=checkbox]:disabled").closest('tr').css("background","#CCCCCC");
 		
 		//錯誤處理直接到顯示FORM表單
 		if(location.pathname=="/BA104G2/pdc_mng/StoPdcMng.do"){
@@ -174,8 +176,8 @@
 		
 		//全選+全不選
 		$("input[name=selectall]").change('click',function(){
-			var checkboxes = $('input[name="checkbox"]');
-		    $(this).is(':checked') ? checkboxes.prop('checked', 'checked') : checkboxes.removeAttr('checked');
+			var checkboxes = $('input[name="checkbox"]:enabled');
+			$(this).is(':checked') ? checkboxes.prop('checked', 'checked') : checkboxes.removeAttr('checked');			
 		});
 		
 		//合併按鈕
@@ -185,9 +187,11 @@
 			var l_price=0;
 			$("input[name=selectall]").removeAttr('checked');
 			$("input[type=checkbox]:checked").each(function(i){
-			 pname = pname+$(this).parent().siblings("td.com_name").text()+" ";
-			 m_price = m_price+parseInt($(this).parent().siblings("td.m_price").text());
-			 l_price = l_price+parseInt($(this).parent().siblings("td.l_price").text());
+				if($(this).is(':enabled')){	//非合併商品才會計算
+					 pname = pname+$(this).parent().siblings("td.com_name").text()+" ";
+					 m_price = m_price+parseInt($(this).parent().siblings("td.m_price").text());
+					 l_price = l_price+parseInt($(this).parent().siblings("td.l_price").text());
+				}
 			})
 		
 			//塞值進去下面的FORM
@@ -213,6 +217,8 @@
 			$('#insert').hide("slow");
 			return false;		
 		});
+		
+		
 		
 	});
 

@@ -76,7 +76,8 @@ public class ExtraServlet extends HttpServlet {
 				String ext_num = extraVO.getExt_num();
 				
 				/************ 3.加入完成,準備轉交(Send the Success view)**/	
-				String url = "/store-end/pdc_mng/stolistAllExtra.jsp?ext_num="+ext_num;
+				req.setAttribute("getAllExt", "getAllExt");	
+				String url = "/store-end/pdc_mng/store_select_page.jsp?ext_num="+ext_num;
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);				
 				
@@ -200,6 +201,7 @@ public class ExtraServlet extends HttpServlet {
 				extraVO = extSvc.updateExtra(extraVO);
 				
 				/************ 3.修改完成，準備轉交   ***********************/
+				req.setAttribute("getAllExt", "getAllExt");		
 				String url = requestURL; // 送出修改的來源網頁(listAllExtra)和修改的是哪一筆
 				RequestDispatcher successView = req.getRequestDispatcher(url);   // 修改成功後,轉交回送出修改的來源網頁
 				successView.forward(req, res);
@@ -214,8 +216,7 @@ public class ExtraServlet extends HttpServlet {
 		}
 		
 		if("getAllExt".equals(action)){			
-			String getAllExt = "getAllExt";
-			req.setAttribute("getAllExt", getAllExt);			
+			req.setAttribute("getAllExt", "getAllExt");			
 			RequestDispatcher successView = req.getRequestDispatcher("/store-end/pdc_mng/store_select_page.jsp");
 			successView.forward(req, res);
 		}

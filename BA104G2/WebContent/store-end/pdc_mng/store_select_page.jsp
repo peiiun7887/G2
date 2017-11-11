@@ -34,11 +34,7 @@
 	body{
 	height:1000px;
 	}
-	div{
-		border:1px solid #AAAAAA;
-	}
-	</style>
-	
+
 </style>
 
 </head>
@@ -60,19 +56,18 @@
  		request.setAttribute("getAllPdc",getAllPdc);	
 	}
 %>
-				<div class="page-header">
+				<div >
 				   <h3>${sto_num}-店家商品管理</h3>
 				
-					<form method="get" action="<%= request.getContextPath() %>/pdc_mng/StoPdcMng.do">
-					<input type="hidden" name="sto_num"value="${sto_num}">
-					<input type="hidden" name="action"value="logoutout">
-					<input type="submit" value="測試用登出">
-					</form>
+				
 				</div>		
 						
+
+  <jsp:include page="/store-end/pdc_mng/btn_select.jsp" />	
+
 				
 <%-- 查詢+ListAll按鈕+add按鈕 --%>
-<jsp:include page="/store-end/pdc_mng/btn_select.jsp" />	
+
 
 				
 			<div id="listAll">

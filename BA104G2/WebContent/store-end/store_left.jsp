@@ -54,17 +54,12 @@
 						</div>
 
 						<!-- 2.商品管理 -->
-						<div class="panel panel-default">
+						<div class="panel panel-default ">
 						    <div class="panel-heading" role="tab" id="panel2">				      
-						        <a href="#func2" data-parent="#accordion1" data-toggle="collapse" role="button" class="collapsed" aria-expanded="false" aria-controls="func2">
-						          <div class="panel-title funcbtn-normal">商品管理</div>
+						        <a href="<%= request.getContextPath() %>/store-end/pdc_mng/store_select_page.jsp" data-parent="#accordion1" data-toggle="collapse" role="button" class="collapsed" >
+						          <div class="panel-title funcbtn-normal">商品管理
+						          </div>
 						        </a>				      
-						    </div>
-						    <div id="func2" class="panel-collapse collapse " role="tabpanel" aria-labelledby="panel2">
-						        <div class="list-group">
-						        	<a href="<%= request.getContextPath() %>/store-end/pdc_mng/store_select_page.jsp" class="list-group-item">修改商品</a>
-						        	<a href="<%= request.getContextPath() %>/store-end/pdc_mng/store_add_page.jsp" class="list-group-item ">新增商品</a>
-						        </div>
 						    </div>
 						</div>
 

@@ -117,7 +117,7 @@ public class ProductServlet extends HttpServlet {
 				productVO = pdcSvc.addProduct(productVO);
 				String com_num = productVO.getCom_num();
 				/************ 3.加入完成,準備轉交(Send the Success view)**/	
-				String url = "/store-end/pdc_mng/stolistAllProduct.jsp?com_num="+com_num;
+				String url = "/store-end/pdc_mng/store_select_page.jsp?com_num="+com_num;
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交stolistAllProduct.jsp
 				successView.forward(req, res);
 				
@@ -306,7 +306,6 @@ public class ProductServlet extends HttpServlet {
 				//send back if errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("productVO", productVO);
-					req.setAttribute("update_pdc_input", "update_pdc_input");
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/store-end/pdc_mng/update_pdc_input.jsp");
 					failureView.forward(req, res);
@@ -442,7 +441,7 @@ public class ProductServlet extends HttpServlet {
 				pdcSvc.updateProduct(productVO);				
 				
 				/************ 3.加入完成,準備轉交(Send the Success view)**/	
-				String url = "/store-end/pdc_mng/stolistAllProduct.jsp?com_num="+com_num;
+				String url = "/store-end/pdc_mng/store_select_page.jsp?com_num="+com_num;
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交stolistAllProduct.jsp
 				successView.forward(req, res);
 				

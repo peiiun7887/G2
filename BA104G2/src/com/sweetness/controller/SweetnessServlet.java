@@ -57,7 +57,8 @@ public class SweetnessServlet extends HttpServlet {
 				String sweet_num = sweetnessVO.getSweet_num();
 				
 				/************ 3.加入完成,準備轉交(Send the Success view)**/	
-				String url = "/store-end/pdc_mng/stolistAllSweet.jsp?sweet_num="+sweet_num;
+				req.setAttribute("getAllSwt","getAllSwt"); 
+				String url = "/store-end/pdc_mng/store_select_page.jsp?sweet_num="+sweet_num;
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交stolistAllProduct.jsp
 				successView.forward(req, res);				
 				
@@ -137,6 +138,7 @@ public class SweetnessServlet extends HttpServlet {
 				sweetnessVO = swtSvc.updateSweetness(sweetnessVO);
 		
 				/************ 3.修改完成，準備轉交   ***********************/
+				req.setAttribute("getAllSwt","getAllSwt");
 				String url = requestURL+"?sweet_num="+sweet_num; // 送出修改的來源網頁(listAllSweet)和修改的是哪一筆
 				RequestDispatcher successView = req.getRequestDispatcher(url);   // 修改成功後,轉交回送出修改的來源網頁
 				successView.forward(req, res);
@@ -165,6 +167,7 @@ public class SweetnessServlet extends HttpServlet {
 				sweetnessVO = swtSvc.updateSweetness(sweetnessVO);
 				
 				/************ 3.修改完成，準備轉交   ***********************/
+				req.setAttribute("getAllSwt","getAllSwt");
 				String url = requestURL; // 送出修改的來源網頁(listAllSweet)和修改的是哪一筆
 				RequestDispatcher successView = req.getRequestDispatcher(url);   // 修改成功後,轉交回送出修改的來源網頁
 				successView.forward(req, res);
@@ -179,8 +182,7 @@ public class SweetnessServlet extends HttpServlet {
 		}
 		
 		if("getAllSwt".equals(action)){			
-			String getAllSwt = "getAllSwt";
-			req.setAttribute("getAllSwt", getAllSwt);
+			req.setAttribute("getAllSwt","getAllSwt");
 			RequestDispatcher successView = req.getRequestDispatcher("/store-end/pdc_mng/store_select_page.jsp");
 			successView.forward(req, res);
 		}
