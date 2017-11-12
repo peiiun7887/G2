@@ -48,9 +48,9 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 		for(StoreProfileVO stoVO : orgList){			
 			String addr = stoVO.getArea()+stoVO.getAddress();
 			
-			String[] latlng = Geoget(addr);
-			String lat = latlng[0];
-			String lng = latlng[1];
+			double[] latlng = Geoget(addr);
+			double lat = latlng[0];
+			double lng = latlng[1];
 			
 			stoVO.setAddress(addr);
 			stoVO.setLat(lat);
@@ -87,8 +87,8 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 //	}
 
 	//用地址轉出經緯度
-	private String[] Geoget(String addr){	
-		String[] latlng= new String[2];
+	private double[] Geoget(String addr){	
+		double[] latlng= new double[2];
 		URL url = null;		
 		try {
 			url = new URL("http://maps.googleapis.com/maps/api/geocode/xml?address="+java.net.URLEncoder.encode(addr,"UTF-8")+"&sensor=false&language=zh-TW"); // 建立URL物件url , 以 中文台北市(之地址換算經緯度為例)
@@ -107,11 +107,11 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 				if(data.contains("<location>")){
 					data = br.readLine();
 					if (data.contains("<lat>")) {
-						latlng[0]=(data.substring(data.indexOf("<lat>") + 5, data.indexOf("</lat>")));
+						latlng[0]=Double.parseDouble((data.substring(data.indexOf("<lat>") + 5, data.indexOf("</lat>"))));
 					}
 					data = br.readLine();
 					if (data.contains("<lng>")) {
-						latlng[1]=(data.substring(data.indexOf("<lng>") + 5, data.indexOf("</lng>")));
+						latlng[1]=Double.parseDouble((data.substring(data.indexOf("<lng>") + 5, data.indexOf("</lng>"))));
 					}
 					break;
 				}

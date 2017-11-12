@@ -16,20 +16,20 @@ public class StoreProfileVO implements java.io.Serializable{
 	private String sto_introduce;
 	private String sto_status;
 	private Integer rem_point;
-	private String lat;
-	private String lng;
+	private Double lat;
+	private Double lng;
 	
 	
-	public String getLat() {
+	public Double getLat() {
 		return lat;
 	}
-	public void setLat(String lat) {
+	public void setLat(Double lat) {
 		this.lat = lat;
 	}
-	public String getLng() {
+	public Double getLng() {
 		return lng;
 	}
-	public void setLng(String lng) {
+	public void setLng(Double lng) {
 		this.lng = lng;
 	}
 	public String getSto_num() {
