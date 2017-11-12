@@ -36,12 +36,16 @@
               });
               var marker = new google.maps.Marker({
                 position: current_pos,
-                map: map			// mark center position
+                map: map			
               });
 			});
     	  
-    	  // 擷取及時公車資訊  call getJSON()
-    	  getJSON('http://ptx.transportdata.tw/MOTC/v2/Bus/RealTimeByFrequency/City/Taoyuan?$format=JSON', callback);
+    	  var marker = new google.maps.Marker({
+    		 
+    	  });
+    	  
+    	  
+ 
       
       } 
       
@@ -60,29 +64,6 @@
           xhr.send();
         }
 
-
-        // Create an array of alphabetical characters used to label the markers.
-        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-        // Add some markers to the map.
-        // Note: The code uses the JavaScript Array.prototype.map() method to
-        // create an array of markers based on a given "locations" array.
-        // The map() method here has nothing to do with the Google Maps API.
-        var markers = locations.map(function(location, i) {
-          return new google.maps.Marker({
-            position: location,
-            label: labels[i % labels.length]
-          });
-        });
-
-        // Add a marker clusterer to manage the markers.
-        var markerCluster = new MarkerClusterer(map, markers,
-            {imagePath: 'https://maps.google.com/mapfiles/kml/shapes/bus_maps.png'});
-      
-      
-      var locations = [
-        {lat: 25.001791, lng: 121.306465}      
-      ];
       
  
     </script>

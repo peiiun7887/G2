@@ -55,4 +55,15 @@
     <servlet-name>ExtraServlet</servlet-name>
     <url-pattern>/pdc_mng/StoExtMng.do</url-pattern>
   </servlet-mapping>
+<!--   load on start to get storeAddr-->
+<!--   <servlet> -->
+<!-- 		<servlet-name>StoreProfileServlet</servlet-name> -->
+<!-- 		<servlet-class>com.store_profile.controller.StoreProfileServlet</servlet-class> -->
+<!-- 		<load-on-startup>10</load-on-startup> -->
+<!-- 	</servlet> -->
+<!-- 	<servlet-mapping> -->
+<!-- 		<servlet-name>StoreProfileServlet</servlet-name> -->
+<!-- 		<url-pattern>/StoreProfileServlet</url-pattern> -->
+<!-- 	</servlet-mapping> -->
+	
 </web-app>

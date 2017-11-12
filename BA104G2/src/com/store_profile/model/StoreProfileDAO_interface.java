@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface StoreProfileDAO_interface {
 	
-	public String getAllgeo();
+	public List<StoreProfileVO> getAllgeo();
 }

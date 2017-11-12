@@ -8,18 +8,30 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import com.google.gson.Gson;
 
 
-public class StoreProfileDAOJDBC implements StoreProfileDAO_interface{
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "BA104G2";
-	String passwd = "BA104G2";
+public class StoreProfileDAO implements StoreProfileDAO_interface{
 	
+	private static DataSource ds = null;
+	static{
+		
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/BA104G2");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	private static final String GET_ADDR = 
 			"SELECT STO_NUM, STO_NAME, AREA, ADDRESS FROM STORE_PROFILE WHERE STO_STATUS = '未上架' OR STO_STATUS = '已上架'";
-		
+
 	@Override
 	public List<StoreProfileVO> getAllgeo() {
 		Connection con =null;
@@ -29,9 +41,7 @@ public class StoreProfileDAOJDBC implements StoreProfileDAO_interface{
 		StoreProfileVO sto_info = null;
 //		String addrlist=null;
 		try{
-			Class.forName(driver);
-
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();	
 			pstmt = con.prepareStatement(GET_ADDR);			
 			rs = pstmt.executeQuery();
 			
@@ -41,14 +51,9 @@ public class StoreProfileDAOJDBC implements StoreProfileDAO_interface{
 				sto_info.setSto_name(rs.getString("sto_name"));
 				sto_info.setArea(rs.getString("area"));
 				sto_info.setAddress(rs.getString("address"));
-				
 				list.add(sto_info);
-			}			
+			}	
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -78,14 +83,5 @@ public class StoreProfileDAOJDBC implements StoreProfileDAO_interface{
 		}
 		return list;
 	}
-	
-	public static void main(String[] args) {
-//		
-//		StoreProfileDAOJDBC dao = new StoreProfileDAOJDBC();
-//		String addr = dao.getAllgeo();
-//		System.out.println(addr);
-	}
-
-
 
 }
