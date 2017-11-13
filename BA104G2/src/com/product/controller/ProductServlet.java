@@ -23,8 +23,16 @@ public class ProductServlet extends HttpServlet {
 		
 		req.setCharacterEncoding("UTF-8");
 		String action =req.getParameter("action");
-		
-		if("insert".equals(action)){	//來自addProduct 請求
+		HttpSession se = req.getSession();
+
+		if("insert".equals(action)){
+			//檢查是否從add頁面過來
+			if(se.getAttribute("addform")!="permit" ){
+				String url = "/store-end/pdc_mng/store_select_page.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); //回去listAll頁面
+				successView.forward(req, res);
+				return;
+			} 
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs",errorMsgs);
 			
@@ -117,8 +125,8 @@ public class ProductServlet extends HttpServlet {
 				productVO = pdcSvc.addProduct(productVO);
 				String com_num = productVO.getCom_num();
 				/************ 3.加入完成,準備轉交(Send the Success view)**/	
+				se.removeAttribute("addform");				//把通行證拿掉防止f5重送表單
 				String url = "/store-end/pdc_mng/store_select_page.jsp?com_num="+com_num;
-				
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交stolistAllProduct.jsp
 				successView.forward(req, res);
 				
@@ -332,6 +340,12 @@ public class ProductServlet extends HttpServlet {
 		}
 		
 		if("insert_merge".equals(action)){
+			if(se.getAttribute("addform")!="permit" ){
+				String url = "/store-end/pdc_mng/store_select_page.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); //回去listAll頁面
+				successView.forward(req, res);
+				return;
+			} 
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs",errorMsgs);
 			try {
@@ -442,6 +456,7 @@ public class ProductServlet extends HttpServlet {
 				pdcSvc.updateProduct(productVO);				
 				
 				/************ 3.加入完成,準備轉交(Send the Success view)**/	
+				se.removeAttribute("addform");				//把通行證拿掉防止f5重送表單
 				String url = "/store-end/pdc_mng/store_select_page.jsp?com_num="+com_num;
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交stolistAllProduct.jsp
 				successView.forward(req, res);

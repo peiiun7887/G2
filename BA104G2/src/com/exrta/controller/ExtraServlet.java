@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.extra.model.*;
 
@@ -24,8 +25,17 @@ public class ExtraServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		
-		if("insert".equals(action)){
+		HttpSession se = req.getSession();
+
+		if ("insert".equals(action) ){
+			//檢查是否從add頁面過來
+			if(se.getAttribute("addform")!="permit" ){
+				req.setAttribute("getAllExt","getAllExt");
+				String url = "/store-end/pdc_mng/store_select_page.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); //回去listAll頁面
+				successView.forward(req, res);
+				return;
+			} 
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs",errorMsgs);
 			String requestURL = req.getParameter("requestURL");
@@ -76,7 +86,8 @@ public class ExtraServlet extends HttpServlet {
 				String ext_num = extraVO.getExt_num();
 				
 				/************ 3.加入完成,準備轉交(Send the Success view)**/	
-				req.setAttribute("getAllExt", "getAllExt");	
+				req.setAttribute("getAllExt", "getAllExt");		//跟select_page說要顯示				
+				se.removeAttribute("addform");				//把通行證拿掉防止f5重送表單
 				String url = "/store-end/pdc_mng/store_select_page.jsp?ext_num="+ext_num;
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);				

@@ -4,7 +4,9 @@
 <jsp:useBean id="pdcTSvc" scope="request" class="com.product_type.model.ProductTypeService" />	
 
 <%
-  ProductVO productVOerr = (ProductVO) request.getAttribute("productVOerr");
+	ProductVO productVOerr = (ProductVO) request.getAttribute("productVOerr");
+	session.setAttribute("addform","permit");	//從add頁面來得給個通行證
+
 %>
 
 <html>

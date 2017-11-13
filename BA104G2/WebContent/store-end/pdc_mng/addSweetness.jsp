@@ -4,7 +4,7 @@
 
 <%
 	SweetnessVO sweetnessVO = (SweetnessVO) request.getAttribute("sweetnessVO");
-	session.setAttribute("addform","123");
+	session.setAttribute("addform","permit");	//從add頁面來得給個通行證
 %>
 
 <html>

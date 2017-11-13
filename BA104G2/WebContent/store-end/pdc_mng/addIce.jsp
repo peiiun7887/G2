@@ -4,6 +4,7 @@
 
 <%
 	IceListVO iceListVO = (IceListVO) request.getAttribute("iceListVO");
+	session.setAttribute("addform","permit");	//從add頁面來得給個通行證
 %>
 
 <html>

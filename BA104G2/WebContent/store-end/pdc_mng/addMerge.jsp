@@ -12,6 +12,8 @@
     List<ProductVO> list = pdcSvc.stoFindAllProduct(sto_num);
     pageContext.setAttribute("list",list);
     ProductVO productVO = (ProductVO) request.getAttribute("productVO");  	
+	session.setAttribute("addform","permit");	//從add頁面來得給個通行證
+
 %>
 
 
@@ -188,7 +190,7 @@
 			$("input[name=selectall]").removeAttr('checked');
 			$("input[type=checkbox]:checked").each(function(i){
 				if($(this).is(':enabled')){	//非合併商品才會計算
-					 pname = pname+$(this).parent().siblings("td.com_name").text()+" ";
+					 pname = pname+$(this).parent().siblings("td.com_name").text()+"_";
 					 m_price = m_price+parseInt($(this).parent().siblings("td.m_price").text());
 					 l_price = l_price+parseInt($(this).parent().siblings("td.l_price").text());
 				}

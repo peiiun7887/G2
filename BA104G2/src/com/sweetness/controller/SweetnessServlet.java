@@ -23,14 +23,16 @@ public class SweetnessServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action =req.getParameter("action");
 		HttpSession se = req.getSession();
+		
 		if ("insert".equals(action) ){
-			if(se.getAttribute("addform")!="123" ){
+			//檢查是否從add頁面過來
+			if(se.getAttribute("addform")!="permit" ){
 				req.setAttribute("getAllSwt","getAllSwt");
 				String url = "/store-end/pdc_mng/store_select_page.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交stolistAllProduct.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); //回去listAll頁面
 				successView.forward(req, res);
 				return;
-			}
+			} 
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs",errorMsgs);
 			String requestURL = req.getParameter("requestURL");
@@ -54,7 +56,6 @@ public class SweetnessServlet extends HttpServlet {
 				//send back if errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("sweetnessVO", sweetnessVO);
-					se.setAttribute("addform","123");
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/store-end/pdc_mng/addSweetness.jsp");
 					failureView.forward(req, res);
@@ -66,9 +67,8 @@ public class SweetnessServlet extends HttpServlet {
 				String sweet_num = sweetnessVO.getSweet_num();
 				
 				/************ 3.加入完成,準備轉交(Send the Success view)**/	
-				req.setAttribute("getAllSwt","getAllSwt");
-				
-				se.removeAttribute("addform");
+				req.setAttribute("getAllSwt","getAllSwt");	//跟select_page說要顯示糖				
+				se.removeAttribute("addform");				//把通行證拿掉防止f5重送表單
 				String url = "/store-end/pdc_mng/store_select_page.jsp?sweet_num="+sweet_num;
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交stolistAllProduct.jsp
 				successView.forward(req, res);
