@@ -9,20 +9,28 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.sweetness.model.*;
 
 public class SweetnessServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		doPost(req, res);
+		return;
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action =req.getParameter("action");
-		
-		if ("insert".equals(action)){
+		HttpSession se = req.getSession();
+		if ("insert".equals(action) ){
+			if(se.getAttribute("addform")!="123" ){
+				req.setAttribute("getAllSwt","getAllSwt");
+				String url = "/store-end/pdc_mng/store_select_page.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交stolistAllProduct.jsp
+				successView.forward(req, res);
+				return;
+			}
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs",errorMsgs);
 			String requestURL = req.getParameter("requestURL");
@@ -46,6 +54,7 @@ public class SweetnessServlet extends HttpServlet {
 				//send back if errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("sweetnessVO", sweetnessVO);
+					se.setAttribute("addform","123");
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/store-end/pdc_mng/addSweetness.jsp");
 					failureView.forward(req, res);
@@ -57,11 +66,13 @@ public class SweetnessServlet extends HttpServlet {
 				String sweet_num = sweetnessVO.getSweet_num();
 				
 				/************ 3.加入完成,準備轉交(Send the Success view)**/	
-				req.setAttribute("getAllSwt","getAllSwt"); 
+				req.setAttribute("getAllSwt","getAllSwt");
+				
+				se.removeAttribute("addform");
 				String url = "/store-end/pdc_mng/store_select_page.jsp?sweet_num="+sweet_num;
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交stolistAllProduct.jsp
-				successView.forward(req, res);				
-				
+				successView.forward(req, res);
+
 				/************ 其他錯誤處理  ******************************/
 			} catch (Exception e) {
 				errorMsgs.put("Exception",e.getMessage());

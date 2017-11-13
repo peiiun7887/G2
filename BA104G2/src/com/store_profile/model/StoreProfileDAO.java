@@ -30,7 +30,7 @@ public class StoreProfileDAO implements StoreProfileDAO_interface{
 		
 	}
 	private static final String GET_ADDR = 
-			"SELECT STO_NUM, STO_NAME, AREA, ADDRESS FROM STORE_PROFILE WHERE STO_STATUS = '未上架' OR STO_STATUS = '已上架'";
+			"SELECT STO_NUM, STO_NAME, AREA, ADDRESS FROM STORE_PROFILE WHERE STO_STATUS = '已上架'";
 
 	@Override
 	public List<StoreProfileVO> getAllgeo() {

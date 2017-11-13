@@ -59,7 +59,7 @@
 					    <span class="caret"></span>
 					  </button>
 					  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-					    <li><a href="<%= request.getContextPath() %>/store-end/pdc_mng/addProduct.jsp'">新增商品</a></li>    
+					    <li><a href="<%= request.getContextPath() %>/store-end/pdc_mng/addProduct.jsp">新增商品</a></li>    
 					    <li><a href="<%= request.getContextPath() %>/store-end/pdc_mng/addSweetness.jsp">新增甜度</a></li>
 					    <li><a href="<%= request.getContextPath() %>/store-end/pdc_mng/addIce.jsp">新增冰度</a></li>
 					    <li><a href="<%= request.getContextPath() %>/store-end/pdc_mng/addExtra.jsp">新增加料</a></li>

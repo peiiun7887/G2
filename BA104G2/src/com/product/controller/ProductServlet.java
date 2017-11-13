@@ -118,6 +118,7 @@ public class ProductServlet extends HttpServlet {
 				String com_num = productVO.getCom_num();
 				/************ 3.加入完成,準備轉交(Send the Success view)**/	
 				String url = "/store-end/pdc_mng/store_select_page.jsp?com_num="+com_num;
+				
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交stolistAllProduct.jsp
 				successView.forward(req, res);
 				

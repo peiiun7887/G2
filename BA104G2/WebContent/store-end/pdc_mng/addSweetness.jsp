@@ -3,7 +3,8 @@
 <%@ page import="com.sweetness.model.*"%>
 
 <%
-  SweetnessVO sweetnessVO = (SweetnessVO) request.getAttribute("sweetnessVO");
+	SweetnessVO sweetnessVO = (SweetnessVO) request.getAttribute("sweetnessVO");
+	session.setAttribute("addform","123");
 %>
 
 <html>
@@ -78,7 +79,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script>
 		$(document).ready(function () {
-
+			
 		});	
 	</script>
 </body>

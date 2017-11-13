@@ -56,6 +56,14 @@
  		request.setAttribute("getAllPdc",getAllPdc);	
 	}
 %>
+
+<%
+	Enumeration em = session.getAttributeNames();
+	while(em.hasMoreElements()){
+		String name = (String) em.nextElement();
+		out.println(name+","+session.getAttribute(name));
+	}
+%>
 				<div >
 				   <h3>${sto_num}-店家商品管理</h3>
 				
