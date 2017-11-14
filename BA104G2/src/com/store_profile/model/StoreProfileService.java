@@ -12,4 +12,8 @@ public class StoreProfileService {
 	public List<StoreProfileVO> getAllgeo(){
 		return dao.getAllgeo();
 	}
+	
+	public List<StoreProfileVO> getByKeyword(){
+		return dao.getAllgeo();
+	}
 }

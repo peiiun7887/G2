@@ -20,6 +20,28 @@ public class fakeLogin extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action =req.getParameter("action");
 		
+		if("loginm".equals(action)){
+
+			String mem_num = req.getParameter("mem_num");
+			System.out.println(mem_num);
+			HttpSession session = req.getSession();
+	
+			session.setAttribute("mem_num", mem_num);
+			res.sendRedirect(req.getContextPath()+"/front-end/member_top.jsp");	
+			return;
+		}
+		
+		if ("logoutm".equals(action)) {
+
+			String mem_num = req.getParameter("mem_num");
+			HttpSession session = req.getSession();
+			session.invalidate();
+			//整個連線拔掉
+			res.sendRedirect(req.getContextPath()+"/front-end/member_top.jsp");
+		    return;
+		}
+
+		
 		if("loginin".equals(action)){
 			String sto_num = req.getParameter("sto_num");
 			String mem_num = req.getParameter("mem_num");

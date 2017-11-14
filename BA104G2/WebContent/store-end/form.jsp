@@ -9,10 +9,21 @@
 <BODY>
 
 
-  <FORM METHOD="get" ACTION="<%= request.getContextPath() %>/fakeLogin">
+  
       
 會員編號
-    <INPUT TYPE="TEXT" NAME="mem_num" VALUE="MB0000000001"><p>
+<FORM METHOD="get" ACTION="<%= request.getContextPath() %>/fakeLogin">
+	<select size="1" name="mem_num">
+    	<option value="MB0000000001" >MB0000000001
+    	<option value="MB0000000002" >MB0000000002
+    	<option value="MB0000000003" >MB0000000003
+    </select>
+    <input type="hidden" name="action" value="loginm">
+    <INPUT TYPE="SUBMIT" value="送出">
+</form>    
+    
+    
+    <FORM METHOD="get" ACTION="<%= request.getContextPath() %>/fakeLogin">
 店家編號
     <select size="1" name="sto_num">
     	<option value="ST0000000001" >ST0000000001

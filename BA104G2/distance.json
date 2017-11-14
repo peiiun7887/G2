@@ -1,0 +1,22 @@
+{
+   "destination_addresses" : [ "330台灣桃園市桃園區中正路475號" ],
+   "origin_addresses" : [ "320台灣桃園市中壢區中央路239巷1號" ],
+   "rows" : [
+      {
+         "elements" : [
+            {
+               "distance" : {
+                  "text" : "12.0 哩",
+                  "value" : 19234
+               },
+               "duration" : {
+                  "text" : "31 分",
+                  "value" : 1873
+               },
+               "status" : "OK"
+            }
+         ]
+      }
+   ],
+   "status" : "OK"
+}

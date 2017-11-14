@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DistanceMatrixResponse>
+ <status>OK</status>
+ <origin_address>320台灣桃園市中壢區中央路239巷1號</origin_address>
+ <destination_address>330台灣桃園市桃園區中正路475號</destination_address>
+ <row>
+  <element>
+   <status>OK</status>
+   <duration>
+    <value>1873</value>
+    <text>31 分</text>
+   </duration>
+   <distance>
+    <value>19234</value>
+    <text>12.0 哩</text>
+   </distance>
+  </element>
+ </row>
+</DistanceMatrixResponse>

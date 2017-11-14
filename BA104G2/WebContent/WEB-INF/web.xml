@@ -55,6 +55,7 @@
     <servlet-name>ExtraServlet</servlet-name>
     <url-pattern>/pdc_mng/StoExtMng.do</url-pattern>
   </servlet-mapping>
+  
 <!--   load on start to get storeAddr-->
 <!--   <servlet> -->
 <!-- 		<servlet-name>StoreProfileServlet</servlet-name> -->
@@ -66,4 +67,12 @@
 <!-- 		<url-pattern>/StoreProfileServlet</url-pattern> -->
 <!-- 	</servlet-mapping> -->
 	
+	  <servlet>
+		<servlet-name>IndexServlet</servlet-name>
+		<servlet-class>com.store_profile.controller.IndexServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>IndexServlet</servlet-name>
+		<url-pattern>/index/IndexServlet.do</url-pattern>
+	</servlet-mapping>
 </web-app>

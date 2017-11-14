@@ -18,8 +18,15 @@ public class StoreProfileVO implements java.io.Serializable{
 	private Integer rem_point;
 	private Double lat;
 	private Double lng;
+	private Double distance;
 	
 	
+	public Double getDistance() {
+		return distance;
+	}
+	public void setDistance(Double distance) {
+		this.distance = distance;
+	}
 	public Double getLat() {
 		return lat;
 	}
