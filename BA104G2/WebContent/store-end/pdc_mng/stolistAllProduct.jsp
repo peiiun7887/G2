@@ -17,7 +17,6 @@
 <html>
 <head>
 	<title>所有商品資料</title>
-
 </head>
 
 <body>
@@ -48,7 +47,6 @@
 		
 	
 		<c:forEach var="PdcVO" items="${list}" >
-			<% String st =  %>
 		<tr ${(PdcVO.com_num==param.com_num)?'bgcolor=#CCCCFF':''}>
 			<td>${PdcVO.com_num}</td>	
 			<td>${PdcVO.com_name}</td>
@@ -80,7 +78,7 @@
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/pdc_mng/StoPdcMng.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="刪除">
 			     <input type="hidden" name="com_num"  value="${PdcVO.com_num}">
-			      <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
+			     <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
 			     <input type="hidden" name="action" value="delete"></FORM>
 			</td>
 		</tr>
