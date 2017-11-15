@@ -1,7 +1,7 @@
 package com.store_profile.model;
 import java.util.Date;
 
-public class StoreProfileVO implements java.io.Serializable{
+public class StoreProfileVO implements java.io.Serializable, Comparable<StoreProfileVO>{
 	private String sto_num;
 	private String sto_acc;
 	private String sto_pwd;
@@ -124,7 +124,16 @@ public class StoreProfileVO implements java.io.Serializable{
 		this.rem_point = rem_point;
 	}
 	
-	
+	@Override
+	public int compareTo(StoreProfileVO spVO) {
+		if (this.distance > spVO.distance) { //比較的基準
+			return 1;
+		} else if (this.distance == spVO.distance){
+			return 0;
+		} else {
+			return -1;
+		}
+	}
 	
 	
 	

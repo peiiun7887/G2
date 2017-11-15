@@ -29,6 +29,9 @@
     	<option value="ST0000000001" >ST0000000001
     	<option value="ST0000000002" >ST0000000002
     	<option value="ST0000000003" >ST0000000003
+    	<option value="ST0000000004" >ST0000000004
+    	<option value="ST0000000005" >ST0000000005
+    	<option value="ST0000000006" >ST0000000006
     </select>
     
     <input type="hidden" name="action" value="loginin">

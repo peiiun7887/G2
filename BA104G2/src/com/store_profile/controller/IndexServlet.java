@@ -10,8 +10,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.TreeSet;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -28,7 +30,8 @@ import com.store_profile.model.*;
 @WebServlet("/IndexServlet.do")
 public class IndexServlet extends HttpServlet/* implements Runnable*/{
 	
-	
+	double curlat=24.969;
+	double curlng=121.192;
 	
 	
 //	public void destroy(){
@@ -42,23 +45,14 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 //	}
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		double curlat = Double.parseDouble(req.getParameter("lat"));
-		double curlng = Double.parseDouble(req.getParameter("lng"));
-		System.out.println(curlat+","+curlng);
-//		BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
-//        String json = "";
-//        if(br != null){
-//            json = br.readLine();
-//        }
-//        System.out.println(json.toString());
-        
 		
-		
+		curlat = Double.parseDouble(req.getParameter("lat"));
+		curlng = Double.parseDouble(req.getParameter("lng"));
+	
 		//地址JSON
 		StoreProfileService spSvc = new StoreProfileService();
 		List<StoreProfileVO> orgList = spSvc.getAllgeo();//查出上架狀態的店家
-
-		List<StoreProfileVO> newList = new ArrayList<StoreProfileVO>();
+		TreeSet<StoreProfileVO> newList = new TreeSet<>();
 		for(StoreProfileVO stoVO : orgList){			
 			String addr = stoVO.getArea()+stoVO.getAddress();
 			
@@ -66,34 +60,63 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 			double lat = latlng[0];
 			double lng = latlng[1];
 
-			double distence = Disget(curlat,curlng,lat,lng);//算距離
-			
+			double distance = Disget(curlat,curlng,lat,lng);//算距離		
 			
 			stoVO.setAddress(addr);
 			stoVO.setLat(lat);
 			stoVO.setLng(lng);
-			stoVO.setDistance(distence);
+			stoVO.setDistance(distance);
 			newList.add(stoVO);	//spVO(sto_num,sto_name,area,addr(完整),lat,lng,distance)	
 		}
-		
-		System.out.println("-----2----------");
+
+
 			Gson gson = new Gson();
 			String addrList =gson.toJson(newList);	
 			
 			res.setContentType("application/json ; charset=UTF-8");
-		    PrintWriter out = res.getWriter();
-		    
+		    PrintWriter out = res.getWriter();		    
 		    out.println(addrList);
-			System.out.println("-----3----------");
+		    out.flush();
+		    out.close();
+
 	}
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action =req.getParameter("action");
-		HttpSession se = req.getSession();
+		List<StoreProfileVO> oldList = null;
 		
 		if("search".equals(action)){
-			String keyword = req.getParameter("keyword");
+			try{
+				String keyword = req.getParameter("keyword");
+				StoreProfileService spSvc = new StoreProfileService();
+				oldList = spSvc.getByKeyword(keyword);//查出有關鍵字且上架狀態的店家
+			} catch (Exception e){
+				
+				StoreProfileService spSvc = new StoreProfileService();	
+				oldList = spSvc.getNoKeyword();				
+			} finally {
+
+			TreeSet<StoreProfileVO> newList = new TreeSet<>();
+			for(StoreProfileVO stoVO : oldList){			
+				String addr = stoVO.getArea()+stoVO.getAddress();
+				
+				double[] latlng = Geoget(addr);//轉經緯度
+				double lat = latlng[0];
+				double lng = latlng[1];
+
+				double distance = Disget(curlat,curlng,lat,lng);//算距離		
+				System.out.println(distance);
+				stoVO.setAddress(addr);
+				stoVO.setLat(lat);
+				stoVO.setLng(lng);
+				stoVO.setDistance(distance);
+				newList.add(stoVO);	//spVO(sto_num,sto_name,area,addr(完整),lat,lng,distance)	
+			}
+			req.setAttribute("stoList", newList);
+			RequestDispatcher successView = req.getRequestDispatcher("/front-end/storeList.jsp"); 
+			successView.forward(req, res);
+			}
 		}
 	}
 //	@Override
@@ -180,7 +203,7 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 				if(data.contains("<distance>")){
 					data = in.readLine();
 					if (data.contains("<value>")) {
-						distance=Double.parseDouble((data.substring(data.indexOf("<value>") + 7, data.indexOf("</value>"))));
+						distance=Double.parseDouble((data.substring(data.indexOf("<value>") + 7, data.indexOf("</value>"))))/1000;
 					}					
 					break;
 				}

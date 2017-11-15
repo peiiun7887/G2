@@ -13,7 +13,15 @@ public class StoreProfileService {
 		return dao.getAllgeo();
 	}
 	
-	public List<StoreProfileVO> getByKeyword(){
-		return dao.getAllgeo();
+	public List<StoreProfileVO> getByKeyword(String keyword){
+		return dao.search(keyword);
+	}
+	
+	public List<StoreProfileVO> getNoKeyword(){
+		return dao.search();
+	}
+	
+	public StoreProfileVO getOneStoName(String sto_num){
+		return dao.getOneByPrimary(sto_num);
 	}
 }

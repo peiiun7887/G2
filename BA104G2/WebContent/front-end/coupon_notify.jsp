@@ -45,9 +45,32 @@
 </head>
   
 <body>
-<jsp:include page="/front-end/member_top.jsp" />
-<jsp:include page="/front-end/coupon_notify.jsp" />
+<%
+	
+ 	List<CouponVO> cpList = cpSvc.getCoupon();
+	pageContext.setAttribute("cpList",cpList);
 
+%>
+
+		<!-- ч基ㄩ箇============================================================= -->
+
+		<div class="container-fluid area20">
+			<div class="row">
+				<div id="carousel-id" class="carousel slide" data-ride="carousel">
+				    <!-- ч基ㄩ瓜跋 -->
+				    <div class="carousel-inner radius5">
+				    <c:forEach var="cpMsg" items="${cpList}" varStatus="i">
+				        <div class="item coupon text-center ${(i.count==1)?'active':''}" >
+				        	<span class="coupon-title">ч基ㄩ箇 <span class=" glyphicon glyphicon-bullhorn"></span></span>
+				        	<span class="coupon-text"> ${cpMsg.up_date} 癬  </span>
+				        	<span class="coupon-text">${spSvc.getOneStoName(cpMsg.sto_num).sto_name } ${cpMsg.coupon_desc}じ ${cpMsg.total}眎</span>
+				        	<span class="coupon-title"> <span class=" glyphicon glyphicon-bullhorn imgrvs"></span> ч基ㄩ箇</span>
+						</div>
+					</c:forEach>
+				    </div>
+				</div>
+			</div>
+		</div>
 
 
 		<script src="https://code.jquery.com/jquery.js"></script>

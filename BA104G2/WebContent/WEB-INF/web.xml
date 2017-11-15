@@ -24,14 +24,6 @@
     <url-pattern>/pdc_mng/StoPdcMng.do</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>DBGifReader4</servlet-name>
-    <servlet-class>com.product.controller.DBGifReader4</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>DBGifReader4</servlet-name>
-    <url-pattern>/DBGifReader4</url-pattern>
-  </servlet-mapping>
-  <servlet>
     <servlet-name>SweetnessServlet</servlet-name>
     <servlet-class>com.sweetness.controller.SweetnessServlet</servlet-class>
   </servlet>
@@ -54,6 +46,26 @@
   <servlet-mapping>
     <servlet-name>ExtraServlet</servlet-name>
     <url-pattern>/pdc_mng/StoExtMng.do</url-pattern>
+  </servlet-mapping>
+  
+<!--   Picture Reader--> 
+	<!-- Product -->
+  <servlet>
+    <servlet-name>DBGifReader4</servlet-name>
+    <servlet-class>com.product.controller.DBGifReader4</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DBGifReader4</servlet-name>
+    <url-pattern>/DBGifReader4</url-pattern>
+  </servlet-mapping>
+  <!-- store_profile -->
+  <servlet>
+    <servlet-name>stoGifReader4</servlet-name>
+    <servlet-class>com.store_profile.controller.stoGifReader4</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>stoGifReader4</servlet-name>
+    <url-pattern>/stoGifReader4</url-pattern>
   </servlet-mapping>
   
 <!--   load on start to get storeAddr-->
