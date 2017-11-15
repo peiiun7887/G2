@@ -48,7 +48,7 @@
 		
 	
 		<c:forEach var="PdcVO" items="${list}" >
-			
+			<% String st =  %>
 		<tr ${(PdcVO.com_num==param.com_num)?'bgcolor=#CCCCFF':''}>
 			<td>${PdcVO.com_num}</td>	
 			<td>${PdcVO.com_name}</td>
