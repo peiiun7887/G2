@@ -14,6 +14,24 @@
 
 </head>
 <body>
+
+<%
+	ServletContext context = getServletContext();
+	TreeMap<String, Integer> keywordMap = (TreeMap<String, Integer>) context.getAttribute("keywordMap");
+
+%>
+<%
+	String attrName = null;
+	Enumeration<String> em = context.getAttributeNames();	
+	while(em.hasMoreElements()){
+	attrName = (String) em.nextElement();
+	if(attrName.equals("keywordMap"))
+			out.println(attrName);
+			
+	
+	}
+		
+%>
 		<!-- top nav bar =============================================================== -->
 	<div class="navbars navbar-fixed-top">
 		<div class="container">
@@ -97,22 +115,17 @@
 					
 
 
-				 <!-- hot keys 熱門字 24個中文字滿-->        
-				
-			     <div class="hotkey">
-			     	<ul class="list-inline"> 
-			     	    <li>熱門字</li>		
-			     	    <li>熱門字</li>
-			     	    <li>熱門字</li>
-			     	    <li>熱門字</li>
-			     	    <li>熱門字</li>
-			     	    <li>熱門字</li>
-			     	    <li>熱門字</li>
-			     	    
-			     	 </ul>
-			     </div>
-				</div>
-
+					 <!-- hot keys 熱門字 24個中文字滿-->        
+					
+				     <div class="hotkey">
+				     	<ul class="list-inline">
+				     		
+				     		<%	for(String key :keywordMap.keySet()){	%>
+				     			<li><%= key.toString() %></li>
+				     		<%  } %>	     	    
+				     	 </ul>				     
+					</div>
+			</div>
 
 
 		        <!-- 訂單管理 btn+ 附近店家 btn + 折價券btn -->

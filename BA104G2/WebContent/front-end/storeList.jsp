@@ -49,9 +49,9 @@
 <script src="https://code.jquery.com/jquery.js"></script>
 <body>
 <%
-	ServletContext context = getServletContext();
 	TreeSet<StoreProfileVO> stoList = (TreeSet<StoreProfileVO>) request.getAttribute("stoList");
 	pageContext.setAttribute("stoList",stoList);
+
 %>
 <jsp:include page="/front-end/member_top.jsp" />
 	<div class="container-fliud">

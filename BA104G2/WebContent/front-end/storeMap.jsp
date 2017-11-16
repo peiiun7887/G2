@@ -48,32 +48,31 @@
 
 		function initMap() {			
 			///////////
-	        var myLatlng =  new google.maps.LatLng(24.969, 121.192); 
+// 	        var myLatlng =  new google.maps.LatLng(24.969, 121.192); 
 	        
-	        map = new google.maps.Map(document.getElementById('map'), {
-	          center: myLatlng,
-	          zoom: 10
-	        });
-	        var marker = new google.maps.Marker({
-	          position: myLatlng,
-	          map: map,
+// 	        map = new google.maps.Map(document.getElementById('map'), {
+// 	          center: myLatlng,
+// 	          zoom: 10
+// 	        });
+// 	        var marker = new google.maps.Marker({
+// 	          position: myLatlng,
+// 	          map: map,
 	
-	        });
+// 	        });
 	        
-// 	        var current_pos;
-	        
-// 	        window.navigator.geolocation.getCurrentPosition(function(pos){
-// 	            current_pos = {lat: pos.coords.latitude, lng: pos.coords.longitude};//抓到現在位置
-// 	            map = new google.maps.Map(document.getElementById('map'), {
-// 	              zoom: 10,
-// 	              center: current_pos
-
-// 	            });
-// 	            var marker = new google.maps.Marker({
-// 	              position: current_pos,
-// 	              map: map
-// 	            });
-// 	          });
+	        var current_pos;
+// 	        window.navigator.geolocation.getCurrentPosition(success,error,option);
+	        window.navigator.geolocation.getCurrentPosition(function(pos){
+	            current_pos = {lat:pos.coords.latitude, lng:pos.coords.longitude};//抓到現在位置
+	            map = new google.maps.Map(document.getElementById('map'), {
+	              zoom: 10,
+	              center: current_pos
+	            });
+	            var marker = new google.maps.Marker({
+	              position: current_pos,
+	              map: map
+	            });
+	          });
 	        
 			$.get('/BA104G2/index/IndexServlet.do','lat=24.969&lng=121.192',callback);
 	        
