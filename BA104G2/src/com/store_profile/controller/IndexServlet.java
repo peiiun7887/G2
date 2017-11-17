@@ -3,6 +3,7 @@ package com.store_profile.controller;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -39,46 +40,33 @@ import com.store_profile.model.*;
 @WebServlet("/IndexServlet.do")
 public class IndexServlet extends HttpServlet/* implements Runnable*/{
 	
-	Map<String,Integer> keywordMap = new Hashtable<String,Integer>();;
-	TreeMap<String, Integer> sorted_keyword;
+	Map<String,Integer> keywordMap ;
+
 
 
 	public void destroy(){
-		super.destroy();
+		super.destroy();	
 		try {
-			FileOutputStream fos = new FileOutputStream("/WEB-INF/data/Keyword.csv");
-		    ObjectOutputStream oos = new ObjectOutputStream(fos);
-		    oos.writeObject(keywordMap);
-		    oos.close();
-		    fos.close();
+			saveKeyword();
 		} catch (IOException e) {
 			e.printStackTrace();
-		} 
+		}
+
 	}
 	
-	public void init(){
-		//載入關鍵字檔案
-		 
-		BufferedReader bufferedReader = null;
-		try {
-			FileReader fileReader = new FileReader("/WEB-INF/data/Keyword.csv");
-			bufferedReader = new BufferedReader(fileReader);
-			String initial = bufferedReader.readLine();
-			String str[] = line.split(",");
-	        for(int i=1;i<str.length;i++){
-	            String arr[] = str[i].split(":");
-	            Interger arr2 
-	            sorted_keyword.put(arr[0], arr[1]);
-	        }
-			return;
-		}
-		
-	}
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		double curlat=24.969;
 		double curlng=121.192;
+		try{
 		curlat = Double.parseDouble(req.getParameter("lat"));
+		}catch (NullPointerException e){
+			curlat = 24.969;
+		}
+		try{
 		curlng = Double.parseDouble(req.getParameter("lng"));
+		}catch (NullPointerException e){
+		curlat = 24.969;
+		}
 	
 		//地址JSON
 		StoreProfileService spSvc = new StoreProfileService();
@@ -118,7 +106,8 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 		req.setCharacterEncoding("UTF-8");
 		String action =req.getParameter("action");
 		List<StoreProfileVO> oldList = null;
-		
+		ServletContext context = getServletContext();
+		keywordMap = (Hashtable<String,Integer>) context.getAttribute("keywordMap");
 		
 		if("search".equals(action)){
 			try{
@@ -128,10 +117,10 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 				//把關鍵字存在map
 				if(keywordMap.containsKey(keyword)){
 					keywordMap.put(keyword, keywordMap.get(keyword)+1);
-System.out.println("gain key:"+ keyword);
+
 				}else{
 					keywordMap.put(keyword, 1);
-System.out.println("add one key: "+keyword);
+
 				}			
 				
 			} catch (Exception e){	//沒有輸入關鍵字				
@@ -149,19 +138,14 @@ System.out.println("add one key: "+keyword);
 				double lng = latlng[1];
 
 				double distance = Disget(curlat,curlng,lat,lng);//算距離		
-				System.out.println(distance);
+	//			System.out.println(distance);
 				stoVO.setAddress(addr);
 				stoVO.setLat(lat);
 				stoVO.setLng(lng);
 				stoVO.setDistance(distance);
 				newList.add(stoVO);	//spVO(sto_num,sto_name,area,addr(完整),lat,lng,distance)	
-			}
-			ValueComparator bvc = new ValueComparator(keywordMap);
-			sorted_keyword = new TreeMap<String, Integer>(bvc);
-			sorted_keyword.putAll(keywordMap);
-			System.out.println("sorted map: " + sorted_keyword);
-			ServletContext context = getServletContext();
-		    context.setAttribute("keywordMap", sorted_keyword);
+			}			
+		    context.setAttribute("keywordMap", keywordMap);
 		    
 			req.setAttribute("stoList", newList);
 			RequestDispatcher successView = req.getRequestDispatcher("/front-end/storeList.jsp"); 
@@ -169,26 +153,6 @@ System.out.println("add one key: "+keyword);
 			}
 		}
 	}
-//	@Override
-//	public void run() {
-//
-//		while(true){
-//			System.out.println("running");
-//			StoreProfileService spSvc = new StoreProfileService();
-//			stoAllgeo = spSvc.getAllgeo();
-//			for(StoreProfileVO stoInfo : stoAllgeo){
-//				String addrs = stoInfo.getArea()+stoInfo.getAddress();
-//				System.out.println(addrs);
-//			}
-//			ServletContext context = getServletContext();
-//			context.setAttribute("StoreInfo", stoAllgeo);
-//			System.out.println(stoAllgeo.toString());
-//			try {
-//		          Thread.sleep(10000);
-//		        }
-//		    catch (InterruptedException ignored) { }
-//		}
-//	}
 
 	//用地址轉出經緯度
 	private double[] Geoget(String addr){	
@@ -260,34 +224,48 @@ System.out.println("add one key: "+keyword);
 		return distance;
 	}
 	
-	//map排序
-	public class ValueComparator implements Comparator<String> {
-	    Map<String, Integer> base;
-	    public ValueComparator(Map<String, Integer> base) {
-	        this.base = base;
-	    }
-	    public int compare(String a, String b) {
-	        if (base.get(a) >= base.get(b)) {
-	            return -1;
-	        } else {
-	            return 1;
-	        }
-	    }
-	}
+	//keyword排序
+//	public class ValueComparator implements Comparator<String> {
+//	    Map<String, Integer> base;
+//	    public ValueComparator(Map<String, Integer> base) {
+//	        this.base = base;
+//	    }
+//	    public int compare(String a, String b) {
+//	        if (base.get(a) >= base.get(b)) {
+//	            return -1;
+//	        } else {
+//	            return 1;
+//	        }
+//	    }
+//	}
 
-	private String quoteToString(String word){
-		return "\""+ word + "\"";
-	}
 	
-//保存關鍵字
-	public void writeToCSVFile(File path) throws IOException{
-		FileWriter filewriter = new FileWriter(path);		
-		BufferedWriter writer = new BufferedWriter(filewriter);
-		for(String key : keywordMap.keySet()){
-			//為了加上""，key/value使用.toString轉成字串
-			writer.write(quoteToString(key.toString())+","+quoteToString(keywordMap.get(key).toString()));
-			writer.newLine();
-		}
-		writer.close();
+	//保存關鍵字
+	public void saveKeyword() throws IOException{
+		FileWriter out = null;
+		BufferedWriter br = null;
+		String saveDirectory = "/front-end/data";
+		String realPath = getServletContext().getRealPath(saveDirectory);
+		System.out.println(realPath);
+		File fsaveDirectory = new File(realPath);
+		
+		if (!fsaveDirectory.exists())
+			 fsaveDirectory.mkdirs(); // 於 ContextPath 之下,自動建立目地目錄
+		try {
+			
+			out = new FileWriter( realPath +"/key.txt");
+			br = new BufferedWriter(out);
+			for (Map.Entry<String,Integer> entry : keywordMap.entrySet()) {
+				br.write(entry.getKey()+","+entry.getValue());
+				br.newLine();
+				System.out.println(entry.getKey()+","+ entry.getValue());
+			}	
+			br.flush();
+			br.close();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+		System.out.println("SAVED");	 
 	}
 }

@@ -47,9 +47,6 @@
     <servlet-name>ExtraServlet</servlet-name>
     <url-pattern>/pdc_mng/StoExtMng.do</url-pattern>
   </servlet-mapping>
-  
-<!--   Picture Reader--> 
-	<!-- Product -->
   <servlet>
     <servlet-name>DBGifReader4</servlet-name>
     <servlet-class>com.product.controller.DBGifReader4</servlet-class>
@@ -58,7 +55,6 @@
     <servlet-name>DBGifReader4</servlet-name>
     <url-pattern>/DBGifReader4</url-pattern>
   </servlet-mapping>
-  <!-- store_profile -->
   <servlet>
     <servlet-name>stoGifReader4</servlet-name>
     <servlet-class>com.store_profile.controller.stoGifReader4</servlet-class>
@@ -67,24 +63,29 @@
     <servlet-name>stoGifReader4</servlet-name>
     <url-pattern>/stoGifReader4</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>IndexServlet</servlet-name>
+    <servlet-class>com.store_profile.controller.IndexServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>IndexServlet</servlet-name>
+    <url-pattern>/index/IndexServlet.do</url-pattern>
+  </servlet-mapping>
   
-<!--   load on start to get storeAddr-->
-<!--   <servlet> -->
-<!-- 		<servlet-name>StoreProfileServlet</servlet-name> -->
-<!-- 		<servlet-class>com.store_profile.controller.StoreProfileServlet</servlet-class> -->
-<!-- 		<load-on-startup>10</load-on-startup> -->
-<!-- 	</servlet> -->
-<!-- 	<servlet-mapping> -->
-<!-- 		<servlet-name>StoreProfileServlet</servlet-name> -->
-<!-- 		<url-pattern>/StoreProfileServlet</url-pattern> -->
-<!-- 	</servlet-mapping> -->
-	
-	  <servlet>
-		<servlet-name>IndexServlet</servlet-name>
-		<servlet-class>com.store_profile.controller.IndexServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>IndexServlet</servlet-name>
-		<url-pattern>/index/IndexServlet.do</url-pattern>
-	</servlet-mapping>
+  <servlet>
+    <servlet-name>InitTrigger</servlet-name>
+    <servlet-class>com.store_profile.controller.InitTrigger</servlet-class>
+  	<load-on-startup>10</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InitTrigger</servlet-name>
+    <url-pattern>/index/InitTrigger.do</url-pattern>
+  </servlet-mapping>
+  
+
+  	<context-param>
+		<param-name>key-file</param-name>
+		<param-value>/front-end/data/key.txt</param-value>
+	</context-param>
+
 </web-app>
