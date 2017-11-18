@@ -1,18 +1,17 @@
 
 			body{
 				font-family: 微軟正黑體, Gotham;
-				color:#595942;/*深橄欖綠*/
+				color:#595942;
 				padding-top:70px;
 			}
+			
 			p {
 				font-size: 10pt;
 				margin: 0px 0px 5px 0px;
-				color:#595942; /*深橄欖綠*/
+				color:#595942; 
 			}
-
 			.navbars{
-				background-color: #3C9682;	/*主色green*/
-	
+				background-color: #3C9682;
 			}
 			.item-color{
 				color:#DCE6D2;
@@ -35,18 +34,18 @@
 				margin: 10px 0 ;
 			}
 			.list-inline li+li{
-				border-left:3px solid #DCE6D2 ;	/*#EFBC56黃色der*/
+				border-left:3px solid #DCE6D2 ;	
 				padding:0px 10px;	
 			}
 
 			.btn-green{
-				background:#3C9682; /*主色green*/
+				background:#3C9682; 
 				color:#FFFFFF;
 				margin-right: 15px;
 			}
 
 			.btn-org{
-				background: #FA5532; /*橘色der*/
+				background: #FA5532;
 				color:#FFFFFF;
 			}
 
@@ -67,20 +66,20 @@
 
 			.good-to-drink{
 				float:left;
-				border-color: #DCE6D2;	/*最淺der綠色*/
+				border-color: #DCE6D2;	
 				border-bottom-style: solid;
 				border-bottom-width: 2px;
 				width:100%;
 			}	
 			.store-name{
-				color:#FA5532; /*橘色der*/
+				color:#FA5532; 
 				text-height:12px;
 				font-size: 15pt;
 				font-weight:bolder;
 
 			}
 			.rank-style{
-				color:#EFBC56;/*黃der*/
+				color:#EFBC56;
 			}
 			.gd-left{
 				margin:auto;

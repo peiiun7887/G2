@@ -36,72 +36,8 @@
         line-height:50px;
         margin:0 5px;
    }
-   .imgrvs{
-  	 	-webkit-transform: scaleX(-1);
-    	transform: scaleX(-1);
-   }
+
    
-	h1{text-align:center}
-	h2{margin-bottom:0;}
-	
-	.skill{
-	  width:320px;
-	  margin:0 auto;
-	}
-	.rating-bar{
-	  background:black;
-	  padding:3px;
-	}
-	.rating-bar span{
-	  display:block;
-	  height:15px;
-	}
-	.rating-bar, .rating-bar span {
-	  border-radius:4px; 
-	}
-	
-	/* Used to color the bars */
-	.blue{ background:blue; }
-	.red{ background:red; }
-	
-	/* .rate-n, n being the rating from 1 to 10 */
-	.rate-1{ width:20%; }
-	.rate-2{ width:40%; }
-	.rate-3{ width:60%; }
-	.rate-4{ width:80%; }
-	.rate-5{ width:100%; }
-
-	
-	/* CSS3 Animation */
-	.animate{
-	  animation: progress 2s linear;
-	  -moz-animation: progress 2s linear;
-	  -webkit-animation: progress 2s linear;
-	  -ms-animation: progress 2s linear;
-	  -o-animation: progress 2s linear;
-	}
-	/* Span fills 100% of parent div (.rate-n) which may be 10-100% of the width of black bar (.rating) */
-	@-webkit-keyframes progress {
-	  from { width:0% }
-	  to { width:100%; }
-	}
-	@-moz-keyframes progress {
-	  from { width:0% }
-	  to { width:100%; }
-	}
-	@-ms-keyframes progress {
-	  from { width:0% }
-	  to { width:100%; }
-	}
-	@-o-keyframes progress {
-	  from { width:0% }
-	  to { width:100%; }
-	}
-	@keyframes progress {
-	  from { width:0% }
-	  to { width:100%; }
-	}
-
 </style>
 
 </head>
@@ -109,13 +45,14 @@
 <body>
 <% 
 	ServletContext context = getServletContext();
-	Map<String, Integer> rankList  = ( Map<String, Integer> )context.getAttribute("rankList");
+	List<Map.Entry<String, Integer>> list_RankData  = (List<Map.Entry<String, Integer>>)context.getAttribute("list_RankData");
+	StoreProfileService stSvc = new StoreProfileService();
 %>
 
 <jsp:include page="/front-end/member_top.jsp" />
 <jsp:include page="/front-end/coupon_notify.jsp" />
 
-<jsp:include page="/front-end/storeList.jsp" />
+
 
 
 <div class="container-fluid area20">
@@ -127,14 +64,18 @@
 
 		<div class="col-xs-12 col-sm-2 col-sm-offset-1">
 			
-			<% for (String key : rankList.keySet()){ %>
+			<% for ( Map.Entry<String, Integer> Key  : list_RankData){ %>
 				<div class="good-to-drink">
 					<div class="gd-left">
-						<img class="imgsize" src="<%= request.getContextPath()%>/stoGifReader4?sto_num=<%= key %>">
+						<img class="imgsize" src="<%= request.getContextPath()%>/stoGifReader4?sto_num=<%= Key.getKey() %>">
 					</div>
 					<div class="gd-right rating-bar">
-						<span class="store-name">${spSvc.getOneStoName(key)}</span>						
-						<span class="rank-style"> <%=rankList.get(key)%></span>
+						<span class="store-name">
+						
+						<%= stSvc.getOneStoName(Key.getKey()).getSto_name() %>
+					
+						</span>						
+						<meter class="rank-style" max="5" min="0" value="<%= Key.getValue() %>"> </meter>
 					</div>
 				</div>
 			<% } %>
@@ -174,9 +115,7 @@
 		</div> 
 
 </div>   <!--¥\¯à°Ï¶ôcontainer-->
->>>>>>> branch 'master' of https://github.com/peiiun7887/G2.git
-
-
+<jsp:include page="/front-end/storeList.jsp" />
 
 		<script src="https://code.jquery.com/jquery.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>

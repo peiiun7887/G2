@@ -16,11 +16,14 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -39,9 +42,10 @@ import com.store_profile.model.*;
 
 @WebServlet("/IndexServlet.do")
 public class IndexServlet extends HttpServlet/* implements Runnable*/{
-	
-	Map<String,Integer> keywordMap ;
 
+	Map<String,Integer> keywordMap = new HashMap<String,Integer>() ;
+	
+	
 	public void destroy(){
 		super.destroy();	
 		try {
@@ -103,10 +107,16 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 		double curlng=121.192;
 		req.setCharacterEncoding("UTF-8");
 		String action =req.getParameter("action");
-		List<StoreProfileVO> oldList = null;
-		ServletContext context = getServletContext();
-		keywordMap = (TreeMap<String,Integer>) context.getAttribute("keywordMap");
 		
+		List<StoreProfileVO> oldList = null;
+		ServletContext context = getServletContext();		
+		List<Map.Entry<String, Integer>> list_KeyData = (List<Map.Entry<String, Integer>>) context.getAttribute("list_KeyData");
+
+
+		for(Entry<String, Integer> Key :list_KeyData){
+			keywordMap.put(Key.getKey(), Key.getValue());
+		}
+
 		if("search".equals(action)){
 			
 			try{
@@ -117,10 +127,8 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 				if(keywordMap.containsKey(keyword)){
 				   keywordMap.put(keyword, keywordMap.get(keyword)+1);
 				}else{
-					System.out.println("other");
-					keywordMap.put(keyword, 1);
-					System.out.println("sorted map: " + keywordMap);
 
+					keywordMap.put(keyword, 1);
 				}			
 				
 			} catch (Exception e){	//沒有輸入關鍵字				
@@ -146,11 +154,15 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 				newList.add(stoVO);	//spVO(sto_num,sto_name,area,addr(完整),lat,lng,distance)	
 			}	
 			
-			ValueComparator bvc = new ValueComparator(keywordMap);
-			Map<String, Integer> sorted_map = new TreeMap<String, Integer>(bvc);
-			sorted_map.putAll(keywordMap);
-
-		    context.setAttribute("keywordMap", sorted_map);		    
+			list_KeyData = new ArrayList<Map.Entry<String, Integer>>(keywordMap.entrySet());
+	    	Collections.sort(list_KeyData, new Comparator<Map.Entry<String, Integer>>(){
+	            public int compare(Map.Entry<String, Integer> entry1,
+	                               Map.Entry<String, Integer> entry2){
+	                return (entry2.getValue() - entry1.getValue());
+	            }
+	        });
+			
+	    	context.setAttribute("list_KeyData", list_KeyData);  	    
 			req.setAttribute("stoList", newList);
 			
 			RequestDispatcher successView = req.getRequestDispatcher("/front-end/index.jsp"); 
@@ -230,19 +242,19 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 	}
 	
 	//keyword排序
-	public class ValueComparator implements Comparator<String> {
-	    Map<String, Integer> base;
-	    public ValueComparator(Map<String, Integer> base) {
-	        this.base = base;
-	    }
-	    public int compare(String a, String b) {
-	        if (base.get(a) >= base.get(b)) {
-	            return -1;
-	        } else {
-	            return 1;
-	        }
-	    }
-	}
+//	public class ValueComparator implements Comparator<String> {
+//	    Map<String, Integer> base;
+//	    public ValueComparator(Map<String, Integer> base) {
+//	        this.base = base;
+//	    }
+//	    public int compare(String a, String b) {
+//	        if (base.get(a) >= base.get(b)) {
+//	            return -1;
+//	        } else {
+//	            return 1;
+//	        }
+//	    }
+//	}
 
 	
 	//保存關鍵字
@@ -251,7 +263,7 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 		BufferedWriter br = null;
 		String saveDirectory = "/front-end/data";
 		String realPath = getServletContext().getRealPath(saveDirectory);
-		System.out.println(realPath);
+System.out.println(realPath);
 		File fsaveDirectory = new File(realPath);
 		
 		if (!fsaveDirectory.exists())

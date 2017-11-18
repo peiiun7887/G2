@@ -17,9 +17,8 @@
 
 <%
 	ServletContext context = getServletContext();
-
-	Hashtable<String, Integer> keywordMap = (Hashtable<String, Integer>) context.getAttribute("keywordMap");
-
+	List<Map.Entry<String, Integer>> list_KeyData = (List<Map.Entry<String, Integer>>) context.getAttribute("list_KeyData");
+	context.setAttribute("list_KeyData", list_KeyData);
 
 %>
 <%
@@ -27,7 +26,7 @@
 	Enumeration<String> em = context.getAttributeNames();	
 	while(em.hasMoreElements()){
 	attrName = (String) em.nextElement();
-	if(attrName.equals("keywordMap"))
+	if(attrName.equals("list_KeyData"))
 			out.println(attrName);
 			
 	
@@ -122,9 +121,9 @@
 				     <div class="hotkey">
 				     	<ul class="list-inline">
 				     		<%	int count = 0; %>
-				     		<%	for(String key :keywordMap.keySet()){	%>
+				     		<%	for (Map.Entry<String, Integer> entry:list_KeyData){	%>
 				     		<%	if(count<10){ %>	
-				     			<li><%= key.toString() %></li>
+				     			<li><%= entry.getKey() %></li>
 				     		<%	count ++; %>	
 				     		<%  }} %>	     	    
 				     	 </ul>				     

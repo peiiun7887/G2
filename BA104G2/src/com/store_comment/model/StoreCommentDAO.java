@@ -31,10 +31,12 @@ public class StoreCommentDAO implements StoreCommentDAO_interface {
 			"SELECT * FROM STORE_COMMENT WHERE sto_num=? ORDER BY COM_TIME DESC";
 	
 	private static final String GET_STORE_STAR = 
-			"SELECT SC.STO_NUM , AVG(STARS) FROM STORE_COMMENT SC "
-			+ " LEFT JOIN STORE_PROFILE SP ON SP.STO_NUM = SC.STO_NUM WHERE SP.STO_STATUS = '已上架' AND SC.STATUS = '一般' "
-			+ " GROUP BY SC.STO_NUM ORDER BY AVG(STARS) DESC";
+			"SELECT SP.sto_num , SP.sto_name ,AVG(STARS)FROM STORE_PROFILE SP "
+			+ " LEFT JOIN STORE_COMMENT SC ON SP.STO_NUM = SC.STO_NUM WHERE SP.STO_STATUS = '已上架' AND SC.STATUS = '一般'  "
+			+ " GROUP BY SP.STO_NUM, SP.STO_NAME ORDER BY AVG(STARS) DESC";
 			
+	
+	
 	
 	@Override
 	public List<StoreCommentVO> geStoreCommentBySto_num(String sto_num) {
@@ -96,7 +98,8 @@ public class StoreCommentDAO implements StoreCommentDAO_interface {
 	}
 	
 	public Map<String, Integer> getStoreStars() {
-		Map<String, Integer> storeCommentList = new TreeMap<String, Integer>();
+		Map<String, Integer> storeCommentList = new HashMap<String, Integer>();
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -107,7 +110,7 @@ public class StoreCommentDAO implements StoreCommentDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				storeCommentList.put(rs.getString("STO_NUM"),rs.getInt("AVG(STARS)"));
+				storeCommentList.put(rs.getString("STO_Num"),rs.getInt("AVG(STARS)"));
 				
 			}
 			System.out.println(storeCommentList);

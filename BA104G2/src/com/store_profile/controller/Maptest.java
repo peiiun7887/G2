@@ -2,12 +2,14 @@ package com.store_profile.controller;
 
 
 import java.io.*;
-
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
-
+import java.util.HashMap;
 import java.util.Hashtable;
-
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.TreeMap;
 
@@ -15,64 +17,47 @@ import com.google.gson.Gson;
 
 public class Maptest {
 
-	Map<String,Integer> mapp = new Hashtable<String,Integer>();
-
-//	public void savtoFile() {
-//		
-//		FileWriter out;
-//		PrintWriter br;
-//		try {
-//			
-//			out = new FileWriter("/front-end/data/key.txt");
-//			br = new PrintWriter(out);
-//			for (Map.Entry<String,Integer> entry : mapp.entrySet()) {
-//		   
-//				br.println(entry.getKey()+","+entry.getValue());
-//			
-//				System.out.println(entry.getKey()+","+ entry.getValue());
-//			}	
-//			br.flush();
-//			br.close();
-//			out.close();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} 
-//
-//		System.out.println("DONE");
-//
-//	}
-	
-//	public void getfromfile(){
-//		FileReader in ;
-//		BufferedReader br;
-//	    	try {
-//				in = new FileReader("key.txt");
-//				br = new BufferedReader(in);
-//				String str = "";
-//				while((str = br.readLine())!=null){
-//				String[] stuInfo = str.split(",");
-//				mapp.put(stuInfo[0],Integer.parseInt(stuInfo[1]));
-//				System.out.println("key："+stuInfo[0]+" value："+stuInfo[1]);
-//				}
-//				br.close();
-//				in.close();
-//			} catch (FileNotFoundException e ) {
-//				e.printStackTrace();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			} 
-//	}
+	Map<String,Integer> mapp = new HashMap<String,Integer>();
 	
     public void savekey(String key){		
 			if(mapp.containsKey(key)){				//如果table已經有相同的key
 				mapp.put(key, mapp.get(key)+1);		//把value找出來+1再放入table
 			}else{
 				mapp.put(key, 1);					//新的key把value設為1放入table
-			}		
+			}
+			System.out.println("unsorted map: " + mapp);
 	}
     
    
+    public void dis2(){
+    	
+    	List<Map.Entry<String, Integer>> list_Data =
+                new ArrayList<Map.Entry<String, Integer>>(mapp.entrySet());
+    	Collections.sort(list_Data, new Comparator<Map.Entry<String, Integer>>(){
+            public int compare(Map.Entry<String, Integer> entry1,
+                               Map.Entry<String, Integer> entry2){
+                return (entry2.getValue() - entry1.getValue());
+            }
+        });
+        for (Map.Entry<String, Integer> entry:list_Data) {
+           System.out.println(entry.getKey()+","+entry.getValue());
+        }
+        System.out.println(" map: " + mapp);
+        System.out.println(" map: " + list_Data);
+        
+        Map<String,Integer> mapp2 = new HashMap<String,Integer>();
+        
+        for(Entry<String, Integer> key : list_Data){
+        	mapp2.put(key.getKey(), key.getValue());
+        }
+    	
+        mapp2.put("餘", 15);
+        System.out.println(" map2222: " + mapp2);
+        
+    }
+    
+
+    
 	
 	public void describe(){
 	    ValueComparator bvc = new ValueComparator(mapp);
@@ -114,11 +99,12 @@ System.out.println("???: " );
 		mt.savekey("茶");
 		mt.savekey("清新");
 		mt.savekey("奶茶");
+		mt.savekey("奶茶");
 		mt.savekey("50嵐");
-		mt.savekey("50嵐");
-		mt.savekey("50嵐");
+
 		mt.savekey("茶湯");
 		mt.savekey("茶");
+		mt.savekey("奶茶");
 //		
 	
 //		mt.savtoFile();
@@ -140,8 +126,8 @@ System.out.println("???: " );
 //			System.out.println(key+"--");
 //		}
 //		
-		mt.describe();
-		
+//		mt.describe();
+		mt.dis2();
 		
 
 	}
