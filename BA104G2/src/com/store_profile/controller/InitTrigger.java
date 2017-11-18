@@ -2,25 +2,20 @@ package com.store_profile.controller;
 
 import java.io.*;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
+import com.store_comment.model.*;
 
 public class InitTrigger extends HttpServlet {
 
 	Map<String,Integer> keywordMap = new Hashtable<String,Integer>();;
-	TreeMap<String, Integer> sorted_keyword;
+//	TreeMap<String, Integer> sorted_keyword;
 
-//  public void destroy() {                                            
-//	  super.destroy();	
-//		try {
-//			saveKeyword();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}                                                   
-//  }
+
   public void doGet(HttpServletRequest req, HttpServletResponse res) 
                                throws ServletException, IOException {
     res.setContentType("text/plain");                                
@@ -57,7 +52,17 @@ public class InitTrigger extends HttpServlet {
 				e.printStackTrace();
 			} 
 	    	ServletContext context = getServletContext();
-		    context.setAttribute("keywordMap", keywordMap);                                                    
+		    context.setAttribute("keywordMap", keywordMap);  
+		    
+		    // Store get Stars /////////////////////////////////////////////
+		    
+		    StoreCommentService scSvc = new StoreCommentService();
+		    Map<String, Integer> rankList = scSvc.getStoreStars();
+		    for(String key : rankList.keySet()){
+		    	System.out.println(key+","+rankList.get(key));
+		    }
+		    context.setAttribute("rankList", rankList); 
+		    
   }
   
 	//保存關鍵字

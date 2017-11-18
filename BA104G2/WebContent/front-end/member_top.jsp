@@ -17,7 +17,7 @@
 
 <%
 	ServletContext context = getServletContext();
-Hashtable<String, Integer> keywordMap = (Hashtable<String, Integer>) context.getAttribute("keywordMap");
+	Hashtable<String, Integer> keywordMap = (Hashtable<String, Integer>) context.getAttribute("keywordMap");
 
 %>
 <%
