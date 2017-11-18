@@ -17,52 +17,52 @@ public class Maptest {
 
 	Map<String,Integer> mapp = new Hashtable<String,Integer>();
 
-	public void savtoFile() {
-		
-		FileWriter out;
-		PrintWriter br;
-		try {
-			
-			out = new FileWriter("/front-end/data/key.txt");
-			br = new PrintWriter(out);
-			for (Map.Entry<String,Integer> entry : mapp.entrySet()) {
-		   
-				br.println(entry.getKey()+","+entry.getValue());
-			
-				System.out.println(entry.getKey()+","+ entry.getValue());
-			}	
-			br.flush();
-			br.close();
-			out.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-
-		System.out.println("DONE");
-
-	}
+//	public void savtoFile() {
+//		
+//		FileWriter out;
+//		PrintWriter br;
+//		try {
+//			
+//			out = new FileWriter("/front-end/data/key.txt");
+//			br = new PrintWriter(out);
+//			for (Map.Entry<String,Integer> entry : mapp.entrySet()) {
+//		   
+//				br.println(entry.getKey()+","+entry.getValue());
+//			
+//				System.out.println(entry.getKey()+","+ entry.getValue());
+//			}	
+//			br.flush();
+//			br.close();
+//			out.close();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} 
+//
+//		System.out.println("DONE");
+//
+//	}
 	
-	public void getfromfile(){
-		FileReader in ;
-		BufferedReader br;
-	    	try {
-				in = new FileReader("key.txt");
-				br = new BufferedReader(in);
-				String str = "";
-				while((str = br.readLine())!=null){
-				String[] stuInfo = str.split(",");
-				mapp.put(stuInfo[0],Integer.parseInt(stuInfo[1]));
-				System.out.println("key："+stuInfo[0]+" value："+stuInfo[1]);
-				}
-				br.close();
-				in.close();
-			} catch (FileNotFoundException e ) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} 
-	}
+//	public void getfromfile(){
+//		FileReader in ;
+//		BufferedReader br;
+//	    	try {
+//				in = new FileReader("key.txt");
+//				br = new BufferedReader(in);
+//				String str = "";
+//				while((str = br.readLine())!=null){
+//				String[] stuInfo = str.split(",");
+//				mapp.put(stuInfo[0],Integer.parseInt(stuInfo[1]));
+//				System.out.println("key："+stuInfo[0]+" value："+stuInfo[1]);
+//				}
+//				br.close();
+//				in.close();
+//			} catch (FileNotFoundException e ) {
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			} 
+//	}
 	
     public void savekey(String key){		
 			if(mapp.containsKey(key)){				//如果table已經有相同的key
@@ -77,9 +77,16 @@ public class Maptest {
 	public void describe(){
 	    ValueComparator bvc = new ValueComparator(mapp);
 	    Map<String, Integer> sorted_map = new TreeMap<String, Integer>(bvc);
-	    System.out.println("unsorted map: " + mapp);
+System.out.println("unsorted map: " + mapp);
 	    sorted_map.putAll(mapp);
-	    System.out.println("sorted map: " + sorted_map);
+System.out.println("sorted map: " + sorted_map);
+	    mapp.clear();
+System.out.println("sorted map: " + sorted_map);
+	    for(String key :sorted_map.keySet()){
+	    	mapp.put(key, sorted_map.get(key));
+	    }
+System.out.println("???: " );	    
+	    System.out.println("sorted map: " + mapp);
 	}
 	
 	public class ValueComparator implements Comparator<String> {
@@ -114,7 +121,7 @@ public class Maptest {
 		mt.savekey("茶");
 //		
 	
-		mt.savtoFile();
+//		mt.savtoFile();
 //		try {
 //			mt.save();
 //		} catch (IOException e) {

@@ -17,7 +17,7 @@
 
 <%
 	ServletContext context = getServletContext();
-Hashtable<String, Integer> keywordMap = (Hashtable<String, Integer>) context.getAttribute("keywordMap");
+TreeMap<String, Integer> keywordMap = (TreeMap<String, Integer>) context.getAttribute("keywordMap");
 
 %>
 <%
@@ -119,10 +119,12 @@ Hashtable<String, Integer> keywordMap = (Hashtable<String, Integer>) context.get
 					
 				     <div class="hotkey">
 				     	<ul class="list-inline">
-				     		
+				     		<%	int count = 0; %>
 				     		<%	for(String key :keywordMap.keySet()){	%>
+				     		<%	if(count<10){ %>	
 				     			<li><%= key.toString() %></li>
-				     		<%  } %>	     	    
+				     		<%	count ++; %>	
+				     		<%  }} %>	     	    
 				     	 </ul>				     
 					</div>
 			</div>

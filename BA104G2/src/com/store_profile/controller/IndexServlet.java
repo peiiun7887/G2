@@ -42,8 +42,6 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 	
 	Map<String,Integer> keywordMap ;
 
-
-
 	public void destroy(){
 		super.destroy();	
 		try {
@@ -107,19 +105,21 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 		String action =req.getParameter("action");
 		List<StoreProfileVO> oldList = null;
 		ServletContext context = getServletContext();
-		keywordMap = (Hashtable<String,Integer>) context.getAttribute("keywordMap");
+		keywordMap = (TreeMap<String,Integer>) context.getAttribute("keywordMap");
 		
 		if("search".equals(action)){
+			
 			try{
 				String keyword = req.getParameter("keyword");
 				StoreProfileService spSvc = new StoreProfileService();
 				oldList = spSvc.getByKeyword(keyword);//查出有關鍵字且上架狀態的店家
 				//把關鍵字存在map
 				if(keywordMap.containsKey(keyword)){
-					keywordMap.put(keyword, keywordMap.get(keyword)+1);
-
+				   keywordMap.put(keyword, keywordMap.get(keyword)+1);
 				}else{
+					System.out.println("other");
 					keywordMap.put(keyword, 1);
+					System.out.println("sorted map: " + keywordMap);
 
 				}			
 				
@@ -138,17 +138,22 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 				double lng = latlng[1];
 
 				double distance = Disget(curlat,curlng,lat,lng);//算距離		
-	//			System.out.println(distance);
+				//	System.out.println(distance);
 				stoVO.setAddress(addr);
 				stoVO.setLat(lat);
 				stoVO.setLng(lng);
 				stoVO.setDistance(distance);
 				newList.add(stoVO);	//spVO(sto_num,sto_name,area,addr(完整),lat,lng,distance)	
-			}			
-		    context.setAttribute("keywordMap", keywordMap);
-		    
+			}	
+			
+			ValueComparator bvc = new ValueComparator(keywordMap);
+			Map<String, Integer> sorted_map = new TreeMap<String, Integer>(bvc);
+			sorted_map.putAll(keywordMap);
+
+		    context.setAttribute("keywordMap", sorted_map);		    
 			req.setAttribute("stoList", newList);
-			RequestDispatcher successView = req.getRequestDispatcher("/front-end/storeList.jsp"); 
+			
+			RequestDispatcher successView = req.getRequestDispatcher("/front-end/index.jsp"); 
 			successView.forward(req, res);
 			}
 		}
@@ -225,19 +230,19 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 	}
 	
 	//keyword排序
-//	public class ValueComparator implements Comparator<String> {
-//	    Map<String, Integer> base;
-//	    public ValueComparator(Map<String, Integer> base) {
-//	        this.base = base;
-//	    }
-//	    public int compare(String a, String b) {
-//	        if (base.get(a) >= base.get(b)) {
-//	            return -1;
-//	        } else {
-//	            return 1;
-//	        }
-//	    }
-//	}
+	public class ValueComparator implements Comparator<String> {
+	    Map<String, Integer> base;
+	    public ValueComparator(Map<String, Integer> base) {
+	        this.base = base;
+	    }
+	    public int compare(String a, String b) {
+	        if (base.get(a) >= base.get(b)) {
+	            return -1;
+	        } else {
+	            return 1;
+	        }
+	    }
+	}
 
 	
 	//保存關鍵字

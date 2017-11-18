@@ -47,6 +47,7 @@
 <body>
 <jsp:include page="/front-end/member_top.jsp" />
 <jsp:include page="/front-end/coupon_notify.jsp" />
+<jsp:include page="/front-end/storeList.jsp" />
 
 
 

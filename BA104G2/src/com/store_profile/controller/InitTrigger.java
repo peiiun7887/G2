@@ -10,30 +10,22 @@ import javax.servlet.http.*;
 
 public class InitTrigger extends HttpServlet {
 
-	Map<String,Integer> keywordMap = new Hashtable<String,Integer>();;
-	TreeMap<String, Integer> sorted_keyword;
+	Map<String,Integer> keywordMap = new TreeMap<String,Integer>();;
 
-//  public void destroy() {                                            
-//	  super.destroy();	
-//		try {
-//			saveKeyword();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}                                                   
-//  }
+
   public void doGet(HttpServletRequest req, HttpServletResponse res) 
                                throws ServletException, IOException {
     res.setContentType("text/plain");                                
     PrintWriter out = res.getWriter(); 
     
-    for(String key : keywordMap.keySet() ){
-    	out.println(key+","+keywordMap.get(key));
-    }
+//    for(String key : keywordMap.keySet() ){
+//    	out.println(key+","+keywordMap.get(key));
+//    }
                              
   }
   
   public void init() throws ServletException {
-	  System.out.println("init");
+	  System.out.println("init Start");
 	  FileReader in ;
 	  BufferedReader br;
 	  String saveDirectory = "/front-end/data";
@@ -57,27 +49,12 @@ public class InitTrigger extends HttpServlet {
 				e.printStackTrace();
 			} 
 	    	ServletContext context = getServletContext();
-		    context.setAttribute("keywordMap", keywordMap);                                                    
+		    context.setAttribute("keywordMap", keywordMap);   
+		    
+		////////////////////////////////////////////////////
+		    
+		
   }
   
-	//保存關鍵字
-//	public void saveKeyword() throws IOException{
-//		FileWriter out = null;
-//		BufferedWriter br = null;
-//		try {
-//			out = new FileWriter("key.txt");
-//			br = new BufferedWriter(out);
-//			for (Map.Entry<String,Integer> entry : keywordMap.entrySet()) {
-//				br.write(entry.getKey()+","+entry.getValue());
-//				br.newLine();
-//				System.out.println(entry.getKey()+","+ entry.getValue());
-//			}	
-//			br.flush();
-//			br.close();
-//			out.close();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		} 
-//		System.out.println("SAVED");	 
-//	}
+
 }
