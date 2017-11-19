@@ -21,18 +21,7 @@
 	context.setAttribute("list_KeyData", list_KeyData);
 
 %>
-<%
-	String attrName = null;
-	Enumeration<String> em = context.getAttributeNames();	
-	while(em.hasMoreElements()){
-	attrName = (String) em.nextElement();
-	if(attrName.equals("list_KeyData"))
-			out.println(attrName);
-			
-	
-	}
-		
-%>
+
 		<!-- top nav bar =============================================================== -->
 	<div class="navbars navbar-fixed-top">
 		<div class="container">

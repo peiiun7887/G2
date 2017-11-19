@@ -99,7 +99,7 @@ public class InitTrigger extends HttpServlet {
 			timer = new Timer(); 
 			Calendar calendar = Calendar.getInstance();
 			// 設定填入schedule中的 Date firstTime為現在的5秒後
-			calendar.set(Calendar.SECOND, calendar.get(Calendar.SECOND)+5);
+			//calendar.set(Calendar.SECOND, calendar.get(Calendar.SECOND)+5);
 			timer.schedule(task, calendar.getTime(), 1*5*60*1000);	//5分鐘算一次
 			System.out.println("已建立排程!");       
 	

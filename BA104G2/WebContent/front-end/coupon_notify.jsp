@@ -23,7 +23,7 @@
    		 height:50px;   		    		 
    }
    .coupon-title{
-   		color:#EFBC56; 
+   		color:orange; 
    		font-size:16pt;
    		margin:0 5px;
    }
@@ -63,7 +63,7 @@
 				        <div class="item coupon text-center ${(i.count==1)?'active':''}" >
 				        	<span class="coupon-title">折價券預告 <span class=" glyphicon glyphicon-bullhorn"></span></span>
 				        	<span class="coupon-text"> ${cpMsg.up_date} 起  </span>
-				        	<span class="coupon-text">${spSvc.getOneStoName(cpMsg.sto_num).sto_name } ${cpMsg.coupon_desc}元 共${cpMsg.total}張</span>
+				        	<span class="coupon-text"> ${spSvc.getOneStoName(cpMsg.sto_num).sto_name } ${cpMsg.coupon_desc}元 共${cpMsg.total}張</span>
 				        	<span class="coupon-title"> <span class=" glyphicon glyphicon-bullhorn imgrvs"></span> 折價券預告</span>
 						</div>
 					</c:forEach>

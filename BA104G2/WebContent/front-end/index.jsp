@@ -11,6 +11,7 @@
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/member_base.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
  <title></title>
  
     <style>
@@ -38,6 +39,56 @@
         line-height:50px;
         margin:0 5px;
    }
+   
+   	img{
+		display: inline-block;
+		float:left;
+		margin: 0 10px 0 0;
+	}
+	#stolist{
+		width:100%;
+	}
+
+	#stolist td{
+		padding: 10px;
+		width:30%;
+		align:center;
+	}
+	.wrap{		
+		border:1px solid #DCE6D2;
+		padding: 10px;
+		border-radius:10px;
+		height:100px;
+	}
+	
+	.wrap:hover{
+		border-color:#EFBC56;
+		border-width: unset;
+	}
+	.color-org{
+		color:#FA5532;
+	}
+	.title{
+		color:#3C9682;
+		font-weight:border;
+		
+	}
+	a:hover {
+    	text-decoration: none;
+	}
+	.adimg{
+		width:100%;
+		height:500px;
+	}
+	
+	.checked {
+    	color: orange;
+	}	
+	
+	.star-gray{
+		color:#CCCCCC;
+		size:120%;
+	}
 
    
 </style>
@@ -51,6 +102,20 @@
 	StoreProfileService stSvc = new StoreProfileService();
 %>
 
+<%
+	String attrName = null;
+	Enumeration<String> em = request.getAttributeNames();	
+	while(em.hasMoreElements()){
+	attrName = (String) em.nextElement();
+	if(attrName.equals("stoList"))
+			out.println(attrName);
+			
+	
+	}
+		
+%>
+
+
 <jsp:include page="/front-end/member_top.jsp" />
 <jsp:include page="/front-end/coupon_notify.jsp" />
 
@@ -58,13 +123,13 @@
 
 
 <div class="container-fluid area20">
-			<div class="row">
+	<div class="row">
 
 
 
 		<!-- 好評排行-->
 
-		<div class="col-xs-12 col-sm-2 col-sm-offset-1">
+		<div class="col-xs-12 col-sm-2 col-sm-offset-1 ">
 			
 			<% for ( Map.Entry<String, Integer> Key  : list_RankData){ %>
 				<div class="good-to-drink">
@@ -73,11 +138,12 @@
 					</div>
 					<div class="gd-right rating-bar">
 						<p class="store-name">
-						
+						<a href = "<%= request.getContextPath()%>/xxx.do?sto_num=<%= Key.getKey() %>">
 						<%= stSvc.getOneStoName(Key.getKey()).getSto_name() %>
-					
+						</a>
 						</p>						
-						<meter class="rank-style" max="5" min="0" value="<%= Key.getValue() %>"> </meter>
+						<span class="rank-style"></span>
+						<span class="rank-point">  <%= Key.getValue() %> </span>
 					</div>
 				</div>
 			<% } %>
@@ -87,7 +153,7 @@
 		
 		</div>
 			
-			<div class="col-xs-12 col-sm-8 col-sm-offset-1">
+			<div class="col-xs-12 col-sm-8 col-sm-offset-0">
 				<div id="carousel-id2" class="carousel slide" data-ride="carousel">
 				    <!-- 幻燈片小圓點區 -->
 				    <ol class="carousel-indicators">
@@ -98,13 +164,13 @@
 				    <!-- 幻燈片主圖區 -->
 				    <div class="carousel-inner">
 				        <div class="item">
-				        <img src="image/ad/ad3.jpeg" alt="">
-					        </div>
+				        	<img class="adimg" src="<%= request.getContextPath()%>/img/ad3.jpeg" alt="">
+					    </div>
 				        <div class="item">
-				            <img src="image/ad/ad1.jpeg" alt="">			            
+				            <img class="adimg" src="<%= request.getContextPath()%>/img/ad1.jpeg" alt="">			            
 				        </div>
 				        <div class="item active">
-				            <img src="image/ad/ad2.jpeg" alt="">			            
+				            <img class="adimg" src="<%= request.getContextPath()%>/img/ad2.jpeg" alt="">			            
 				        </div>
 				    </div>
 				    <!-- 上下頁控制區 -->
@@ -115,10 +181,25 @@
 		
 
 		</div> 
-
 </div>   <!--功能區塊container-->
 
-<jsp:include page="/front-end/storeList.jsp" />
+
+<!-- 附近店家 -->
+<div class="container-fluid area20">
+	<div class="row">
+		<div class="col-xs-12 col-sm-10 col-sm-offset-1 ">
+		<% if (request.getAttribute("stoList")==null){ %>
+			<jsp:include page="storeListAll.jsp" />
+		<% } %>	
+		
+		<jsp:include page="/front-end/storeList.jsp" />
+		</div>
+	</div> 
+</div>   <!--附近店家-->
+
+
+
+<!--footer-->
 <jsp:include page="/front-end/member_foot.jsp" />
 
 		<script src="https://code.jquery.com/jquery.js"></script>
@@ -126,14 +207,21 @@
 		<script>
 		$(document).ready(function () {
 			
-			$('.rank-style').each(function(){
-				var index = $(this).text();
-				console.log(index);
-				$(this).addClass(function( index ) {
-					return "rate-" + index;
-				});
-				  
+			
+			
+			$(".rank-style").each(function(){
+				var rating = parseInt($(this).next().text());
+				console.log(rating);
+				for(var i =1 ; i< 6 ;i++){
+					if(i<rating){
+						console.log(i+","+rating)
+						$(this).append('<span class="fa fa-star checked"></span>');
+					}else{
+						$(this).append('<span class="fa fa-star star-gray"></span>');
+					}
+				}
 			});
+			
 			
 		});	
 		</script>

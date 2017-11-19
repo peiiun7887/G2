@@ -78,9 +78,7 @@
 				font-weight:bolder;
 
 			}
-			.rank-style{
-				color:#EFBC56;
-			}
+
 			.gd-left{
 				margin:auto;
 				display: block;
@@ -92,4 +90,9 @@
 				width:68%;
 				float:right;
 				padding:5px 0px 0px 20px;
+			}
+			
+			.rank-point{
+				color: orange;
+				
 			}
