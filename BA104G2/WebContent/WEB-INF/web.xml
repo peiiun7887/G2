@@ -83,9 +83,6 @@
   </servlet-mapping>
   
 
-  	<context-param>
-		<param-name>key-file</param-name>
-		<param-value>/front-end/data/key.txt</param-value>
-	</context-param>
+
 
 </web-app>

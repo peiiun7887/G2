@@ -10,9 +10,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-
+<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/member_base.css">
  <title></title>
+ 
     <style>
+
     div{
     	border: 0px solid #AAAAAA;
     }
@@ -70,11 +72,11 @@
 						<img class="imgsize" src="<%= request.getContextPath()%>/stoGifReader4?sto_num=<%= Key.getKey() %>">
 					</div>
 					<div class="gd-right rating-bar">
-						<span class="store-name">
+						<p class="store-name">
 						
 						<%= stSvc.getOneStoName(Key.getKey()).getSto_name() %>
 					
-						</span>						
+						</p>						
 						<meter class="rank-style" max="5" min="0" value="<%= Key.getValue() %>"> </meter>
 					</div>
 				</div>
@@ -115,7 +117,9 @@
 		</div> 
 
 </div>   <!--¥\¯à°Ï¶ôcontainer-->
+
 <jsp:include page="/front-end/storeList.jsp" />
+<jsp:include page="/front-end/member_foot.jsp" />
 
 		<script src="https://code.jquery.com/jquery.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
