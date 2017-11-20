@@ -63,6 +63,26 @@ public class fakeLogin extends HttpServlet {
 			res.sendRedirect(req.getContextPath()+"/store-end/form.jsp");
 		    return;
 		}
+		
+		if("loginbak".equals(action)){
+			String bm_no = req.getParameter("bm_no");			
+			HttpSession session = req.getSession();
+			session.setAttribute("bm_no", bm_no);
+			
+			res.sendRedirect(req.getContextPath()+"/store-end/bks/staff_select_page.jsp");	
+			return;
+		}
+		
+		if ("logoutbak".equals(action)) {
+			String bm_no = req.getParameter("bm_no");
+			
+			HttpSession session = req.getSession();
+			session.invalidate();
+			System.out.println(bm_no+"logout");
+			//整個連線拔掉
+			res.sendRedirect(req.getContextPath()+"/store-end/form.jsp");
+		    return;
+		}
 	
 	}
 

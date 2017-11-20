@@ -11,8 +11,9 @@
 
   
       
-會員編號
+
 <FORM METHOD="get" ACTION="<%= request.getContextPath() %>/fakeLogin">
+會員編號
 	<select size="1" name="mem_num">
     	<option value="MB0000000001" >MB0000000001
     	<option value="MB0000000002" >MB0000000002
@@ -32,6 +33,21 @@
     	<option value="ST0000000004" >ST0000000004
     	<option value="ST0000000005" >ST0000000005
     	<option value="ST0000000006" >ST0000000006
+    </select>
+    
+    <input type="hidden" name="action" value="loginin">
+    <INPUT TYPE="SUBMIT" value="送出">
+  </FORM>
+  
+      <FORM METHOD="get" ACTION="<%= request.getContextPath() %>/fakeLogin">
+後臺編號
+    <select size="1" name="sto_num">
+    	<option value="BM0000000001" >BM0000000001
+    	<option value="BM0000000002" >BM0000000002
+    	<option value="BM0000000003" >BM0000000003
+    	<option value="BM0000000004" >BM0000000004
+    	<option value="BM0000000005" >BM0000000005
+    	<option value="BM0000000006" >BM0000000006
     </select>
     
     <input type="hidden" name="action" value="loginin">

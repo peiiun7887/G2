@@ -71,18 +71,12 @@
     <servlet-name>IndexServlet</servlet-name>
     <url-pattern>/index/IndexServlet.do</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>InitTrigger</servlet-name>
     <servlet-class>com.store_profile.controller.InitTrigger</servlet-class>
-  	<load-on-startup>10</load-on-startup>
   </servlet>
   <servlet-mapping>
     <servlet-name>InitTrigger</servlet-name>
     <url-pattern>/index/InitTrigger.do</url-pattern>
   </servlet-mapping>
-  
-
-
-
 </web-app>

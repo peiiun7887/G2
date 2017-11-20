@@ -3,18 +3,18 @@
 		
 			body{
 				font-family: Microsoft JhengHei, Gotham;
-				color:#595942;
+				color:#595942;/*²`¾ñÆVºñ*/
 				padding-top:50px;
 				padding-bottom: 70px;
 			}
 			p ,span {
 				font-size: 10pt;
 				margin: 0px 0px 5px 0px;
-				color:#DCE6D2; 
+				color:#DCE6D2;
 			}
 
 			.navbars{
-				background-color: #3C9682;
+				background-color: #595942; /*²`¾ñÆVºñ*/
 			}
 
 			.item-color{
@@ -31,13 +31,13 @@
 			}
 			
 			.btn-green{
-				background:#3C9682; /*éŠé¤‰ï°green*/
+				background:#3C9682; /*¥D¦âgreen*/
 				color:#FFFFFF;
 				margin-right: 15px;
 			}
 
 			.btn-org{
-				background: #FA5532; /*ç’ˆî¦¹ï°der*/
+				background: #FA5532; /*¾ï¦âder*/
 				color:#FFFFFF;
 			}
 
@@ -50,13 +50,12 @@
 			}
 
 			.funcbtn-normal{
-				color:#3C9682;/*ç’ˆï„“ï¿½î¡¾ï¿½ï¿½*/	
-				
+				color:#595942;/*¾ñÆVºñ*/	
 			}
 
 			.panelheight{
 				border-color: #CCCCCC;
 				
-				height:1500px;  
-			}
+				height:1200px;  
 
+			}

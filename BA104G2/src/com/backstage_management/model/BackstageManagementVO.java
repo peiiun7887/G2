@@ -1,6 +1,6 @@
-package com.bm.model;
+package com.backstage_management.model;
 
-public class BmVO implements java.io.Serializable{
+public class BackstageManagementVO implements java.io.Serializable{
 	
 	private String bm_no;
 	private String bm_name;
