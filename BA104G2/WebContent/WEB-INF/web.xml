@@ -15,6 +15,7 @@
     <res-type>javax.sql.DataSource</res-type>
     <res-auth>Container</res-auth>
   </resource-ref>
+<!-- store product manage -->  
   <servlet>
     <servlet-name>ProductServlet</servlet-name>
     <servlet-class>com.product.controller.ProductServlet</servlet-class>
@@ -47,6 +48,18 @@
     <servlet-name>ExtraServlet</servlet-name>
     <url-pattern>/pdc_mng/StoExtMng.do</url-pattern>
   </servlet-mapping>
+ 
+<!-- staff backstage manage --> 
+  <servlet>
+    <servlet-name>BackstageManagementServlet</servlet-name>
+    <servlet-class>com.backstage_management.controller.BackstageManagementServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BackstageManagementServlet</servlet-name>
+    <url-pattern>/bks_mng/BksMng.do</url-pattern>
+  </servlet-mapping>
+  
+<!-- IMG Reader --> 
   <servlet>
     <servlet-name>DBGifReader4</servlet-name>
     <servlet-class>com.product.controller.DBGifReader4</servlet-class>
@@ -63,6 +76,15 @@
     <servlet-name>stoGifReader4</servlet-name>
     <url-pattern>/stoGifReader4</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <servlet-name>bmGifReader4</servlet-name>
+    <servlet-class>com.backstage_management.controller.bmGifReader4</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>bmGifReader4</servlet-name>
+    <url-pattern>/bmGifReader4</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
     <servlet-name>IndexServlet</servlet-name>
     <servlet-class>com.store_profile.controller.IndexServlet</servlet-class>

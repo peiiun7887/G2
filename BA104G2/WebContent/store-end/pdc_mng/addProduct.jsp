@@ -4,7 +4,7 @@
 <jsp:useBean id="pdcTSvc" scope="request" class="com.product_type.model.ProductTypeService" />	
 
 <%
-	ProductVO productVOerr = (ProductVO) request.getAttribute("productVOerr");
+	ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 	session.setAttribute("addform","permit");	//從add頁面來得給個通行證
 
 %>
@@ -61,7 +61,7 @@
 			<tr>
 				<td>商品名稱</td>
 				<td><input type="TEXT" name="com_name" size="45" 
-					 value="${productVOerr.com_name}" /></td>
+					 value="${productVO.com_name}" /></td>
 			</tr>
 			<tr>
 				<td>小杯商品價位:</td>

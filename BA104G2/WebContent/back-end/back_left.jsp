@@ -36,132 +36,135 @@
 					<!--左邊功能伸縮 panel-->
 					<div class="panel-group text-center mgrb" id="accordion1" role="tablist" aria-multiselectable="true">
 
-						<!--  1.訂單管理 -->
+						<!--  1.看板管理 -->
 						<div class="panel panel-default">
 							<div class="panel-heading" role="tab" id="panel1">				      
 						        <a href="#func1" data-parent="#accordion1" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="func1">
-						          <div class="panel-title funcbtn-normal ">訂單管理</div>
+						          <h4 class="panel-title funcbtn-normal ">看板管理</h4>
 						        </a>				      
 						    </div>
 						    <div id="func1" class="panel-collapse collapse " role="tabpanel" aria-labelledby="panel1">
 						      	<div class="list-group">
-						        	<a href="#" class="list-group-item active">訂單驗證</a>
-						        	<a href="#" class="list-group-item">瀏覽客戶寄杯</a>
-						        	<a href="#" class="list-group-item">送出寄杯</a>
-						        	<a href="#" class="list-group-item">瀏覽訂單</a>
+						        	<a href="#" class="list-group-item active">店家廣告上下架</a>
+						        	<a href="#" class="list-group-item">折價券預告上下架</a>
+						        	<a href="#" class="list-group-item">折價券上下架</a>
+						        	
 						        </div>	     
 						    </div>
 						</div>
 
-						<!-- 2.商品管理 -->
-						<div class="panel panel-default ">
+						<!-- 2.會員點數管理 -->
+						<div class="panel panel-default">
 						    <div class="panel-heading" role="tab" id="panel2">				      
-						        <a href="<%= request.getContextPath() %>/store-end/pdc_mng/store_select_page.jsp" data-parent="#accordion1" data-toggle="collapse" role="button" class="collapsed" >
-						          <div class="panel-title funcbtn-normal">商品管理
-						          </div>
+						        <a href="#func2" data-parent="#accordion1" data-toggle="collapse" role="button" class="collapsed" aria-expanded="false" aria-controls="func2">
+						          <h4 class="panel-title funcbtn-normal">會員點數管理</h4>
 						        </a>				      
+						    </div>
+						    <div id="func2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="panel2">
+						        <div class="list-group">
+						        	<a href="#" class="list-group-item active">查詢儲值紀錄</a>
+						        	<a href="#" class="list-group-item">查詢匯出紀錄</a>
+						        </div>
 						    </div>
 						</div>
 
-						<!-- 3.店家資訊 -->
+						<!-- 3.店家驗證管理 -->
 						<div class="panel panel-default">
 						    <div class="panel-heading" role="tab" id="panel3">
 						        <a href="#func3" data-parent="#accordion1" data-toggle="collapse" role="button" class="collapsed" aria-expanded="false" aria-controls="func3">
-						          <div class="panel-title funcbtn-normal">店家資訊</div>
+						          <h4 class="panel-title funcbtn-normal">店家驗證管理</h4>
 						        </a>
 						    </div>
 						    <div id="func3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="panel3">
 						      	<div class="list-group">
-						        	<a href="#" class="list-group-item active">修改店家資訊</a>
-						        	<a href="#" class="list-group-item">瀏覽店家評論</a>
-						        	<a href="#" class="list-group-item">店家上/下架</a>
-						        	<a href="#" class="list-group-item">集點卡設定</a>
-						        	<a href="#" class="list-group-item">檢舉評論</a>
+						        	<a href="#" class="list-group-item active">折價券驗證</a>
+						        	<a href="#" class="list-group-item">廣告驗證</a>
+						        	<a href="#" class="list-group-item">身分審核驗證</a>
+						        	<a href="#" class="list-group-item">點數匯出驗證</a>
 						        </div>	
 						    </div>
 						</div>
 
-						<!-- 4.點數管理 -->
+						<!-- 4.檢舉管理 -->
 						<div class="panel panel-default">
 						    <div class="panel-heading" role="tab" id="panel4">
 						        <a href="#func4" data-parent="#accordion1" data-toggle="collapse" role="button" class="collapsed" aria-expanded="false" aria-controls="func4">
-						          <div class="panel-title funcbtn-normal">點數管理</div>
+						          <h4 class="panel-title funcbtn-normal">檢舉管理</h4>
 						        </a>
 						    </div>
 						    <div id="func4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="panel4">
 						      	<div class="list-group">
-						        	<a href="#" class="list-group-item active">查詢點數餘額</a>
-						        	<a href="#" class="list-group-item">點數提領</a>
+						        	<a href="#" class="list-group-item active">瀏覽檢舉紀錄</a>
+						        	<a href="#" class="list-group-item">店家檢舉處理</a>
+						        	<a href="#" class="list-group-item">會員檢舉處理</a>
+						        	<a href="#" class="list-group-item">評論檢舉處理</a>
+						        	<a href="#" class="list-group-item">檢舉處理狀況</a>
 						        </div>	
 						    </div>
 						</div>
 
-						<!-- 5.廣告管理 -->
+						<!-- 5.店家管理 -->
 						<div class="panel panel-default">
 						    <div class="panel-heading" role="tab" id="panel5">
 						        <a href="#func5" data-parent="#accordion1" data-toggle="collapse" role="button" class="collapsed" aria-expanded="false" aria-controls="func5">
-						          <div class="panel-title funcbtn-normal">廣告管理</div>
+						          <h4 class="panel-title funcbtn-normal">店家管理</h4>
 						        </a>
 						    </div>
 						    <div id="func5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="panel5">
 						      	<div class="list-group">
-						        	<a href="#" class="list-group-item active">新增廣告</a>
-						        	<a href="#" class="list-group-item">廣告紀錄</a>
-						        	<a href="#" class="list-group-item">購買廣告</a>
+						        	<a href="#" class="list-group-item active">瀏覽店家</a>
 						        </div>	
 						    </div>
 						</div>
 
-						<!-- 6.折價券管理 -->
+						<!-- 6.會員管理 -->
 						<div class="panel panel-default">
 						    <div class="panel-heading" role="tab" id="panel6">
 						        <a href="#func6" data-parent="#accordion1" data-toggle="collapse" role="button" class="collapsed" aria-expanded="false" aria-controls="func6">
-						          <div class="panel-title funcbtn-normal">折價券管理</div>
+						          <h4 class="panel-title funcbtn-normal">會員管理</h4>
 						        </a>
 						    </div>
 						    <div id="func6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="panel6">
 						      	<div class="list-group">
-						        	<a href="#" class="list-group-item active">申請發佈折價券</a>
-						        	<a href="#" class="list-group-item">新增折價券</a>
-						        	<a href="#" class="list-group-item">折價券紀錄</a>
+						        	<a href="#" class="list-group-item active">搜尋會員</a>
 						        </div>
 						    </div>
 						</div>
 
-						<!-- 7.檢舉專區 -->
+						<!-- 7.會員點數管理 -->
 						<div class="panel panel-default">
 						    <div class="panel-heading" role="tab" id="panel7">
 						        <a href="#func7" data-parent="#accordion1" data-toggle="collapse" role="button" class="collapsed" aria-expanded="false" aria-controls="func7">
-						          <div class="panel-title funcbtn-normal">檢舉專區</div>
+						          <h4 class="panel-title funcbtn-normal">會員點數管理</h4>
 						        </a>
 						    </div>
 						    <div id="func7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="panel7">
 						      	<div class="list-group">
-						        	<a href="#" class="list-group-item active">檢舉紀錄</a>
-						        	<a href="#" class="list-group-item">聯繫後台人員</a>
+						        	<a href="#" class="list-group-item active">查詢儲值紀錄</a>
+						        	<a href="#" class="list-group-item">查詢匯出紀錄</a>
 						        </div>
 						    </div>
 						</div>
 
-						<!-- 8.教學專區 -->
+						<!-- 8.後台人員資料管理 -->
 						<div class="panel panel-default">
 						    <div class="panel-heading" role="tab" id="panel8">
-						    	<a href="#func8" data-parent="#accordion1" data-toggle="collapse" role="button" class="collapsed" aria-expanded="false" aria-controls="func8" >
-						           <div class="panel-title funcbtn-normal">教學專區</div>
+						        <a href="#func8" data-parent="#accordion1" data-toggle="collapse" role="button" class="collapsed" aria-expanded="false" aria-controls="func8">
+						          <h4 class="panel-title funcbtn-normal">後台人員資料管理</h4>
 						        </a>
 						    </div>
 						    <div id="func8" class="panel-collapse collapse" role="tabpanel" aria-labelledby="panel8">
 						      	<div class="list-group">
-						        	<a href="#" class="list-group-item active">店家資訊維護教學</a>
-						        	<a href="#" class="list-group-item">訂單處理教學</a>
-						        	<a href="#" class="list-group-item">廣告發佈教學</a>
-						        	<a href="#" class="list-group-item">折價券申請教學</a>
+						        	<a href="#" class="list-group-item active">瀏覽後台人員</a>
+						        	<a href="#" class="list-group-item">新增後台人員</a>
+						        	<a href="#" class="list-group-item">修改後台人員</a>
 						        </div>
 						    </div>
-						</div>
-				</div>
-			</div>		
-		</div>
+						</div>						
+					</div>
+				</div>				
+			</div>
+
 		<script src="https://code.jquery.com/jquery.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<script >

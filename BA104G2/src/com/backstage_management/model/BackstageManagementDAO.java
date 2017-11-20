@@ -14,7 +14,7 @@ public class BackstageManagementDAO implements BackstageManagementDAO_interface{
 		static {
 			try {
 				Context ctx = new javax.naming.InitialContext();
-				ds = (DataSource) ctx.lookup("java:comp/env/jdbc/xxxDB");
+				ds = (DataSource) ctx.lookup("java:comp/env/jdbc/BA104G2");
 			} catch (NamingException e) {
 				e.printStackTrace(System.err);
 			}

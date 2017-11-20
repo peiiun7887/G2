@@ -7,7 +7,7 @@ public class BackstageManagementVO implements java.io.Serializable{
 	private String bm_number;
 	private String bm_mail;
 	private String bm_banknum;
-	private Byte[] bm_pic;
+	private byte[] bm_img;
 	private String bm_num;
 	private String bm_pwd;
 	private String bm_jstatus;
@@ -42,11 +42,11 @@ public class BackstageManagementVO implements java.io.Serializable{
 	public void setBm_banknum(String bm_banknum) {
 		this.bm_banknum = bm_banknum;
 	}
-	public Byte[] getBm_pic() {
-		return bm_pic;
+	public byte[] getBm_img() {
+		return bm_img;
 	}
-	public void setBm_pic(Byte[] bm_pic) {
-		this.bm_pic = bm_pic;
+	public void setBm_img(byte[] bm_img) {
+		this.bm_img = bm_img;
 	}
 	public String getBm_num() {
 		return bm_num;
