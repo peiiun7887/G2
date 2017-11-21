@@ -17,6 +17,7 @@
 	
 	</head>
 <body>	
+
 		
 	<!-- left side function bar -->
 
@@ -106,7 +107,7 @@
 						<!-- 5.店家管理 -->
 						<div class="panel panel-default">
 						    <div class="panel-heading" role="tab" id="panel5">
-						        <a href="#func5" data-parent="#accordion1" data-toggle="collapse" role="button" class="collapsed" aria-expanded="false" aria-controls="func5">
+						        <a href="#func5" id="FC0000000003"data-parent="#accordion1" data-toggle="collapse" role="button" class="collapsed" aria-expanded="false" aria-controls="func5">
 						          <h4 class="panel-title funcbtn-normal">店家管理</h4>
 						        </a>
 						    </div>
@@ -120,7 +121,7 @@
 						<!-- 6.會員管理 -->
 						<div class="panel panel-default">
 						    <div class="panel-heading" role="tab" id="panel6">
-						        <a href="#func6" data-parent="#accordion1" data-toggle="collapse" role="button" class="collapsed" aria-expanded="false" aria-controls="func6">
+						        <a href="#func6" id="FC0000000001" data-parent="#accordion1" data-toggle="collapse" role="button" class="collapsed" aria-expanded="false" aria-controls="func6">
 						          <h4 class="panel-title funcbtn-normal">會員管理</h4>
 						        </a>
 						    </div>
@@ -134,7 +135,7 @@
 						<!-- 7.會員點數管理 -->
 						<div class="panel panel-default">
 						    <div class="panel-heading" role="tab" id="panel7">
-						        <a href="#func7" data-parent="#accordion1" data-toggle="collapse" role="button" class="collapsed" aria-expanded="false" aria-controls="func7">
+						        <a href="#func7" id="FC0000000002" data-parent="#accordion1" data-toggle="collapse" role="button" class="collapsed" aria-expanded="false" aria-controls="func7">
 						          <h4 class="panel-title funcbtn-normal">會員點數管理</h4>
 						        </a>
 						    </div>
@@ -147,20 +148,14 @@
 						</div>
 
 						<!-- 8.後台人員資料管理 -->
-						<div class="panel panel-default">
+						<div class="panel panel-default" id="FC0000000004"> 
 						    <div class="panel-heading" role="tab" id="panel8">
-						        <a href="#func8" data-parent="#accordion1" data-toggle="collapse" role="button" class="collapsed" aria-expanded="false" aria-controls="func8">
+						        <a href="<%= request.getContextPath() %>/back-end/bks_mng/bksmng_select_page.jsp"  data-parent="#accordion1" data-toggle="collapse" role="button" class="collapsed">
 						          <h4 class="panel-title funcbtn-normal">後台人員資料管理</h4>
 						        </a>
 						    </div>
-						    <div id="func8" class="panel-collapse collapse" role="tabpanel" aria-labelledby="panel8">
-						      	<div class="list-group">
-						        	<a href="#" class="list-group-item active">瀏覽後台人員</a>
-						        	<a href="#" class="list-group-item">新增後台人員</a>
-						        	<a href="#" class="list-group-item">修改後台人員</a>
-						        </div>
-						    </div>
-						</div>						
+						</div>
+												
 					</div>
 				</div>				
 			</div>
@@ -183,6 +178,34 @@
 			     $(this).toggleClass('active', $(this).attr('href') == loc);
 			  });
 			$('.active').css("background","#3C9682");
+			
+			var authList = ${authList};
+			var func = 'FC000000000';
+			console.log(authList.length);
+			
+			for(var i =1 ; i<9 ; i++){
+				for(var j =0 ; j<authList.length ; j++){
+					var funcN = func + i;
+					console.log("funcN:"+funcN);
+					
+					if(funcN.match(authList[j])){
+						console.log("true"+funcN);
+					}else{				   
+						var funcLink = document.getElementById(funcN);
+						funcLink.setAttribute("href","A");
+					}				
+				}
+			}
+				
+// 				var sol = authList[].match(funcN);
+// 				console.log(sol);
+// 				if(authList.match(funcN)){
+// 					$('#'+func+i).click(function(){
+// 						return false;
+// 					})
+// 				}
+			
+			
 
 		</script>	
 </body>

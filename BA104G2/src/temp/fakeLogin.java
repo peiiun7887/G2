@@ -1,12 +1,17 @@
 package temp;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.auth_list.model.AuthListService;
+import com.google.gson.Gson;
 
 @WebServlet("/fakeLogin")
 public class fakeLogin extends HttpServlet {
@@ -20,6 +25,7 @@ public class fakeLogin extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action =req.getParameter("action");
 		
+		///		會員登入		///
 		if("loginm".equals(action)){
 
 			String mem_num = req.getParameter("mem_num");
@@ -41,7 +47,7 @@ public class fakeLogin extends HttpServlet {
 		    return;
 		}
 
-		
+		///		店家登入		///
 		if("loginin".equals(action)){
 			String sto_num = req.getParameter("sto_num");
 			
@@ -63,9 +69,19 @@ public class fakeLogin extends HttpServlet {
 		    return;
 		}
 		
+		
+		///		後臺人員		///
 		if("loginbak".equals(action)){
 			String bm_no = req.getParameter("bm_no");			
 			HttpSession session = req.getSession();
+			
+			//查權限
+			AuthListService alSvc = new AuthListService();
+			List<String> funcList = alSvc.findByBm_no(bm_no);
+			Gson gson = new Gson();
+			String authList = gson.toJson(funcList);
+			session.setAttribute("authList", authList);			
+			
 			session.setAttribute("bm_no", bm_no);
 			System.out.println(bm_no+"login");
 			res.sendRedirect(req.getContextPath()+"/back-end/bks_mng/bksmng_select_page.jsp");	
