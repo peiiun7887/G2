@@ -41,7 +41,7 @@
   
       <FORM METHOD="get" ACTION="<%= request.getContextPath() %>/fakeLogin">
 後臺編號
-    <select size="1" name="sto_num">
+    <select size="1" name="bm_no">
     	<option value="BM0000000001" >BM0000000001
     	<option value="BM0000000002" >BM0000000002
     	<option value="BM0000000003" >BM0000000003
@@ -50,7 +50,7 @@
     	<option value="BM0000000006" >BM0000000006
     </select>
     
-    <input type="hidden" name="action" value="loginin">
+    <input type="hidden" name="action" value="loginbak">
     <INPUT TYPE="SUBMIT" value="送出">
   </FORM>
 

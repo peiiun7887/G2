@@ -16,7 +16,7 @@ public class bmGifReader4 extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
-		res.setContentType("image/gif");
+		res.setContentType("image/png");
 		ServletOutputStream out = res.getOutputStream();
 
 		try {
@@ -35,7 +35,7 @@ public class bmGifReader4 extends HttpServlet {
 					out.write(b);
 					in.close();
 				}else{
-					in = rs.getBinaryStream("IMG");
+					in = rs.getBinaryStream(1);
 					byte[] buf = new  byte[8*1024]; //8k buffer
 					int len;
 					while((len=in.read(buf)) != -1){
@@ -45,7 +45,6 @@ public class bmGifReader4 extends HttpServlet {
 				}
 			}else{
 				InputStream in = getServletContext().getResourceAsStream("/images/LOGO_150x150.gif");
-				System.out.println("===========================");
 				byte[] b = new byte[in.available()];
 				in.read(b);
 				out.write(b);

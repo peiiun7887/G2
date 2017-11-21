@@ -23,11 +23,11 @@
 			<div class="col-xs-12 col-sm-2 col-sm-offset-1 navbars navbar-fixed-top area50">
 
 				<div class="panel panel-default ">
-					<!-- 店家圖片 -->
+					<!-- 員工圖片 -->
 
 					<div class="panel-body">
 						<a href="#">
-						    <img class="imgsize thumbnail center-block area20" src="https://api.fnkr.net/testimg/100x100/3C9682/FFF/?text=img+placeholder">
+						    <img class="imgsize thumbnail center-block area20" src="<%=request.getContextPath()%>/bmGifReader4?bm_no=${sessionScope.bm_no}">
 						    <span class="glyphicon glyphicon-pencil pull-right funcbtn-normal"></span>
 					    </a>
 					</div>

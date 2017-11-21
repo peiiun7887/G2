@@ -65,7 +65,7 @@
 // 	}
 %>
 				<div >
-				   <h3>後台人員管理</h3>				
+				   <h3>${sessionScope.bm_no} ${requestScope.bm_no}後台人員管理</h3>				
 				</div>		
 						
 

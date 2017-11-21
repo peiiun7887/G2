@@ -29,7 +29,7 @@ public class BackstageManagementDAO implements BackstageManagementDAO_interface{
 		private static final String GET_ONE_STMT = 
 				"SELECT * FROM BACKSTAGE_MANAGEMENT WHERE bm_no=?";
 		private static final String GET_ALL_STMT = 
-				"SELECT * FROM BACKSTAGE_MANAGEMENT ORDER BY bm_no";
+				"SELECT * FROM BACKSTAGE_MANAGEMENT ORDER BY bm_no DESC";
 		private static final String CHECK_BM_NUM = "SELECT BM_NUM FROM BACKSTAGE_MANAGEMENT WHERE BM_NUM = ?";
 	
 	@Override

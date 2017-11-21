@@ -55,7 +55,9 @@
 
 			.panelheight{
 				border-color: #CCCCCC;
-				
-				height:1200px;  
-
+				height:1200px; 
+			}
+			
+			#checkicon{
+				color:#FA5532;
 			}

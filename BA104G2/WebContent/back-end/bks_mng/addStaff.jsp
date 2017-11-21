@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.backstage_management.model.*"%>
-
+<jsp:useBean id="flSvc" scope="request" class="com.func_list.model.FuncListService" />
 
 <%
 	
@@ -30,12 +30,11 @@
 	<!--========================== 功能放這邊 =============================================-->
 
 <%-- 查詢+ListAll按鈕 --%>
-<%-- <jsp:include page="/back-end/bks_mng/btn_select.jsp" /> --%>
+<jsp:include page="/back-end/bks_mng/btn_select.jsp" />
 
 	<table id="table-1">
 		<tr>
 			<td><h3>新增後臺人員</h3></td>
-			<td><h4><a href="<%= request.getContextPath() %>/back-end/bks_mng/bksmng_select_page.jsp">回後臺人員管理首頁</a></h4></td>
 		</tr>
 	</table>
 
@@ -58,8 +57,8 @@
 			</tr>
 			<tr>
 				<td>員工帳號:</td>
-				<td><input type="text" name="bm_num" size="45" 
-				value="${bmVO.bm_num}"><span class="glyphicon glyphicon-question-sign"></span></td>
+				<td><input type="text" id="bm_num" name="bm_num" size="45" 
+				value="${bmVO.bm_num}"><span id = "checkicon"></span></td>
 			</tr>
 			<tr>
 				<td>員工手機:</td>
@@ -80,6 +79,20 @@
 				<td>員工照片:</td>
 				<td><input type="File" name="bm_img" size="45"/></td>
 			</tr>
+			<tr>
+				<td>員工權限：</td>
+				<td>
+				<c:forEach var="funcVO" items="${flSvc.all}">
+					<input type="checkbox" name=func value="${funcVO.func_no}"
+					
+						<c:forEach var="funcList" items="${funcList}">
+							${(funcList==funcVO.func_no)? 'checked':'' }
+						</c:forEach>					
+					
+					> ${funcVO.func_name} <br>
+				</c:forEach>
+				</td>
+			</tr>
 
 		</table>
 		
@@ -98,30 +111,49 @@
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script>
-	$('input[name=bm_num]').blur(checkBm_num);
+	$('#bm_num').blur(checkBm_num);
 	
 	function checkBm_num(){
-		 $.ajax({
-			    url: '/BA104G2/bks_mng/BksMng.do',
-			    type: 'GET',
-			    data: {
-			    	action: 'check',
-			    	bm_num: $('input[name=bm_num]').val()
-			    },
-			    error: function(xhr) {
-			      alert('Ajax request 發生錯誤');
-			    },
-			    success: function(response) {
-			    	if(response=0){
-			    		$('input[name=bm_num]').find('span').empty();
-			    		
-			    	}else{
-			    		$('#checkicon').empty();
-			    		$('#checkicon').addClass("glyphicon glyphicon-remove-sign"></sapn>);
-			    	}
-			         
-			    }
-			  });
+		$('#checkicon').empty();
+		var a = $('#bm_num').val();
+		console.log(a);
+		console.log($('#bm_num').val().length);
+		if($('#bm_num').val().length<2){
+			$('#checkicon').removeClass("glyphicon glyphicon-remove-sign");
+			$('#checkicon').removeClass("glyphicon glyphicon-ok-sign");
+			$('#checkicon').addClass("glyphicon glyphicon-question-sign");
+			$('#checkicon').css("color","orange");
+			$('#checkicon').append('請輸入2-10字帳號');
+		}else{
+			 $.ajax({
+				    url: '/BA104G2/bks_mng/BksMng.do',
+				    type: 'GET',
+				    data: {
+				    	action: 'check',
+				    	bm_num: $('#bm_num').val()
+				    },
+				    error: function(xhr) {
+				      alert('Ajax request 發生錯誤');
+				    },
+				    success: function(response) {
+				    	console.log(response);
+				    	if(response==0){
+				    		$('#checkicon').removeClass("glyphicon glyphicon-remove-sign");
+				    		$('#checkicon').addClass("glyphicon glyphicon-ok-sign");
+				    		$('#checkicon').css("color","#3C9682");
+				    		$('#checkicon').text("帳號可以使用");
+				    	}else{
+				    		
+				    		$('#checkicon').removeClass("glyphicon glyphicon-ok-sign");
+				    		$('#checkicon').addClass("glyphicon glyphicon-remove-sign");
+				    		$('#checkicon').css("color","#FA5532");
+				    		$('#checkicon').text("帳號已被使用");
+				    	}
+				         
+				    }
+				  });
+		}
+		
 	}
 	
 	</script>

@@ -3,6 +3,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.backstage_management.model.*"%>
 
+
 <%
 	String bm_no = (String) session.getAttribute("bm_no");
 	BackstageManagementService bmSvc = new BackstageManagementService();	
@@ -37,7 +38,6 @@
 			<th>人員帳號</th>
 			<th>狀態</th>
 			<th>修改</th>
-			<th>刪除</th>
 		</tr>
 		
 	
@@ -48,22 +48,15 @@
 			<td>${bmVO.bm_number}</td>
 			<td>${bmVO.bm_mail}</td>
 			<td>${bmVO.bm_banknum}</td>
-			<td><img height=50 src="<%=request.getContextPath()%>/bmGifReader4?com_num=${bmVO.bm_no}"></td> 
+			<td><img height=50 src="<%=request.getContextPath()%>/bmGifReader4?bm_no=${bmVO.bm_no}"></td> 
 			<td>${bmVO.bm_num}</td>
 			<td>${bmVO.bm_jstatus}</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/pdc_mng/StoPdcMng.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%= request.getContextPath() %>/bks_mng/BksMng.do" style="margin-bottom: 0px">
 			     <input type="submit" value="修改">
-			     <input type="hidden" name="com_num" value="${PdcVO.com_num}">
+			     <input type="hidden" name="bm_no" value="${bmVO.bm_no}">
 			      <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
-			</td>
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/pdc_mng/StoPdcMng.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="刪除">
-			     <input type="hidden" name="com_num"  value="${PdcVO.com_num}">
-			     <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
-			     <input type="hidden" name="action" value="delete"></FORM>
 			</td>
 		</tr>
 		</c:forEach>		
