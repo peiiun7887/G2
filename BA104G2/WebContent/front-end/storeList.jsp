@@ -67,7 +67,7 @@
 							</c:if>
 							<td>
 							<div class="wrap">
-								<img height=100 src="<%= request.getContextPath()%>/stoGifReader4?sto_num=${stoVO.sto_num}">	
+								<img height=100 src="<%= request.getContextPath()%>/StoGifReader?sto_num=${stoVO.sto_num}">	
 								<a href="xxx.do/sto_num=${stoVO.sto_num}"><h3 class="title">${stoVO.sto_name}</h3></a>
 								<span>${stoVO.address}</span><br>
 								<h5 class="glyphicon glyphicon-map-marker color-org"> ¶ZÂ÷ ${stoVO.distance} ¤½¨½</h5>	

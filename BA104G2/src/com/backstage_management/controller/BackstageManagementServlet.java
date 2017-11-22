@@ -143,9 +143,10 @@ public class BackstageManagementServlet extends HttpServlet {
 				//寄給誰
 			    String to = bm_mail;
 			    //主旨  
-			    String subject = "新進員工密碼通知";
+			    String subject = "揪茶趣新進員工密碼通知";
 			    //內容
-			    String messageText = "Hello! " + bm_name + ",\n請妥善保存此帳號密碼:\n 帳號:" + bm_num + "\n密碼:"+ bm_pwd +"(已經啟用)"; 
+			    String messageText = 
+			    		"Hello! " + bm_name + ",歡迎加入揪茶趣！\n您的帳密碼已經啟用囉\n請妥善保存此帳號密碼:\n 帳號:" + bm_num + "\n密碼:"+ bm_pwd; 
 			    MailService mailService = new MailService();
 	     
 		//mailService.sendMail(to, subject, messageText);				
@@ -208,6 +209,37 @@ public class BackstageManagementServlet extends HttpServlet {
 				req.setAttribute("bmVO", bmVO);
 				req.setAttribute("funcList", funcList);
 				String url = "/back-end/bks_mng/update_staff_input.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				
+				/************ 其他錯誤處理  ******************************/					
+			} catch (Exception e) {
+				errorMsgs.put("修改資料失敗:",e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/back-end/bks_mng/bksmng_select_page.jsp");
+				failureView.forward(req, res);
+			}			
+		}
+		
+		if("getOne_For_Display".equals(action)){
+			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
+			req.setAttribute("errorMsgs",errorMsgs);
+			try{
+				/************ 1.接收請求參數 -輸入格式處理  ******************/
+				String bm_no = req.getParameter("bm_no");
+				
+				/************ 2.開始查詢資料   ****************************/
+				BackstageManagementService bmSvc = new BackstageManagementService();		
+				BackstageManagementVO bmVO = bmSvc.findbyPrimaryKey(bm_no);
+				
+				//查權限
+				AuthListService alSvc = new AuthListService();
+				List<String> funcList = alSvc.findByBm_no(bm_no);
+				
+				/************ 3.查詢完成,準備轉交(Send the Success view)**/				
+				req.setAttribute("bmVO", bmVO);
+				req.setAttribute("funcList", funcList);
+				String url = "/back-end/bks_mng/update_staff_self.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				
@@ -297,15 +329,19 @@ public class BackstageManagementServlet extends HttpServlet {
 				}
 				
 				//抓權限box
-				String[] func = req.getParameterValues("func");
-				List<String> funcList = new ArrayList<String>();
-				for(int i= 0; i<func.length;i++){
-					funcList.add(func[i]);					
+				List<String> funcList = new ArrayList<String>();;
+				String auth = req.getParameter("auth");
+				if(!"self".equals(auth)){
+					String[] func = req.getParameterValues("func");					
+					for(int i= 0; i<func.length;i++){
+						funcList.add(func[i]);					
+					}
+					req.setAttribute("funcList",funcList);
 				}
-				req.setAttribute("funcList",funcList);
 				
 				
-			System.out.println(bm_name+","+bm_num+","+bm_number+","+bm_mail+","+bm_banknum+","+bm_jstatus);
+				
+			System.out.println(bm_img+","+bm_name+","+bm_num+","+bm_number+","+bm_mail+","+bm_banknum+","+bm_jstatus);
 				
 			System.out.println(errorMsgs.toString());
 			
@@ -334,18 +370,25 @@ public class BackstageManagementServlet extends HttpServlet {
 				BackstageManagementService bmSvc = new BackstageManagementService();
 				bmVO = bmSvc.updateStaff(bmVO);
 				
+				if(!"self".equals(auth)){
 				//更改權限(刪光光再新增)
 				AuthListService alSvc = new AuthListService();
 				alSvc.delete(bm_no);
 				alSvc.insert(bm_no, funcList);
-				
+				}
 				
 				/************ 3.加入完成,準備轉交(Send the Success view)**/	
 				
 				req.setAttribute("bmVO",bmVO);
-				String url = "/back-end/bks_mng/bksmng_select_page.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); 
-				successView.forward(req, res);
+				if(!"self".equals(auth)){
+					String url = "/back-end/bks_mng/bksmng_select_page.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url); 
+					successView.forward(req, res);
+				}else{
+					String requestURL = req.getParameter("requestURL");
+					res.sendRedirect(req.getContextPath()+requestURL);
+				}
+				
 				
 				/*********** 其他錯誤  ***************************************/
 			} catch (Exception e) {

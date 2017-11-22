@@ -11,8 +11,9 @@
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/member_base.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
- <title></title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><!-- 星星 -->
+
+<title>揪茶趣:訂飲料好方便</title>
  
     <style>
 
@@ -103,16 +104,7 @@
 %>
 
 <%
-	String attrName = null;
-	Enumeration<String> em = request.getAttributeNames();	
-	while(em.hasMoreElements()){
-	attrName = (String) em.nextElement();
-	if(attrName.equals("stoList"))
-			out.println(attrName);
-			
-	
-	}
-		
+
 %>
 
 
@@ -134,7 +126,7 @@
 			<% for ( Map.Entry<String, Integer> Key  : list_RankData){ %>
 				<div class="good-to-drink">
 					<div class="gd-left">
-						<img class="imgsize" src="<%= request.getContextPath()%>/stoGifReader4?sto_num=<%= Key.getKey() %>">
+						<img class="imgsize" src="<%= request.getContextPath()%>/StoGifReader?sto_num=<%= Key.getKey() %>">
 					</div>
 					<div class="gd-right rating-bar">
 						<p class="store-name">
@@ -180,8 +172,8 @@
 			</div>
 		
 
-		</div> 
-</div>   <!--功能區塊container-->
+		</div>  <!--功能區塊row end-->
+</div>   <!--功能區塊container end-->
 
 
 <!-- 附近店家 -->
@@ -208,7 +200,7 @@
 		$(document).ready(function () {
 			
 			
-			
+			//評分顯示星星
 			$(".rank-style").each(function(){
 				var rating = parseInt($(this).next().text());
 				console.log(rating);

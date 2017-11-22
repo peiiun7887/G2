@@ -16,6 +16,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -42,33 +43,13 @@ import com.store_profile.model.*;
 
 @WebServlet("/IndexServlet.do")
 public class IndexServlet extends HttpServlet/* implements Runnable*/{
-
+	
 	Map<String,Integer> keywordMap = new HashMap<String,Integer>() ;
-	
-	
-	public void destroy(){
-		super.destroy();	
-		try {
-			saveKeyword();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
+	List<Map.Entry<String, Integer>> list_KeyData = new ArrayList<Map.Entry<String, Integer>>();
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		double curlat=24.969;
-		double curlng=121.192;
-		try{
-		curlat = Double.parseDouble(req.getParameter("lat"));
-		}catch (NullPointerException e){
-			curlat = 24.969;
-		}
-		try{
-		curlng = Double.parseDouble(req.getParameter("lng"));
-		}catch (NullPointerException e){
-		curlat = 24.969;
-		}
+		double curlat = Double.parseDouble(req.getParameter("lat"));;
+		double curlng = Double.parseDouble(req.getParameter("lng"));;
 	
 		//地址JSON
 		StoreProfileService spSvc = new StoreProfileService();
@@ -103,6 +84,8 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 	}
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		//用搜尋關鍵字送
+		
 		double curlat=24.969;
 		double curlng=121.192;
 		req.setCharacterEncoding("UTF-8");
@@ -110,9 +93,9 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 		
 		List<StoreProfileVO> oldList = null;
 		ServletContext context = getServletContext();		
-		List<Map.Entry<String, Integer>> list_KeyData = (List<Map.Entry<String, Integer>>) context.getAttribute("list_KeyData");
-
-
+		list_KeyData = (List<Map.Entry<String, Integer>>) context.getAttribute("list_KeyData");
+//		keywordMap = (Map<String, Integer>) context.getAttribute("keywordMap");
+		
 		for(Entry<String, Integer> Key :list_KeyData){
 			keywordMap.put(Key.getKey(), Key.getValue());
 		}
@@ -154,7 +137,12 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 				newList.add(stoVO);	//spVO(sto_num,sto_name,area,addr(完整),lat,lng,distance)	
 			}	
 			
-			list_KeyData = new ArrayList<Map.Entry<String, Integer>>(keywordMap.entrySet());
+			list_KeyData = new ArrayList<Map.Entry<String, Integer>>();
+			for(String key : keywordMap.keySet()){
+				Map.Entry entry = new AbstractMap.SimpleEntry(key, keywordMap.get(key));
+				list_KeyData.add(entry);
+			}
+			
 	    	Collections.sort(list_KeyData, new Comparator<Map.Entry<String, Integer>>(){
 	            public int compare(Map.Entry<String, Integer> entry1,
 	                               Map.Entry<String, Integer> entry2){
@@ -240,49 +228,6 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 		}
 		return distance;
 	}
-	
-	//keyword排序
-//	public class ValueComparator implements Comparator<String> {
-//	    Map<String, Integer> base;
-//	    public ValueComparator(Map<String, Integer> base) {
-//	        this.base = base;
-//	    }
-//	    public int compare(String a, String b) {
-//	        if (base.get(a) >= base.get(b)) {
-//	            return -1;
-//	        } else {
-//	            return 1;
-//	        }
-//	    }
-//	}
 
-	
-	//保存關鍵字
-	public void saveKeyword() throws IOException{
-		FileWriter out = null;
-		BufferedWriter br = null;
-		String saveDirectory = "/front-end/data";
-		String realPath = getServletContext().getRealPath(saveDirectory);
-System.out.println(realPath);
-		File fsaveDirectory = new File(realPath);
-		
-		if (!fsaveDirectory.exists())
-			 fsaveDirectory.mkdirs(); // 於 ContextPath 之下,自動建立目地目錄
-		try {
-			
-			out = new FileWriter( realPath +"/key.txt");
-			br = new BufferedWriter(out);
-			for (Map.Entry<String,Integer> entry : keywordMap.entrySet()) {
-				br.write(entry.getKey()+","+entry.getValue());
-				br.newLine();
-				System.out.println(entry.getKey()+","+ entry.getValue());
-			}	
-			br.flush();
-			br.close();
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} 
-		System.out.println("SAVED");	 
-	}
+
 }

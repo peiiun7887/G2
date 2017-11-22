@@ -1,7 +1,4 @@
-
-
-		
-			body{
+		body{
 				font-family: Microsoft JhengHei, Gotham;
 				color:#595942;/*²`¾ñÆVºñ*/
 				padding-top:50px;
@@ -31,7 +28,7 @@
 			}
 			
 			.btn-green{
-				background:#3C9682; /*¥D¦âgreen*/
+				background:#595942; 
 				color:#FFFFFF;
 				margin-right: 15px;
 			}
@@ -61,3 +58,11 @@
 			#checkicon{
 				color:#FA5532;
 			}
+			.active{
+				background-color:#3C9682;
+			}
+			a:hover{
+				text-decoration:none;
+			}
+			
+			

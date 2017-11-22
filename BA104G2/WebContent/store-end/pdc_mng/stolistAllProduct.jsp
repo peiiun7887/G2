@@ -53,7 +53,7 @@
 			<td>${PdcVO.m_price}</td>
 			<td>${PdcVO.l_price}</td>
 			<td>${PdcVO.discribe}</td>
-			<td><img height=50 src="<%=request.getContextPath()%>/DBGifReader4?com_num=${PdcVO.com_num}"></td> 
+			<td><img height=50 src="<%=request.getContextPath()%>/PdcGifReader?com_num=${PdcVO.com_num}"></td> 
 			<td>${pdcTSvc.getOnePdcT(PdcVO.pt_num).pt_name}</td>
 			<td>${PdcVO.status}</td>
 			<td width=200>				

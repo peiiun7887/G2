@@ -48,7 +48,7 @@
 			<td>${bmVO.bm_number}</td>
 			<td>${bmVO.bm_mail}</td>
 			<td>${bmVO.bm_banknum}</td>
-			<td><img height=50 src="<%=request.getContextPath()%>/bmGifReader4?bm_no=${bmVO.bm_no}"></td> 
+			<td><img height=50 src="<%=request.getContextPath()%>/BmGifReader?bm_no=${bmVO.bm_no}"></td> 
 			<td>${bmVO.bm_num}</td>
 			<td>${bmVO.bm_jstatus}</td>
 			<td>

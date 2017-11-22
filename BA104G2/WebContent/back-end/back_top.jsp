@@ -24,6 +24,7 @@
 					</ul>	
 
 				</div>
+				
 				<div class="col-xs-12 col-sm-8">
 					<ul class="nav navbar-nav navbar-right ">	
 						<li>

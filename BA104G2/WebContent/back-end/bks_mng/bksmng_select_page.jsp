@@ -10,13 +10,13 @@
 <head>
 <title>後台人員管理</title>
 <style>
-	.btn-green-group{
-		background:#3C9682; /*main green*/
-		color:#FFFFFF;
-	}
-	.hide{
-		display:none;
-	}
+/* 	.btn-green-group{ */
+/* 		background:#3C9682; /*main green*/ */
+/* 		color:#FFFFFF; */
+/* 	} */
+/* 	.hide{ */
+/* 		display:none; */
+/* 	} */
 
 	table {
 		width: 1000px;
@@ -57,16 +57,9 @@
 
 %>
 
-<%
-// 	Enumeration em = session.getAttributeNames();
-// 	while(em.hasMoreElements()){
-// 		String name = (String) em.nextElement();
-// 		out.println(name+","+session.getAttribute(name));
-// 	}
-%>
-				<div >
-				   <h3>${sessionScope.bm_no} ${requestScope.bm_no}後台人員管理</h3>				
-				</div>		
+	<div >
+	   <h3>後台人員管理</h3>				
+	</div>		
 						
 
   <jsp:include page="/back-end/bks_mng/btn_select.jsp" />	
@@ -80,20 +73,6 @@
 				<% if (request.getAttribute("getAllStaff")!=null){ %>
        				<jsp:include page="listAllStaff.jsp" />
 				<% } %>	
-				
-				
-				
-<%-- 				<% if (request.getAttribute("getAllExt")!=null){ --%>
-<%-- 				request.removeAttribute("getAllPdc");
-<%-- 				%> --%>
-<%--        				<jsp:include page="stolistAllExtra.jsp" /> --%>
-<%-- 				<% } %>	 --%>
-				
-<%-- 				<% if (request.getAttribute("getAllIce")!=null){  --%>
-<%-- 					request.removeAttribute("getAllPdc");
-<%-- 				%> --%>
-<%--        				<jsp:include page="stolistAllIce.jsp" /> --%>
-<%-- 				<% } %> --%>
 
 			</div>
 
@@ -108,10 +87,6 @@
 
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script>
-		$(document).ready(function () {
-		
-		});	
-	</script>
+
 </body>
 </html>

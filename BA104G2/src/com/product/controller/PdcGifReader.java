@@ -1,4 +1,4 @@
-package com.backstage_management.controller;
+package com.product.controller;
 
 import java.io.*;
 import java.sql.*;
@@ -9,52 +9,43 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.sql.DataSource;
 
-public class bmGifReader4 extends HttpServlet {
+public class PdcGifReader extends HttpServlet {
 
 	Connection con;
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
-		res.setContentType("image/png");
+		res.setContentType("image/gif");
 		ServletOutputStream out = res.getOutputStream();
 
 		try {
 			Statement stmt = con.createStatement();
-			String bm_no = req.getParameter("bm_no");
-			String bm_no2 = new String(bm_no.getBytes("ISO-8859-1"),"UTF-8");
+			String com_num = req.getParameter("com_num");
+			String com_num2 = new String(com_num.getBytes("ISO-8859-1"),"UTF-8");
 			ResultSet rs = stmt.executeQuery(
-				"SELECT BM_IMG FROM BACKSTAGE_MANAGEMENT WHERE BM_NO ='"+ bm_no2 +"'");
+				"SELECT IMG FROM PRODUCT WHERE COM_NUM ='"+ com_num2 +"'");
 
 			if (rs.next()) {
-				InputStream in;
-				if(rs.wasNull()){
-					in = getServletContext().getResourceAsStream("/img/LOGO_150x150.png");
-					byte[] b = new byte[in.available()];
-					in.read(b);
-					out.write(b);
-					in.close();
-				}else{
-					in = rs.getBinaryStream(1);
-					byte[] buf = new  byte[8*1024]; //8k buffer
-					int len;
-					while((len=in.read(buf)) != -1){
-						out.write(buf, 0, len);
-					}
-					in.close();
+				BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream(1));
+				byte[] buf = new byte[4 * 1024]; // 4K buffer
+				int len;
+				while ((len = in.read(buf)) != -1) {
+					out.write(buf, 0, len);
 				}
-			}else{
-				InputStream in = getServletContext().getResourceAsStream("/images/LOGO_150x150.gif");
+				in.close();
+			} else {
+				//若檔案名稱不對，改顯示圖片
+				InputStream in = getServletContext().getResourceAsStream("/img/LOGO_150x150.png");
 				byte[] b = new byte[in.available()];
 				in.read(b);
 				out.write(b);
-				in.close();				
-			}	
-		
+				in.close();
+			}
 			rs.close();
 			stmt.close();
-			
 		} catch (Exception e) {
+			//空值NullPointerException，改顯示圖片
 			InputStream in = getServletContext().getResourceAsStream("/img/LOGO_150x150.png");
 			byte[] b = new byte[in.available()];
 			in.read(b);

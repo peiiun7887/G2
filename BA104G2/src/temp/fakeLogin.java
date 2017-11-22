@@ -33,7 +33,7 @@ public class fakeLogin extends HttpServlet {
 			HttpSession session = req.getSession();
 	
 			session.setAttribute("mem_num", mem_num);
-			res.sendRedirect(req.getContextPath()+"/front-end/member_top.jsp");	
+			res.sendRedirect(req.getContextPath()+"/front-end/index.jsp");	
 			return;
 		}
 		
@@ -43,7 +43,7 @@ public class fakeLogin extends HttpServlet {
 			HttpSession session = req.getSession();
 			session.invalidate();
 			//整個連線拔掉
-			res.sendRedirect(req.getContextPath()+"/front-end/member_top.jsp");
+			res.sendRedirect(req.getContextPath()+"/store-end/form.jsp");
 		    return;
 		}
 
@@ -75,14 +75,16 @@ public class fakeLogin extends HttpServlet {
 			String bm_no = req.getParameter("bm_no");			
 			HttpSession session = req.getSession();
 			
-			//查權限
+			//查帳號權限
 			AuthListService alSvc = new AuthListService();
-			List<String> funcList = alSvc.findByBm_no(bm_no);
+			List<String> funcList = alSvc.findByBm_no(bm_no);	
 			Gson gson = new Gson();
 			String authList = gson.toJson(funcList);
-			session.setAttribute("authList", authList);			
 			
+			//Session設定後臺人員編號+權限清單
+			session.setAttribute("authList", authList);			
 			session.setAttribute("bm_no", bm_no);
+			
 			System.out.println(bm_no+"login");
 			res.sendRedirect(req.getContextPath()+"/back-end/bks_mng/bksmng_select_page.jsp");	
 			return;

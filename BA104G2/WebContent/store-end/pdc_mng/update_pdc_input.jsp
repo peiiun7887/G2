@@ -83,7 +83,7 @@
 		</tr>
 		<tr>
 			<td>商品圖片:</td>
-			<td><img height=200 src="<%=request.getContextPath()%>/DBGifReader4?com_num=${productVO.com_num}"><br><input type="File" name="img" size="45"/></td>
+			<td><img height=200 src="<%=request.getContextPath()%>/PdcGifReader?com_num=${productVO.com_num}"><br><input type="File" name="img" size="45"/></td>
 		</tr>	
 		<tr>
 			<td>商品類別:${productVO.pt_num}<font color=red><b>*</b></font></td>

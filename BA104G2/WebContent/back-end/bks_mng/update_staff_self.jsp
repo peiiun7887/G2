@@ -12,7 +12,7 @@
 <html>
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-	<title>員工資料修改</title>
+	<title>個人資料修改</title>
 </head>
 
 <body>
@@ -32,7 +32,7 @@
 
 <table>
 	<tr>
-		<td><h3>${sessionScope.bm_no}, ${bmVO.bm_no}員工資料修改</h3></td>
+		<td><h3>個人資料</h3></td>
 	</tr>
 </table>
 
@@ -50,17 +50,21 @@
 	<table>
 		<tr>
 			<td>員工編號:</td>
-			<td>${bmVO.bm_no}<input type="hidden" name="bm_no" value="${bmVO.bm_no}"></td>
-			
+			<td>${bmVO.bm_no}
+				<input type="hidden" name="bm_no" value="${bmVO.bm_no}">
+			</td>			
 		</tr>
 		<tr>
 			<td>員工名稱:</td>
-			<td><input type="TEXT" name="bm_name" size="45" 
-					 value="${bmVO.bm_name}" /></td>
+			<td>${bmVO.bm_name}
+				<input type="hidden" name="bm_name" value="${bmVO.bm_name}" />
+			</td>
 		</tr>
 		<tr>
 			<td>員工帳號:</td>
-			<td>${bmVO.bm_num}<input type="hidden" name="bm_num" value="${bmVO.bm_num}"></td>
+			<td>${bmVO.bm_num}
+				<input type="hidden" name="bm_num" value="${bmVO.bm_num}">
+			</td>
 		</tr>
 		<c:if test="${sessionScope.bm_no == bmVO.bm_no }">
 		<tr>
@@ -80,8 +84,8 @@
 		</tr>
 		<tr>
 			<td>員工銀行帳號:</td>
-			<td><input type="text" name="bm_banknum" size="45" 
-			value="${bmVO.bm_banknum}"></td>
+			<td>${bmVO.bm_banknum}
+				<input type="hidden" name="bm_banknum" size="45" value="${bmVO.bm_banknum}"></td>
 		</tr>
 		<tr>
 			<td>員工照片:</td>
@@ -90,15 +94,12 @@
 		</tr>	
 		<tr>
 			<td>員工狀態:</td>
-			<td>
-				<select size="1" name="bm_jstatus">
-					<option value="在職" ${(bmVO.bm_jstatus=='在職')? 'selected':'' } >在職
-					<option value="離職" ${(bmVO.bm_jstatus=='離職')? 'selected':'' } >離職
-				</select>
+			<td>${bmVO.bm_jstatus}
+				<input type="hidden" name="bm_jstatus" value="${bmVO.bm_jstatus}">
 			</td>
 		</tr>
 		<tr>
-			<td>員工權限：</td>
+			<td>權限：</td>
 			<td>
 			<c:forEach var="funcVO" items="${flSvc.all}">
 				<input type="checkbox" name=func value="${funcVO.func_no}"
@@ -106,15 +107,16 @@
 						<c:forEach var="funcList" items="${funcList}">
 							${(funcList==funcVO.func_no)? 'checked':'' }
 						</c:forEach>					
-					
+							disabled
 					> ${funcVO.func_name} <br>
 			</c:forEach>
 			</td>
 		</tr>		
 	</table>
-
 	
+	<input type="hidden" name="auth" value="self">
 	<input type="hidden" name="action" value="update">
+	<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
 	<input type="submit" value="送出修改">
 	</FORM>
 	
@@ -129,7 +131,6 @@
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script>
-
 	</script>
 </body>
 </html>

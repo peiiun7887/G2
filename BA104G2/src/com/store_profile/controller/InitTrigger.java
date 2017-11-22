@@ -1,23 +1,31 @@
 package com.store_profile.controller;
 
-import java.io.*;
-import java.sql.Date;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.TreeMap;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import com.store_comment.model.*;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.store_comment.model.StoreCommentService;
 
 
 public class InitTrigger extends HttpServlet {
@@ -29,17 +37,11 @@ public class InitTrigger extends HttpServlet {
 	Timer timer;
 
   public void doGet(HttpServletRequest req, HttpServletResponse res) 
-                               throws ServletException, IOException {
-//    res.setContentType("text/plain");                                
-//    PrintWriter out = res.getWriter(); 
-//    
-//    for(String key : keywordMap.keySet() ){
-//    	out.println(key+","+keywordMap.get(key));
-//    }
-//                             
+                               throws ServletException, IOException {                          
   }
   
   public void init() throws ServletException {
+	  
 	  System.out.println("init Start");
 	  FileReader in ;
 	  BufferedReader br;
@@ -71,8 +73,9 @@ public class InitTrigger extends HttpServlet {
 			} catch (IOException e) {
 				e.printStackTrace();
 			} 
+	    	
 	    	ServletContext context = getServletContext();
-
+//	  	  	context.setAttribute("keywordMap", keywordMap);
 		    context.setAttribute("list_KeyData", list_KeyData);   
 
 		    
@@ -98,17 +101,60 @@ public class InitTrigger extends HttpServlet {
 		    };
 			timer = new Timer(); 
 			Calendar calendar = Calendar.getInstance();
-			// 設定填入schedule中的 Date firstTime為現在的5秒後
-			//calendar.set(Calendar.SECOND, calendar.get(Calendar.SECOND)+5);
 			timer.schedule(task, calendar.getTime(), 1*5*60*1000);	//5分鐘算一次
 			System.out.println("已建立排程!");       
 	
 
   }
   
-  public void destroy() {
-      timer.cancel();
-      System.out.println("已結束排程!");
-  }
+	public void destroy() {
+		///////   結束排成器   //////////
+		timer.cancel();
+		System.out.println("已結束評價排程!");
+		  
+		///////   儲存關鍵字   //////////
+    	ServletContext context = getServletContext();
+    	list_KeyData = (List<Entry<String, Integer>>) context.getAttribute("list_KeyData");   
+
+		try {
+			saveKeyword();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+  
+	//保存關鍵字
+	public void saveKeyword() throws IOException{
+		FileWriter out = null;
+		BufferedWriter br = null;
+		String saveDirectory = "/front-end/data";
+		String realPath = getServletContext().getRealPath(saveDirectory);
+System.out.println(realPath);
+		File fsaveDirectory = new File(realPath);
+		
+		if (!fsaveDirectory.exists())
+			 fsaveDirectory.mkdirs(); // 於 ContextPath 之下,自動建立目地目錄
+		try {
+//			Map<String,Integer> keywordMap2 = new LinkedHashMap<String,Integer>();
+//
+//			for(Entry<String, Integer> Key :list_KeyData){
+//				keywordMap2.put(Key.getKey(), Key.getValue());
+//			}
+			out = new FileWriter( realPath +"/key.txt");
+			br = new BufferedWriter(out);
+			for (Entry<String, Integer> Key :list_KeyData) {
+				br.write(Key.getKey()+","+Key.getValue());
+				br.newLine();
+				System.out.println(Key.getKey()+","+ Key.getValue());
+			}	
+			br.flush();
+			br.close();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+		System.out.println("KEYWORD SAVED");	 
+	}
+  
 
 }

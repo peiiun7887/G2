@@ -21,11 +21,11 @@ public class BackstageManagementDAO implements BackstageManagementDAO_interface{
 		}
 
 		private static final String INSERT_STMT = 
-				"INSERT INTO BACKSTAGE_MANAGEMENT (bm_no,bm_name,bm_number,bm_mail,bm_banknum,bm_num,bm_pwd,bm_jstatus)"
-				+ "VALUES ('BM'||LPAD(to_char(SEQ_BM_NO.NEXTVAL),10,'0'),?,?,?,?,?,?,?)";
+				"INSERT INTO BACKSTAGE_MANAGEMENT (bm_no,bm_name,bm_number,bm_mail,bm_banknum,bm_num,bm_pwd,bm_jstatus,bm_img)"
+				+ "VALUES ('BM'||LPAD(to_char(SEQ_BM_NO.NEXTVAL),10,'0'),?,?,?,?,?,?,?,?)";
 		private static final String UPDATE_STMT = 
 				"UPDATE BACKSTAGE_MANAGEMENT SET "
-				+ " bm_name=?,bm_number=?,bm_mail=?,bm_banknum=?,bm_num=?,bm_pwd=?,bm_jstatus=? WHERE bm_no=?";
+				+ " bm_name=?,bm_number=?,bm_mail=?,bm_banknum=?,bm_num=?,bm_pwd=?,bm_jstatus=?,bm_img=? WHERE bm_no=?";
 		private static final String GET_ONE_STMT = 
 				"SELECT * FROM BACKSTAGE_MANAGEMENT WHERE bm_no=?";
 		private static final String GET_ALL_STMT = 
@@ -51,7 +51,7 @@ public class BackstageManagementDAO implements BackstageManagementDAO_interface{
 			pstmt.setString(5, bmVO.getBm_num());
 			pstmt.setString(6, bmVO.getBm_pwd());
 			pstmt.setString(7, bmVO.getBm_jstatus());
-			
+			pstmt.setBytes(8, bmVO.getBm_img());
 			pstmt.executeUpdate();
 			
 			ResultSet rs = pstmt.getGeneratedKeys();
@@ -105,7 +105,8 @@ public class BackstageManagementDAO implements BackstageManagementDAO_interface{
 			pstmt.setString(5, bmVO.getBm_num());
 			pstmt.setString(6, bmVO.getBm_pwd());
 			pstmt.setString(7, bmVO.getBm_jstatus());
-			pstmt.setString(8, bmVO.getBm_no());
+			pstmt.setBytes(8, bmVO.getBm_img());
+			pstmt.setString(9, bmVO.getBm_no());
 			
 			pstmt.executeUpdate();
 			
@@ -159,6 +160,7 @@ public class BackstageManagementDAO implements BackstageManagementDAO_interface{
 					bmVO.setBm_num(rs.getString("bm_num"));
 					bmVO.setBm_pwd(rs.getString("bm_pwd"));
 					bmVO.setBm_jstatus(rs.getString("bm_jstatus"));	
+					bmVO.setBm_img(rs.getBytes("bm_img"));
 				}
 				
 			} catch (SQLException se) {				

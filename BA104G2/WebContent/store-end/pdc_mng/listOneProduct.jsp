@@ -71,7 +71,7 @@
 			<td>${productVO.m_price}</td>
 			<td>${productVO.l_price}</td>
 			<td>${productVO.discribe}</td>
-			<td><img height=50 src="<%=request.getContextPath()%>/DBGifReader4?com_num=${productVO.com_num}"></td> 
+			<td><img height=50 src="<%=request.getContextPath()%>/PdcGifReader?com_num=${productVO.com_num}"></td> 
 			<td> <c:forEach var="pdcTSvc" items="${pdcTSvc.all}" > 
 		         	<c:if test="${pdcTSvc.pt_num==productVO.pt_num}" var="condition" scope="page">
 		         		${pdcTSvc.pt_name}

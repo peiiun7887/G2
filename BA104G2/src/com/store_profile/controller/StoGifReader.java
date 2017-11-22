@@ -9,7 +9,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.sql.DataSource;
 
-public class stoGifReader4 extends HttpServlet {
+public class StoGifReader extends HttpServlet {
 
 	Connection con;
 
@@ -27,33 +27,23 @@ public class stoGifReader4 extends HttpServlet {
 				"SELECT STO_LOGO FROM STORE_PROFILE WHERE STO_NUM ='"+ sto_num2 +"'");
 
 			if (rs.next()) {
-				InputStream in;
-				if(rs.wasNull()){
-					in = getServletContext().getResourceAsStream("/img/LOGO_150x150.png");
-					byte[] b = new byte[in.available()];
-					in.read(b);
-					out.write(b);
-					in.close();
-				}else{
-					in = rs.getBinaryStream(1);
-					byte[] buf = new  byte[8*1024]; //8k buffer
-					int len;
-					while((len=in.read(buf)) != -1){
-						out.write(buf, 0, len);
-					}
-					in.close();
+				BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream(1));
+				byte[] buf = new byte[4 * 1024]; // 4K buffer
+				int len;
+				while ((len = in.read(buf)) != -1) {
+					out.write(buf, 0, len);
 				}
-			}else{
-				InputStream in = getServletContext().getResourceAsStream("/img/LOGO_w_285x150.gif");
+				in.close();
+			} else {
+				//若檔案名稱不對，改顯示圖片
+				InputStream in = getServletContext().getResourceAsStream("/img/LOGO_150x150.png");
 				byte[] b = new byte[in.available()];
 				in.read(b);
 				out.write(b);
-				in.close();				
-			}	
-		
+				in.close();
+			}
 			rs.close();
 			stmt.close();
-			
 		} catch (Exception e) {
 			InputStream in = getServletContext().getResourceAsStream("/img/LOGO_150x150.png");
 			byte[] b = new byte[in.available()];

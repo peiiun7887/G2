@@ -3,15 +3,11 @@
 <head>
 <style>
 	.btn-green-group{
-		background:#3C9682; /*main green*/
+		background:#595942; /*deep green*/
 		color:#FFFFFF;
 	}
 	.bar{
 		margin-right:20px;
-	}
-	{
-		margin-top:50px;
-		margin-top:50px;
 	}
 
 </style>
@@ -30,8 +26,6 @@
 							<input type="hidden" name="action" value="getAllStaff">
 						</form>	
 						<a class="btn btn-green " href="<%= request.getContextPath() %>/back-end/bks_mng/addStaff.jsp">新增員工</a>
-							
-							<!--	員工權限	-->
 							
 						</div>
 					</div>

@@ -9,8 +9,8 @@
 <title>Insert title here</title>
 <style type="text/css">
 	#map {
-	  height: 300px;
-	  width: 300px;
+	  height: 500px;
+	  width: 500px;
 	  float: left;
 	}
 </style>
@@ -18,25 +18,33 @@
 </head>
 <script src="https://code.jquery.com/jquery.js"></script>
 <body>
+
 <%
+	//店家列表
 	ServletContext context = getServletContext();
 	List<StoreProfileVO> newList = (List<StoreProfileVO>) request.getAttribute("newList");
 	pageContext.setAttribute("newList",newList);
 %>
 
+<jsp:include page="/front-end/member_top.jsp" />
+<jsp:include page="/front-end/coupon_notify.jsp" />
+
+<!-- 放地圖 -->
 <div id="map"></div>
+
+<!-- 地圖上可以看到的店家 -->
 <div id="tableOutput">
-	    	<table border=1>
-	    		<thead>
-	    			<tr>
-	    				<td>Name</td>
-		    			<td>address</td>
-		    			<td>distance</td>
-	    			</tr>
-	    		</thead>
-	    		<tbody id="place">
-	       		</tbody>
-	    	</table>
+   	<table border=1>
+   		<thead>
+   			<tr>
+   				<td>店名</td>
+    			<td>地址</td>
+    			<td>距離</td>
+   			</tr>
+   		</thead>
+   		<tbody id="place">
+      		</tbody>
+   	</table>
 </div>
 
 
@@ -47,7 +55,7 @@
 		var searchResult;
 
 		function initMap() {			
-			///////////
+
 // 	        var myLatlng =  new google.maps.LatLng(24.969, 121.192); 
 	        
 // 	        map = new google.maps.Map(document.getElementById('map'), {
@@ -59,9 +67,10 @@
 // 	          map: map,
 	
 // 	        });
+
+// 	        window.navigator.geolocation.getCurrentPosition(success,error,option);
 	        
 	        var current_pos;
-// 	        window.navigator.geolocation.getCurrentPosition(success,error,option);
 	        window.navigator.geolocation.getCurrentPosition(function(pos){
 	            current_pos = {lat:pos.coords.latitude, lng:pos.coords.longitude};//抓到現在位置
 	            map = new google.maps.Map(document.getElementById('map'), {
@@ -73,6 +82,15 @@
 	              map: map
 	            });
 	          });
+	        
+	        
+	        
+	        
+	        console.log(current_pos);
+	        
+	        
+	        
+	        
 	        
 			$.get('/BA104G2/index/IndexServlet.do','lat=24.969&lng=121.192',callback);
 	        
