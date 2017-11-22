@@ -48,9 +48,10 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 	List<Map.Entry<String, Integer>> list_KeyData = new ArrayList<Map.Entry<String, Integer>>();
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		double curlat = Double.parseDouble(req.getParameter("lat"));;
-		double curlng = Double.parseDouble(req.getParameter("lng"));;
-	
+		double curlat = Double.parseDouble(req.getParameter("lat"));
+		double curlng = Double.parseDouble(req.getParameter("lng"));
+		
+		System.out.println(curlat+","+curlng);
 		//地址JSON
 		StoreProfileService spSvc = new StoreProfileService();
 		List<StoreProfileVO> orgList = spSvc.getAllgeo();//查出上架狀態的店家
@@ -86,8 +87,8 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		//用搜尋關鍵字送
 		
-		double curlat=24.969;
-		double curlng=121.192;
+		double curlat = 24.969;
+		double curlng = 121.192;
 		req.setCharacterEncoding("UTF-8");
 		String action =req.getParameter("action");
 		
@@ -137,12 +138,7 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 				newList.add(stoVO);	//spVO(sto_num,sto_name,area,addr(完整),lat,lng,distance)	
 			}	
 			
-			list_KeyData = new ArrayList<Map.Entry<String, Integer>>();
-			for(String key : keywordMap.keySet()){
-				Map.Entry entry = new AbstractMap.SimpleEntry(key, keywordMap.get(key));
-				list_KeyData.add(entry);
-			}
-			
+			list_KeyData = new ArrayList<Map.Entry<String, Integer>>(keywordMap.entrySet());			
 	    	Collections.sort(list_KeyData, new Comparator<Map.Entry<String, Integer>>(){
 	            public int compare(Map.Entry<String, Integer> entry1,
 	                               Map.Entry<String, Integer> entry2){

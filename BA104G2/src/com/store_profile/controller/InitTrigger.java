@@ -75,7 +75,6 @@ public class InitTrigger extends HttpServlet {
 			} 
 	    	
 	    	ServletContext context = getServletContext();
-//	  	  	context.setAttribute("keywordMap", keywordMap);
 		    context.setAttribute("list_KeyData", list_KeyData);   
 
 		    
@@ -129,17 +128,12 @@ public class InitTrigger extends HttpServlet {
 		BufferedWriter br = null;
 		String saveDirectory = "/front-end/data";
 		String realPath = getServletContext().getRealPath(saveDirectory);
-System.out.println(realPath);
+		System.out.println(realPath);
 		File fsaveDirectory = new File(realPath);
 		
 		if (!fsaveDirectory.exists())
 			 fsaveDirectory.mkdirs(); // 於 ContextPath 之下,自動建立目地目錄
 		try {
-//			Map<String,Integer> keywordMap2 = new LinkedHashMap<String,Integer>();
-//
-//			for(Entry<String, Integer> Key :list_KeyData){
-//				keywordMap2.put(Key.getKey(), Key.getValue());
-//			}
 			out = new FileWriter( realPath +"/key.txt");
 			br = new BufferedWriter(out);
 			for (Entry<String, Integer> Key :list_KeyData) {

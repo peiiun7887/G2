@@ -113,12 +113,18 @@ var searchResult;
 			      alert('Ajax request µo¥Í¿ù»~');
 			    },
 			    success: callback,
-		});	        
+			});	        
 	        map.addListener('center_changed',centerChanged);
 	    }
 		
-		function centerChanged() {
+		function centerChanged(event) {
         	deleteMarkers();
+//         	var	lat;
+//         	var lng;
+//         	navigator.geolocation.getCurrentPosition(function(pos){
+// 	            lat = pos.coords.latitude;
+// 	            lng = pos.coords.longitude};})
+
         	$.get('/BA104G2/index/IndexServlet.do','lat=24.969&lng=121.192',callback);
 	    }
 		

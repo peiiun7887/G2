@@ -1,19 +1,19 @@
 ﻿package:	com.store_profile.controller
 
 >	InitServlet (load on startup)
->	讀關鍵字	(有時後會被洗掉 dont know why)
+>	關鍵字
 	先貼著備用：
 	文山青,50
-	布丁奶茶,12
-	50嵐,20
-	養樂多綠,15
-	茶,1
 	珍奶,35
 	大苑子,29
-	清新福全,25
-	奶茶,1
 	錫蘭紅茶,28
-	紅茶,4	
+	清新福全,25
+	50嵐,20
+	養樂多綠,15
+	布丁奶茶,12
+	紅茶,9
+	茶,7
+	奶茶,1
 	
 >	5分鐘抓一次評價(store_comment)分數
 
@@ -36,7 +36,6 @@ package:	temp
 package:	com.backstage_management.controller
 
 >	BMServlet 第151行 新增員工成功寄密碼通知信 目前是先註解掉 
->	MailService 寄信用
 
 ------------------------------------
 
