@@ -10,30 +10,7 @@
 <head>
 <title>店家商品管理</title>
 <style>
-	.btn-green-group{
-		background:#3C9682; /*main green*/
-		color:#FFFFFF;
-	}
-	.hide{
-		display:none;
-	}
 
-	table {
-		width: 1000px;
-		background-color: white;
-		margin-top: 5px;
-		margin-bottom: 5px;
-	}
-	table, th, td {
-	  border: 1px solid #3C9682;
-	}
-	th, td {
-	  padding: 5px;
-	  text-align: center;
-	}
-	body{
-	height:1000px;
-	}
 
 </style>
 
@@ -47,9 +24,13 @@
 	<!-- 2層框左 -->	
 			<jsp:include page="/store-end/store_left.jsp" /> <!-- leftSidebar -->
 	<!-- 2層框右 -->		
-			<div class="col-xs-12 col-sm-9 col-sm-offset-3" >				
+			<div class="col-xs-12 col-sm-8 col-sm-offset-3" >				
 				<div class="block-center panelheight">
-	<!--========================== 功能放這邊 =============================================-->
+				
+	<!--========================== 功能放這邊 ↓↓↓↓↓↓===============================-->
+	
+	
+	
 <% 
 	if(request.getAttribute("stolistAllProduct2")==null){
 		String getAllPdc = "getAllPdc";
@@ -57,19 +38,7 @@
 	}
 %>
 
-<%
-	Enumeration em = session.getAttributeNames();
-	while(em.hasMoreElements()){
-		String name = (String) em.nextElement();
-		out.println(name+","+session.getAttribute(name));
-	}
-%>
-				<div >
-				   <h3>${sto_num}-店家商品管理</h3>
-				
-				
-				</div>		
-						
+		
 
   <jsp:include page="/store-end/pdc_mng/btn_select.jsp" />	
 
@@ -108,21 +77,12 @@
 				<% } %>							
 			</div>
 
-<!-- 再說030-->
-<div class="hide">
-   <FORM METHOD="post" ACTION="StoPdcMng.do">
-       <b>選擇商品種類:</b>
-       <select size="1" name="pt_name">
-         <c:forEach var="pdcTVO" items="${pdcTSvc.all}" > 
-          <option value="${pdcTVO.pt_num}">${pdcTVO.pt_name}
-         </c:forEach>   
-       </select>
-       <input type="hidden" name="action" value="">
-       <input type="submit" value="送出" disabled>
-    </FORM>
-</div>	
 		
-	<!--========================== 功能放這邊 =============================================-->			
+		
+		
+		
+		
+	<!--========================== 功能放這邊 ↑↑↑↑↑↑↑=======================================-->			
 				</div><!-- class="block-center panelheight" -->			
 			</div><!-- class="col-xs-12 col-sm-8 col-sm-offset-3" -->
 		</div><!-- div class="row" -->

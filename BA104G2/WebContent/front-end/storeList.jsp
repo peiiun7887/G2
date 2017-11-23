@@ -27,6 +27,7 @@
 		border:1px solid #DCE6D2;
 		padding: 10px;
 		border-radius:10px;
+		background:#FFFFFF;
 	}
 	
 	.wrap:hover{
@@ -53,6 +54,9 @@
 	pageContext.setAttribute("stoList",stoList);
 
 %>
+<jsp:include page="/front-end/member_top.jsp" />
+<jsp:include page="/front-end/coupon_notify.jsp" />
+
 
 
 
@@ -80,7 +84,6 @@
 
 			</div>
 	</div>
-
 
 </body>
 </html>

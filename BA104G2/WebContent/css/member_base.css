@@ -13,14 +13,23 @@
 			.navbars{
 				background-color: #3C9682;
 			}
+			.container-area{
+				padding:50px 0px;				
+			}
 			.item-color{
 				color:#DCE6D2;
 			}
-			.area70{
-				margin-top: 70px;
+			.area50{
+				margin-top: 25px;
+				margin-top: 25px;
 			}
 			.area20{
-				margin-top: 20px;
+				margin-top: 10px;
+				margin-buttom: 10px;
+			}
+			.area70{
+				margin-top: 70px;
+				margin-buttom: 35px;
 			}
 			.mgrb{
 				margin-right: 10px;
@@ -58,7 +67,7 @@
 			}
 
 			.imgsize{
-				width:100%;
+				width:80%;
 				border-radius: 50px;
 				padding:5px 7px;	
 
@@ -68,15 +77,15 @@
 				float:left;
 				border-color: #DCE6D2;	
 				border-bottom-style: solid;
-				border-bottom-width: 2px;
+				border-bottom-width: 1px;
 				width:100%;
+				padding:10px 10px;
 			}	
 			.store-name{
 				color:#FA5532; 
 				text-height:12px;
 				font-size: 15pt;
 				font-weight:bolder;
-
 			}
 
 			.gd-left{
@@ -87,12 +96,15 @@
 
 			}
 			.gd-right{
+				display:block;
+				margin:auto;
 				width:68%;
 				float:right;
-				padding:5px 0px 0px 20px;
+				padding:10px 0px 0px 20px;
 			}
 			
 			.rank-point{
 				color: orange;
 				
 			}
+			

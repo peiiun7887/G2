@@ -24,4 +24,8 @@ public class StoreProfileService {
 	public StoreProfileVO getOneStoName(String sto_num){
 		return dao.getOneByPrimary(sto_num);
 	}
+	
+	public StoreProfileVO getOneByPrimary(String sto_num){
+		return dao.getOneByPrimary(sto_num);
+	}
 }

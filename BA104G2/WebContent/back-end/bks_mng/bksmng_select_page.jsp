@@ -10,31 +10,6 @@
 <head>
 <title>後台人員管理</title>
 <style>
-/* 	.btn-green-group{ */
-/* 		background:#3C9682; /*main green*/ */
-/* 		color:#FFFFFF; */
-/* 	} */
-/* 	.hide{ */
-/* 		display:none; */
-/* 	} */
-
-	table {
-		width: 1000px;
-		background-color: white;
-		margin-top: 5px;
-		margin-bottom: 5px;
-	}
-	table, th, td {
-	  border: 1px solid #3C9682;
-	}
-	th, td {
-	  padding: 5px;
-	  text-align: center;
-	}
-	body{
-	height:1000px;
-	}
-
 </style>
 
 </head>
@@ -47,20 +22,19 @@
 	<!-- 2層框左 -->	
 			<jsp:include page="/back-end/back_left.jsp" /> <!-- leftSidebar -->
 	<!-- 2層框右 -->		
-			<div class="col-xs-12 col-sm-9 col-sm-offset-3" >				
+			<div class="col-xs-12 col-sm-8 col-sm-offset-3" >				
 				<div class="block-center panelheight">
-	<!--========================== 功能放這邊 =============================================-->
+				
+	<!--========================== 功能放這邊 ===↓↓↓↓↓↓↓↓↓↓==========================================-->
+	
+	
+	
 <% 
 	BackstageManagementService bmSvc = new BackstageManagementService();		
 	List<BackstageManagementVO> getAllStaff = bmSvc.getAll();
  	request.setAttribute("getAllStaff",getAllStaff);	
 
 %>
-
-	<div >
-	   <h3>後台人員管理</h3>				
-	</div>		
-						
 
   <jsp:include page="/back-end/bks_mng/btn_select.jsp" />	
 
@@ -77,7 +51,10 @@
 			</div>
 
 		
-	<!--========================== 功能放這邊 =============================================-->			
+		
+		
+		
+	<!--========================== 功能放這邊 ====↑↑↑↑↑↑↑↑↑=====================================-->			
 				</div><!-- class="block-center panelheight" -->			
 			</div><!-- class="col-xs-12 col-sm-8 col-sm-offset-3" -->
 		</div><!-- div class="row" -->

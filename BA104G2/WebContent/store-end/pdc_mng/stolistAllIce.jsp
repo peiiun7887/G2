@@ -27,7 +27,8 @@
 	</ul>
 </c:if>
 
-	<table>
+<div class="table-responsive">
+	<table class="table">
 		<tr>
 			<th>¦B¶ô½s¸¹</th>		
 			<th>©±®a½s¸¹</th>
@@ -61,6 +62,8 @@
 			</tr>
 		</c:forEach>
 	</table>
+</div>
+</div>
 
 </body>
 </html>

@@ -28,13 +28,15 @@
 				<div class="block-center panelheight">
 	<!--========================== 功能放這邊 =============================================-->
 
+
+
 <%-- 查詢+ListAll按鈕 --%>
 <jsp:include page="/store-end/pdc_mng/btn_select.jsp" />
 
 	<table id="table-1">
 		<tr>
 			<td><h3>新增商品</h3></td>
-			<td><h4><a href="<%= request.getContextPath() %>/store-end/pdc_mng/store_select_page.jsp">回商品管理首頁</a></h4></td>
+			
 		</tr>
 	</table>
 

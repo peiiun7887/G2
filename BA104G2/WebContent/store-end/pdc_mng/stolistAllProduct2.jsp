@@ -29,8 +29,8 @@
 	</ul>
 </c:if>
 
-
-	<table>
+<div class="table-responsive">
+	<table class="table">
 		<tr>
 			<th>商品編號</th>		
 			<th>商品名稱</th>
@@ -86,6 +86,7 @@
 		</tr>
 	</c:forEach>
 	</table>
-
+</div>
+</div>
 </body>
 </html>

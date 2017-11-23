@@ -97,7 +97,6 @@
     <servlet-name>InitTrigger</servlet-name>
     <url-pattern>/index/InitTrigger.do</url-pattern>
   </servlet-mapping>
-  <!-- 讀店家圖片-->
   <servlet>
     <servlet-name>StoGifReader</servlet-name>
     <servlet-class>com.store_profile.controller.StoGifReader</servlet-class>

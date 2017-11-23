@@ -89,7 +89,7 @@
 		</tr>
 		<tr>
 			<td>員工照片:</td>
-			<td><img height=50 src="<%=request.getContextPath()%>/BmGifReader?bm_no=${bmVO.bm_no}"><br>
+			<td><img  src="<%=request.getContextPath()%>/BmGifReader?bm_no=${bmVO.bm_no}"><br>
 			<input type="File" name="bm_img" size="45"/></td>
 		</tr>	
 		<tr>

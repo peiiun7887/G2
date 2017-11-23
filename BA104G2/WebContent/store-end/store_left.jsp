@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<jsp:useBean id="spSvc" scope="request" class="com.store_profile.model.StoreProfileService" />
 <html>
 <head>
 		<meta charset="UTF-8">
@@ -10,9 +10,14 @@
 		<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/store_base.css">
 		<style>
 
-		.active{
-			background-color:#3C9682;
-		}
+			#staff-info {
+				margin:auto;
+				text-align:center;
+				font-size:24px;
+				font-weight:bolder;
+				color:#595942
+			}
+			
 		</style>
 	
 	</head>
@@ -26,10 +31,13 @@
 					<!-- 店家圖片 -->
 
 					<div class="panel-body">
-						<a href="#">
-						    <img class="imgsize thumbnail center-block area20" src="https://api.fnkr.net/testimg/100x100/3C9682/FFF/?text=img+placeholder">
-						    <span class="glyphicon glyphicon-pencil pull-right funcbtn-normal"></span>
-					    </a>
+						
+						    <img class="imgsize thumbnail center-block area20" width="100" height="100" src="<%= request.getContextPath()%>/StoGifReader?sto_num=${sessionScope.sto_num}">
+						    <a href="<%= request.getContextPath() %>/bks_mng/StoMng.do?action=getOne_For_Display&sto_num=${sessionScope.sto_num}" class="center-block">
+						   		<div id="staff-info">${spSvc.getOneByPrimary(sessionScope.sto_num).sto_name}<div class="glyphicon glyphicon-pencil"></div></div>
+						   							   		
+						   	</a>
+					    
 					</div>
 				
 

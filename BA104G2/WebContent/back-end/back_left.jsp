@@ -5,7 +5,7 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-		<title>店家首頁</title>
+		<title>後端首頁</title>
 		<style>
 			#staff-info {
 				margin:auto;
@@ -30,8 +30,9 @@
 					<!-- 店家圖片 -->
 
 					<div class="panel-body " >
-						
-						    <img class="imgsize thumbnail center-block area20" src="https://api.fnkr.net/testimg/100x100/595942/FFF/?text=img+placeholder">
+							
+						    <img class="imgsize thumbnail center-block area20" width="100" height="100" src="<%= request.getContextPath()%>/BmGifReader?bm_no=${sessionScope.bm_no}">
+						  
 						   	<a href="<%= request.getContextPath() %>/bks_mng/BksMng.do?action=getOne_For_Display&bm_no=${sessionScope.bm_no}" class="center-block">
 						   		<div id="staff-info">${bmSvc.findbyPrimaryKey(sessionScope.bm_no).bm_name}<div class="glyphicon glyphicon-pencil"></div></div>
 						   							   		

@@ -8,10 +8,13 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	<link rel="icon" href="<%= request.getContextPath() %>/img/favicon.ico" type="image/x-icon" /> 
+	<link rel="shortcut icon" href="<%= request.getContextPath() %>/img/favicon.ico" type="image/x-icon" />  
 	<title>揪茶趣</title>
+	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/member_base.css">
-
+	
 </head>
 <body>
 
@@ -19,6 +22,8 @@
 	ServletContext context = getServletContext();
 	List<Map.Entry<String, Integer>> list_KeyData = (List<Map.Entry<String, Integer>>) context.getAttribute("list_KeyData");
 	context.setAttribute("list_KeyData", list_KeyData);
+	HttpSession se = request.getSession();
+	Double position = (Double)se.getAttribute("lat");
 
 %>
 
@@ -101,6 +106,8 @@
 						  </span>
 						</div>
 						<input type="hidden" name="action" value="search">
+						<input type="hidden" name="lat" value="">
+						<input type="hidden" name="lng" value="">
 					</form>
 					
 
@@ -123,7 +130,7 @@
 		        <!-- 訂單管理 btn+ 附近店家 btn + 折價券btn -->
 		        <div class="col-xs-12 col-sm-3 area70">			        	
 	        		<button type="button" class="btn btn-green  btn-lg ">訂單管理</button>			        	
-	        		<a href="<%= request.getContextPath() %>/front-end/storeMap2.jsp" type="button" class="btn btn-green  btn-lg">附近店家</a>			        	
+	        		<a href="<%= request.getContextPath() %>/front-end/storeMap.jsp" type="button" class="btn btn-green  btn-lg">附近店家</a>			        	
 	        		<button type="button" class="btn btn-org  btn-lg">瘋折價券</button>         	
 		    	</div>
 			</div>
@@ -135,7 +142,36 @@
 
 
 
+<script>
 
+		var lat;
+		var lng;
+		function initMap() {	
+			var g = window.navigator.geolocation;
+		    g.getCurrentPosition(succ, fail);
+		}
+		function succ(event){
+			lat=event.coords.latitude;
+	        lng=event.coords.longitude;	
+	        var query = 'lat='+lat+'&lng='+lng+'&action=position';
+
+	    	$.post('/BA104G2/index/IndexServlet.do',query);
+		}
+		
+		function fail(event){
+			lat=24.9694;
+			lng=121.1925;
+			var query = 'lat=24.9694&lng=121.1925&action=position';
+			$.post('/BA104G2/index/IndexServlet.do',query);
+		}	
+		
+		
+		
+	
+
+	
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgGwpHCYQMEnC2S0l-ycO9Df87WvE2gLk&callback=initMap&libraries=geometry,places"></script>
 
 </body>
 </html>

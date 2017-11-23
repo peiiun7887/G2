@@ -35,21 +35,21 @@
 				<div class="block-center panelheight">
 	<!--========================== 功能放這邊 =============================================-->
 
+
 <%-- 查詢+ListAll按鈕 --%>
 <jsp:include page="/store-end/pdc_mng/btn_select.jsp" />
 
 	
 <table id="table-1">
 	<tr>
-		<td><h3>商品資料合併</h3></td>
-		<td><h4><a href="<%= request.getContextPath() %>/store-end/pdc_mng/store_select_page.jsp">回商品管理首頁</a></h4></td>
+		<td><h3>商品資料合併</h3></td>		
 	</tr>
 </table>
 
 <FORM METHOD="post" ACTION="<%= request.getContextPath() %>/pdc_mng/StoPdcMng.do"  enctype="multipart/form-data">
 
-	<div id=pdclist>
-		<table border=1>
+	<div id="pdclist" class="table-responsive">
+		<table class="table">
 			<tr>
 				<th><input type="checkbox" name="selectall"></th>
 				<th>商品編號</th>		

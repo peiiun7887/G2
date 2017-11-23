@@ -9,9 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 
- <title>Marker Clustering</title>
     <style>
     div{
     	border: 0px solid #AAAAAA;
@@ -20,7 +18,7 @@
    .coupon{
    		 background-image: url(<%= request.getContextPath() %>/img/coupon_bg.png);
    		 background-repeat: repeat;
-   		 height:50px;   		    		 
+   		 height:70px;   		    		 
    }
    .coupon-title{
    		color:orange; 
@@ -32,8 +30,8 @@
    		color:#3C9682; 
    		font-size:16pt;
    		display:inline-block;
-   		height:50px;
-        line-height:50px;
+   		height:70px;
+        line-height:70px;
         margin:0 5px;
    }
    .imgrvs{
@@ -54,7 +52,7 @@
 
 		<!-- 折價券預告============================================================= -->
 
-		<div class="container-fluid area20">
+		<div class="container-fluid area50">
 			<div class="row">
 				<div id="carousel-id" class="carousel slide" data-ride="carousel">
 				    <!-- 折價券圖區 -->

@@ -27,7 +27,8 @@
 	</ul>
 </c:if>
 
-	<table>
+<div class="table-responsive">
+	<table class="table">
 		<tr>
 			<th>人員編號</th>		
 			<th>名稱</th>
@@ -62,6 +63,7 @@
 		</c:forEach>		
 		
 	</table>
-
+</div>
+</div>
 </body>
 </html>

@@ -27,12 +27,15 @@
 				<div class="block-center panelheight">
 	<!--========================== 功能放這邊 =============================================-->
 
+
+
+
 <%-- 查詢+ListAll按鈕 --%>
 <jsp:include page="/back-end/bks_mng/btn_select.jsp" />
 
 <table>
 	<tr>
-		<td><h3>${sessionScope.bm_no}, ${bmVO.bm_no}員工資料修改</h3></td>
+		<td><h3>員工資料修改</h3></td>
 	</tr>
 </table>
 
@@ -85,7 +88,7 @@
 		</tr>
 		<tr>
 			<td>員工照片:</td>
-			<td><img height=50 src="<%=request.getContextPath()%>/BmGifReader?bm_no=${bmVO.bm_no}"><br>
+			<td><img src="<%=request.getContextPath()%>/BmGifReader?bm_no=${bmVO.bm_no}"><br>
 			<input type="File" name="bm_img" size="45"/></td>
 		</tr>	
 		<tr>

@@ -9,6 +9,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<link rel="icon" href="<%= request.getContextPath() %>/img/favicon.ico" type="image/x-icon" /> 
+<link rel="shortcut icon" href="<%= request.getContextPath() %>/img/favicon.ico" type="image/x-icon" />  
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/member_base.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><!-- 星星 -->
@@ -84,11 +86,24 @@
 	
 	.checked {
     	color: orange;
+    	size:120%;
 	}	
 	
 	.star-gray{
 		color:#CCCCCC;
 		size:120%;
+	}
+	
+	#storeList{
+		background:#FFFFFF;
+		box-shadow: 4px 4px 6px 4px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	}
+	#store{
+		width:100%;
+		
+	}
+	.shadow{
+		box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	}
 
    
@@ -114,17 +129,18 @@
 
 
 
-<div class="container-fluid area20">
+<div class="container-fluid container-area area50">
 	<div class="row">
 
 
 
 		<!-- 好評排行-->
 
-		<div class="col-xs-12 col-sm-2 col-sm-offset-1 ">
-			
+		<div class="col-xs-12 col-sm-2 col-sm-offset-1 shadow radius5">
+			<%	int count = 0; %>
 			<% for ( Map.Entry<String, Integer> Key  : list_RankData){ %>
-				<div class="good-to-drink">
+			<%	if(count<5){ %>	
+				<div class="good-to-drink ">
 					<div class="gd-left">
 						<img class="imgsize" src="<%= request.getContextPath()%>/StoGifReader?sto_num=<%= Key.getKey() %>">
 					</div>
@@ -138,7 +154,8 @@
 						<span class="rank-point">  <%= Key.getValue() %> </span>
 					</div>
 				</div>
-			<% } %>
+			<%	count ++; %>		
+			<% }} %>
 				
 
 		<!-- 店家廣告 -->
@@ -154,7 +171,7 @@
 				        <li data-target="#carousel-id2" data-slide-to="2" class="active"></li>
 				    </ol>
 				    <!-- 幻燈片主圖區 -->
-				    <div class="carousel-inner">
+				    <div class="carousel-inner ">
 				        <div class="item">
 				        	<img class="adimg" src="<%= request.getContextPath()%>/img/ad3.jpeg" alt="">
 					    </div>
@@ -176,15 +193,19 @@
 </div>   <!--功能區塊container end-->
 
 
+
 <!-- 附近店家 -->
-<div class="container-fluid area20">
-	<div class="row">
+<div class="container-fluid container-area" id="storeList">
+
+	<div class="row">		
 		<div class="col-xs-12 col-sm-10 col-sm-offset-1 ">
-		<% if (request.getAttribute("stoList")==null){ %>
-			<jsp:include page="storeListAll.jsp" />
-		<% } %>	
+
 		
-		<jsp:include page="/front-end/storeList.jsp" />
+<%-- 		<% if (request.getAttribute("stoList")==null){ %> --%>
+			<jsp:include page="storeListAll.jsp" />
+<%-- 		<% } %>	 --%>
+		
+<%-- 		<jsp:include page="/front-end/storeList.jsp" /> --%>
 		</div>
 	</div> 
 </div>   <!--附近店家-->
@@ -205,8 +226,7 @@
 				var rating = parseInt($(this).next().text());
 				console.log(rating);
 				for(var i =1 ; i< 6 ;i++){
-					if(i<rating){
-						console.log(i+","+rating)
+					if(i<rating){						
 						$(this).append('<span class="fa fa-star checked"></span>');
 					}else{
 						$(this).append('<span class="fa fa-star star-gray"></span>');

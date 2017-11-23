@@ -9,8 +9,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 	<title>揪茶趣</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/member_base.css">
+
 
 </head>
 <% 
@@ -28,10 +27,10 @@
 
 
 		<!--=================================================   ↓↓  footer 從這邊開始   ↓↓  ========================================================== -->
-<div class="navbars">
-<div class="container area20">
+
+<div class="container-fluid area20  navbars">
 	<div class="row">
-		<div class="col-xs-12 col-sm-12">			
+		<div class="col-xs-12 col-sm-10 col-sm-offset-1">			
 				<nav class="navbar">
 					<ul class="nav nav-pills nav-justified radius5">								      
 							 <li ><a href="#" class="icons item-color">揪茶趣手機版</a></li>				 
@@ -46,7 +45,7 @@
 			</div>
 		</div>	
 	</div>
-</div>
+
 
 		<!--=================================================   ↑↑  footer 從這邊開始   ↑↑  ========================================================== -->
 		<script src="https://code.jquery.com/jquery.js"></script>

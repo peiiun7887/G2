@@ -48,10 +48,11 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 	List<Map.Entry<String, Integer>> list_KeyData = new ArrayList<Map.Entry<String, Integer>>();
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		double curlat = Double.parseDouble(req.getParameter("lat"));
-		double curlng = Double.parseDouble(req.getParameter("lng"));
 		
-		System.out.println(curlat+","+curlng);
+		HttpSession se = req.getSession();
+		double curlat = (double) se.getAttribute("lat");
+		double curlng = (double) se.getAttribute("lng");
+
 		//地址JSON
 		StoreProfileService spSvc = new StoreProfileService();
 		List<StoreProfileVO> orgList = spSvc.getAllgeo();//查出上架狀態的店家
@@ -86,23 +87,23 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		//用搜尋關鍵字送
-		
-		double curlat = 24.969;
-		double curlng = 121.192;
+
 		req.setCharacterEncoding("UTF-8");
 		String action =req.getParameter("action");
 		
 		List<StoreProfileVO> oldList = null;
 		ServletContext context = getServletContext();		
 		list_KeyData = (List<Map.Entry<String, Integer>>) context.getAttribute("list_KeyData");
-//		keywordMap = (Map<String, Integer>) context.getAttribute("keywordMap");
+
 		
 		for(Entry<String, Integer> Key :list_KeyData){
 			keywordMap.put(Key.getKey(), Key.getValue());
 		}
 
 		if("search".equals(action)){
-			
+			HttpSession se = req.getSession();
+			double curlat = (double) se.getAttribute("lat");
+			double curlng = (double) se.getAttribute("lng");
 			try{
 				String keyword = req.getParameter("keyword");
 				StoreProfileService spSvc = new StoreProfileService();
@@ -149,10 +150,22 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 	    	context.setAttribute("list_KeyData", list_KeyData);  	    
 			req.setAttribute("stoList", newList);
 			
-			RequestDispatcher successView = req.getRequestDispatcher("/front-end/index.jsp"); 
+			RequestDispatcher successView = req.getRequestDispatcher("/front-end/storeList.jsp"); 
 			successView.forward(req, res);
 			}
 		}
+		
+		if("position".equals(action)){
+			
+			double lat = Double.parseDouble(req.getParameter("lat"));
+			double lng = Double.parseDouble(req.getParameter("lng"));			
+			HttpSession se = req.getSession();
+			se.setAttribute("lat", lat);
+			se.setAttribute("lng", lng);
+			System.out.println("position:"+lat+","+lng);
+		}
+		
+		
 	}
 
 	//用地址轉出經緯度

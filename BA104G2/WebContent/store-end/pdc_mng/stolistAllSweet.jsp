@@ -27,8 +27,8 @@
 		</c:forEach>
 	</ul>
 </c:if>
-
-	<table>
+<div class="table-responsive">
+	<table class="table">
 		<tr>
 			<th>甜度編號</th>		
 			<th>店家編號</th>
@@ -64,6 +64,7 @@
 		</c:forEach>
 		
 	</table>
-
+</div>
+</div>
 </body>
 </html>
