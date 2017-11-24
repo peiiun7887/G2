@@ -97,6 +97,7 @@
 	#storeList{
 		background:#FFFFFF;
 		box-shadow: 4px 4px 6px 4px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		overflow: auto;
 	}
 	#store{
 		width:100%;
@@ -225,8 +226,8 @@
 			$(".rank-style").each(function(){
 				var rating = parseInt($(this).next().text());
 				console.log(rating);
-				for(var i =1 ; i< 6 ;i++){
-					if(i<rating){						
+				for(var i =1 ; i<6 ;i++){
+					if(i<=rating){						
 						$(this).append('<span class="fa fa-star checked"></span>');
 					}else{
 						$(this).append('<span class="fa fa-star star-gray"></span>');

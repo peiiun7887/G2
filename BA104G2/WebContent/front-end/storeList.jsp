@@ -16,6 +16,7 @@
 	}
 	#stolist{
 		width:100%;
+		overflow: auto;
 	}
 
 	#stolist td{
