@@ -6,8 +6,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 		<title>店家首頁</title>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/store_base.css">
+
 		<style>
 
 			#staff-info {
@@ -22,20 +21,20 @@
 	
 	</head>
 <body>	
-		
-	<!-- left side function bar -->
 
-			<div class="col-xs-12 col-sm-2 col-sm-offset-1 navbars navbar-fixed-top area50">
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12 col-sm-2 col-sm-offset-1 navbars navbar-fixed-top area50">
 
-				<div class="panel panel-default ">
+				
+			<div class="panel panel-default ">
 					<!-- 店家圖片 -->
 
 					<div class="panel-body">
 						
 						    <img class="imgsize thumbnail center-block area20" width="100" height="100" src="<%= request.getContextPath()%>/StoGifReader?sto_num=${sessionScope.sto_num}">
 						    <a href="<%= request.getContextPath() %>/bks_mng/StoMng.do?action=getOne_For_Display&sto_num=${sessionScope.sto_num}" class="center-block">
-						   		<div id="staff-info">${spSvc.getOneByPrimary(sessionScope.sto_num).sto_name}<div class="glyphicon glyphicon-pencil"></div></div>
-						   							   		
+						   		<div id="staff-info">${spSvc.getOneByPrimary(sessionScope.sto_num).sto_name}<div class="glyphicon glyphicon-pencil"></div></div>				   		
 						   	</a>
 					    
 					</div>
@@ -48,7 +47,7 @@
 						<div class="panel panel-default">
 							<div class="panel-heading" role="tab" id="panel1">				      
 						        <a href="#func1" data-parent="#accordion1" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="func1">
-						          <div class="panel-title funcbtn-normal ">訂單管理</div>
+						          <h4 class="panel-title funcbtn-normal ">訂單管理</h4>
 						        </a>				      
 						    </div>
 						    <div id="func1" class="panel-collapse collapse " role="tabpanel" aria-labelledby="panel1">
@@ -63,10 +62,12 @@
 
 						<!-- 2.商品管理 -->
 						<div class="panel panel-default ">
-						    <div class="panel-heading" role="tab" id="panel2">				      
-						        <a href="<%= request.getContextPath() %>/store-end/pdc_mng/store_select_page.jsp" data-parent="#accordion1" data-toggle="collapse" role="button" class="collapsed" >
-						          <div class="panel-title funcbtn-normal">商品管理
-						          </div>
+						    <div class="panel-heading" role="tab" id="panel2">	
+						    	 <a href="#func2" data-parent="#accordion1" data-toggle="collapse" role="button" class="collapsed" aria-expanded="false" aria-controls="func2">		      
+						        	<a href="<%= request.getContextPath() %>/store-end/pdc_mng/store_select_page.jsp" >
+						        	<h4 class="panel-title funcbtn-normal">商品管理</h4>					        
+						        	</a>
+						       		
 						        </a>				      
 						    </div>
 						</div>
@@ -166,12 +167,17 @@
 						        	<a href="#" class="list-group-item">折價券申請教學</a>
 						        </div>
 						    </div>
-						</div>
-				</div>
-			</div>		
+						</div>				
+
+				</div><!--左邊功能伸縮 panel-->
+				
+			</div>	<!-- div class="panel panel-default "> -->
+						
 		</div>
-		<script src="https://code.jquery.com/jquery.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</div>		
+</div>
+	
+
 		<script >
 			
 
