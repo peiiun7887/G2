@@ -85,28 +85,29 @@
 	}
 	
 	.checked {
-    	color: orange;
-    	size:120%;
+    	color:  #ffd280;
+    	font-size:16pt;
 	}	
 	
 	.star-gray{
 		color:#CCCCCC;
-		size:120%;
-	}
-	
-	#storeList{
-		background:#FFFFFF;
-		box-shadow: 4px 4px 6px 4px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-		overflow: auto;
-	}
-	#store{
-		width:100%;
-		
+		font-size:16pt;
 	}
 	.shadow{
 		box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	}
-
+	#comment-rank{
+		background-color: #3C9682;
+		color:#FFFFFF;
+		font-size: 16pt;
+    	letter-spacing: 3pt;		
+	}
+	#carousel-ctrl {
+		height:540px;
+	}
+	#carousel-ctrl .item img{
+		height:100%;
+	}
    
 </style>
 
@@ -130,83 +131,78 @@
 
 
 
-<div class="container-fluid container-area area50">
+<div class="container-fluid area50">
 	<div class="row">
 
 
 
 		<!-- 好評排行-->
 
-		<div class="col-xs-12 col-sm-2 col-sm-offset-1 shadow radius5">
-			<%	int count = 0; %>
-			<% for ( Map.Entry<String, Integer> Key  : list_RankData){ %>
-			<%	if(count<5){ %>	
-				<div class="good-to-drink ">
-					<div class="gd-left">
-						<img class="imgsize" src="<%= request.getContextPath()%>/StoGifReader?sto_num=<%= Key.getKey() %>">
-					</div>
-					<div class="gd-right rating-bar">
-						<p class="store-name">
-						<a href = "<%= request.getContextPath()%>/xxx.do?sto_num=<%= Key.getKey() %>">
-						<%= stSvc.getOneStoName(Key.getKey()).getSto_name() %>
-						</a>
-						</p>						
-						<span class="rank-style"></span>
-						<span class="rank-point">  <%= Key.getValue() %> </span>
-					</div>
-				</div>
-			<%	count ++; %>		
-			<% }} %>
-				
-
-		<!-- 店家廣告 -->
+		<div class="col-xs-12 col-sm-2 col-sm-offset-1 shadow radius5 panel">
 		
-		</div>
-			
-			<div class="col-xs-12 col-sm-8 col-sm-offset-0">
-				<div id="carousel-id2" class="carousel slide" data-ride="carousel">
-				    <!-- 幻燈片小圓點區 -->
-				    <ol class="carousel-indicators">
-				        <li data-target="#carousel-id2" data-slide-to="0" class=""></li>
-				        <li data-target="#carousel-id2" data-slide-to="1" class=""></li>
-				        <li data-target="#carousel-id2" data-slide-to="2" class="active"></li>
-				    </ol>
-				    <!-- 幻燈片主圖區 -->
-				    <div class="carousel-inner ">
-				        <div class="item">
-				        	<img class="adimg" src="<%= request.getContextPath()%>/img/ad3.jpeg" alt="">
-					    </div>
-				        <div class="item">
-				            <img class="adimg" src="<%= request.getContextPath()%>/img/ad1.jpeg" alt="">			            
-				        </div>
-				        <div class="item active">
-				            <img class="adimg" src="<%= request.getContextPath()%>/img/ad2.jpeg" alt="">			            
-				        </div>
-				    </div>
-				    <!-- 上下頁控制區 -->
-					    <a class="left carousel-control" href="#carousel-id2" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-					    <a class="right carousel-control" href="#carousel-id2" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+			<div class="panel-heading text-center" id="comment-rank">好評排行榜</div>
+				<%	int count = 0; %>
+				<% for ( Map.Entry<String, Integer> Key  : list_RankData){ %>
+				<%	if(count<5){ %>	
+			<div class="panel-body table good-to-drink ">
+				<div class="gd-left">
+					<img class="imgsize"  src="<%= request.getContextPath()%>/StoGifReader?sto_num=<%= Key.getKey() %>">
+				</div>
+				<div class="gd-right">
+					<p class="store-name">
+					<a href = "<%= request.getContextPath()%>/xxx.do?sto_num=<%= Key.getKey() %>">
+					<%= stSvc.getOneStoName(Key.getKey()).getSto_name() %>
+					</a>
+					</p>						
+					<span class="rank-style"></span>
+					<span class="rank-point">  <%= Key.getValue() %> </span>
 				</div>
 			</div>
+				<%	count ++; %>		
+				<% }} %>
+		</div>
+
+		<!-- 店家廣告 -->
+			
+		<div class="col-xs-12 col-sm-8 col-sm-offset-0">
+		
+			<div id="carousel-id2" class="carousel slide" data-ride="carousel">
+			    <!-- 幻燈片小圓點區 -->
+			    <ol class="carousel-indicators">
+			        <li data-target="#carousel-id2" data-slide-to="0" class=""></li>
+			        <li data-target="#carousel-id2" data-slide-to="1" class=""></li>
+			        <li data-target="#carousel-id2" data-slide-to="2" class="active"></li>
+			    </ol>
+			    <!-- 幻燈片主圖區 -->
+			    <div class="carousel-inner " id="carousel-ctrl">
+			        <div class="item">
+			        	<img class="adimg" src="<%= request.getContextPath()%>/img/ad3.jpeg" alt="">
+				    </div>
+			        <div class="item">
+			            <img class="adimg" src="<%= request.getContextPath()%>/img/ad1.jpeg" alt="">			            
+			        </div>
+			        <div class="item active">
+			            <img class="adimg" src="<%= request.getContextPath()%>/img/ad2.jpeg" alt="">			            
+			        </div>
+			    </div>
+			    <!-- 上下頁控制區 -->
+				    <a class="left carousel-control" href="#carousel-id2" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+				    <a class="right carousel-control" href="#carousel-id2" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+			</div>
+		</div>
 		
 
-		</div>  <!--功能區塊row end-->
+	</div>  <!--功能區塊row end-->
 </div>   <!--功能區塊container end-->
 
 
 
 <!-- 附近店家 -->
-<div class="container-fluid container-area" id="storeList">
+<div class="container-fluid" id="storeList">
 
 	<div class="row">		
 		<div class="col-xs-12 col-sm-10 col-sm-offset-1 ">
-
-		
-<%-- 		<% if (request.getAttribute("stoList")==null){ %> --%>
 			<jsp:include page="storeListAll.jsp" />
-<%-- 		<% } %>	 --%>
-		
-<%-- 		<jsp:include page="/front-end/storeList.jsp" /> --%>
 		</div>
 	</div> 
 </div>   <!--附近店家-->

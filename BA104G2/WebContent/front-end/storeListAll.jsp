@@ -14,9 +14,7 @@
 		float:left;
 		margin: 0 10px 0 0;
 	}
-	#stolist{
-		width:100%;
-	}
+
 
 	#stolist td{
 		padding: 10px;

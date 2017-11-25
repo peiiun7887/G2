@@ -129,9 +129,9 @@
 
 		        <!-- 訂單管理 btn+ 附近店家 btn + 折價券btn -->
 		        <div class="col-xs-12 col-sm-3 area70">			        	
-	        		<button type="button" class="btn btn-green btn-lg ">訂單管理</button>			        	
+	        		<button type="button" class="btn btn-green btn-lg pull-left">訂單管理</button>			        	
 	        		<a href="<%= request.getContextPath() %>/front-end/storeMap.jsp" type="button" class="btn btn-green btn-lg">附近店家</a>			        	
-	        		<button type="button" class="btn btn-org btn-lg">瘋折價券</button>         	
+	        		<button type="button" class="btn btn-org btn-lg pull-right">瘋折價券</button>         	
 		    	</div>
 			</div>
 		</div>	
