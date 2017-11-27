@@ -43,7 +43,7 @@
 		
 	
 		<c:forEach var="bmVO" items="${list}" >
-		<tr ${(bmVO.bm_no==param.bm_no)?'bgcolor=#CCCCFF':''}>
+		<tr ${(bmVO.bm_no==param.bm_no)?'bgcolor=#DCE6D2':''}>
 			<td>${bmVO.bm_no}</td>	
 			<td>${bmVO.bm_name}</td>
 			<td>${bmVO.bm_number}</td>

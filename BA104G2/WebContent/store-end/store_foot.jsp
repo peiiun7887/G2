@@ -6,14 +6,14 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 		<title>店家首頁</title>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/store_base.css">
+<!-- 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> -->
+<%-- 		<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/store_base.css"> --%>
 
 	</head>
 <body>
-	<div class="container-fluid">
+	<div class="container-fluid area50">
 	    <div class="row">
-	    	<nav class="navbar navbar-default navbars navbar-fixed-bottom">
+	    	<nav class="navbar navbar-default navbars navbar-fixed-bottom ">
 	    		<!--手機版+關於揪茶-->
 	    		<div class="col-xs-12 col-sm-2 col-sm-offset-1 navbars">
 		    		<ul class="nav nav-pills nav-justified">								      

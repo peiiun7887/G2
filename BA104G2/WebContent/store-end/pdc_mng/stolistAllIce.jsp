@@ -27,7 +27,7 @@
 	</ul>
 </c:if>
 
-<div class="table-responsive">
+
 	<table class="table">
 		<tr>
 			<th>¦B¶ô½s¸¹</th>		
@@ -40,7 +40,7 @@
 		
 		<c:forEach var="iceVO" items="${list}">
 			
-			<tr ${(iceVO.ice_num==param.ice_num)?'bgcolor=#CCCCFF':''}>
+			<tr ${(iceVO.ice_num==param.ice_num)?'bgcolor=#DCE6D2':''}>
 				<td>${iceVO.ice_num}</td>	
 				<td>${iceVO.sto_num}</td>
 				<td>${iceVO.ice_type}</td>
@@ -62,8 +62,7 @@
 			</tr>
 		</c:forEach>
 	</table>
-</div>
-</div>
+
 
 </body>
 </html>

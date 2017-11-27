@@ -141,15 +141,15 @@
 
 
 
-
+<script src="https://code.jquery.com/jquery.js"></script>
 <script>
 
 		var lat;
 		var lng;
-		function initMap() {	
+// 		function initMap() {	
 			var g = window.navigator.geolocation;
 		    g.getCurrentPosition(succ, fail);
-		}
+// 		}
 		function succ(event){
 			lat=event.coords.latitude;
 	        lng=event.coords.longitude;	
@@ -171,7 +171,7 @@
 
 	
 </script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgGwpHCYQMEnC2S0l-ycO9Df87WvE2gLk&callback=initMap&libraries=geometry,places"></script>
+<!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgGwpHCYQMEnC2S0l-ycO9Df87WvE2gLk&callback=initMap&libraries=geometry,places"></script> -->
 
 </body>
 </html>

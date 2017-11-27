@@ -16,7 +16,12 @@
 				font-weight:bolder;
 				color:#595942
 			}
-			
+			.panel-heading a:hover{				
+				text-decoration:none;			
+			}
+			.list-group a:hover{
+				text-decoration:none;	
+			}
 		</style>
 	
 	</head>
@@ -34,7 +39,7 @@
 						
 						    <img class="imgsize thumbnail center-block area20" width="100" height="100" src="<%= request.getContextPath()%>/StoGifReader?sto_num=${sessionScope.sto_num}">
 						    <a href="<%= request.getContextPath() %>/bks_mng/StoMng.do?action=getOne_For_Display&sto_num=${sessionScope.sto_num}" class="center-block">
-						   		<div id="staff-info">${spSvc.getOneByPrimary(sessionScope.sto_num).sto_name}<div class="glyphicon glyphicon-pencil"></div></div>				   		
+						   		<div id="staff-info">${spSvc.getOneByPrimary(sessionScope.sto_num).sto_name}<small class="text-muted"><div class="glyphicon glyphicon-pencil"></div></small></div>				   		
 						   	</a>
 					    
 					</div>
@@ -177,7 +182,8 @@
 	</div>		
 </div>
 	
-
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<script >
 			
 

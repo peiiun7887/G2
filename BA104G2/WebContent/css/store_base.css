@@ -4,8 +4,8 @@
 			body{
 				font-family: Microsoft JhengHei, Gotham;
 				color:#595942;
-				padding-top:50px;
-				padding-bottom: 70px;
+				padding-top:70px;
+				padding-bottom:200px;
 				
 			}
 			p ,span {
@@ -41,6 +41,19 @@
 				background:#3C9682; 
 				color:#FFFFFF;
 				margin-right: 15px;
+			}
+			.btn-green-rvs{
+				background-color:#FFFFFF; 
+				border:1px solid #3C9682;
+				color:#3C9682;
+				margin-right: 15px;
+			}
+			
+			.btn-green:hover{
+				background:#DCE6D2; 
+				color:#3C9682;
+				font-weight:border;
+				border:1px solid #FFFFFF;
 			}
 
 			.btn-org{
@@ -82,5 +95,13 @@
 			th, td {
 			  padding: 5px;
 			  text-align: center;
+			  vertical-align:middle;
 			}
+			.active{
+				background-color:#3C9682;
+			}
+			a:hover{
+				text-decoration:none;
+			}
+
 	

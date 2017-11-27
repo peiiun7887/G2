@@ -1,17 +1,41 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.sweetness.model.*"%>
-
+<%@ page import="java.util.*"%>
 <%
 	SweetnessVO sweetnessVO = (SweetnessVO) request.getAttribute("sweetnessVO");
-	session.setAttribute("addform","permit");	//從add頁面來得給個通行證
+	String str = request.getQueryString();
+	if(str==null){
+		session.setAttribute("addform","permit");	//從add頁面來得給個通行證
+	}
+	String sto_num = (String) session.getAttribute("sto_num");
+	SweetnessService swtSvc = new SweetnessService();
+	List<SweetnessVO> list = swtSvc.getSweetness(sto_num);
+    pageContext.setAttribute("list",list);
 %>
 
 <html>
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 	<title>新增甜度</title>
-
+	<style>
+	.magic{
+		background-color:#FFFFFF;
+		color:#ffd280;
+	}
+	.panel-green{
+		border:1px solid #3C9682;
+		color:#3C9682;	
+	}
+	.panel-form{
+		margin-top:20px;
+		margin-bottom:20px;
+	}
+	.productList{
+		font-size:11pt;
+	}
+	</style>
+	
 </head>
 <body>
 	<jsp:include page="/store-end/store_top.jsp" /> <!-- navbar -->
@@ -25,49 +49,88 @@
 				<div class="block-center panelheight">
 	<!--========================== 功能放這邊 =============================================-->
 
- <h3>店家商品管理</h3>
 
 <%-- 查詢+ListAll按鈕 --%>
 <jsp:include page="/store-end/pdc_mng/btn_select.jsp" />
 
-	<table id="table-1">
-		<tr>
-			<td><h3>新增甜度</h3></td>
-		</tr>
-	</table>
+<div class="col-xs-12 col-sm-5">
+	<div class="row">	
+		<div class="panel ">
+        	<div class="panel-heading panel-green"><h3 class="text-center">新增甜度</h3></div>
+	
+				<div class="panel-body panel-green">
 
-<%-- 錯誤表列 --%>
-
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message.value}</li>
-		</c:forEach>
-	</ul>
-</c:if>
-
-	<FORM METHOD="post" ACTION="<%= request.getContextPath() %>/pdc_mng/StoSwtMng.do">
-		<table>
-			<tr>
-				<td>店家編號</td>
-				<td><input type="TEXT" name="sto_num" size="45" 
-					 value="${sto_num}" disabled/>			
-				</td>
+				<%-- 錯誤表列 --%>				
+				<c:if test="${not empty errorMsgs}">
+					<font style="color:red">請修正以下錯誤:</font>
+					<ul>
+						<c:forEach var="message" items="${errorMsgs}">
+							<li style="color:red">${message.value}</li>
+						</c:forEach>
+					</ul>
+				</c:if>
 				
+				<div class="form-horizontal">
+					<FORM METHOD="post" ACTION="<%= request.getContextPath() %>/pdc_mng/StoSwtMng.do">
+						
+						<div class="form-group panel-form">
+							<label for="sto_num" class="col-sm-3 control-label">店家編號</label>
+							<div class="col-sm-9">
+								<input type="TEXT" name="sto_num" id="sto_num" value="${sto_num}" disabled class="form-control"/>	
+							</div>
+						</div>
+						
+						<div class="form-group panel-form">
+							<label for="sweet_type" class="col-sm-3 control-label">甜度名稱</label>
+							<div class="col-sm-9">
+								<input type="TEXT" name="sweet_type" id="sweet_type" value="${sweetnessVO.sweet_type}" class="form-control"/>	
+							</div>
+						</div>
+						
+																
+						<input type="hidden" name="sto_num" value="${sto_num}">
+						<input type="hidden" name="action" value="insert">
+						<div class="panel-footer ">
+							<input type="submit" value="送出新增" class="btn btn-green btn-block panel-form">
+						</div>
+					</FORM>
+				</div><!-- from horizon -->	
+			</div><!-- panel body -->
+		</div><!-- panel -->	
+	</div><!-- row -->
+	
+		<!-- magic btn -->
+	<button id="swt1" class="btn btn-xs magic">無糖</button>
+	<button id="swt2" class="btn btn-xs magic">微糖</button>
+	<button id="swt3" class="btn btn-xs magic">半糖</button>
+	<button id="swt4" class="btn btn-xs magic">少糖</button>
+	<button id="swt5" class="btn btn-xs magic">全糖</button>	
+	
+</div><!-- <div class="col-xs-12 col-sm-5"> -->		
+	
+<div class="col-xs-12 col-sm-7">
+	
+	<table class="table productList">
+		<tr>
+			<th>甜度名稱</th>
+			<th>狀態</th>
+		</tr>
+		
+		<c:forEach var="swtVO" items="${list}">
+			
+			<tr ${(swtVO.sweet_num==param.sweet_num)?'bgcolor=#DCE6D2':''}>
+				<td>${swtVO.sweet_type}</td>
+				<td>${swtVO.status}</td>
 			</tr>
-			<tr>
-				<td>甜度名稱</td>
-				<td><input type="TEXT" name="sweet_type" size="45" 
-					 value="${sweetnessVO.sweet_type}" /></td>
-			</tr>	
-		</table>
-
-		<input type="hidden" name="sto_num" value="${sto_num}">
-		<input type="hidden" name="action" value="insert">
-		<input type="submit" value="送出新增">
-	</FORM>
-
+			
+		</c:forEach>
+		
+	</table>
+		
+</div>
+	
+	
+		
 <!--========================== 功能放這邊 =============================================-->			
 				</div><!-- class="block-center panelheight" -->			
 			</div><!-- class="col-xs-12 col-sm-8 col-sm-offset-3" -->
@@ -79,9 +142,23 @@
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script>
-		$(document).ready(function () {
-			
-		});	
+	
+	$('#swt1').click(function(){
+		$('input[name=sweet_type]').val("無糖");
+	});
+	$('#swt2').click(function(){
+		$('input[name=sweet_type]').val("微糖");
+	});
+	$('#swt3').click(function(){
+		$('input[name=sweet_type]').val("半糖");
+	});
+	$('#swt4').click(function(){
+		$('input[name=sweet_type]').val("少糖");
+	});
+	$('#swt5').click(function(){
+		$('input[name=sweet_type]').val("全糖");		
+	});
+	$('tr:even').css('background-color','#f1f3f3');
 	</script>
 </body>
 </html>

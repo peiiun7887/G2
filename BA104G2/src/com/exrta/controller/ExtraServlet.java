@@ -14,9 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.extra.model.*;
 
-public class ExtraServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
+public class ExtraServlet extends HttpServlet {       
     
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
@@ -88,7 +86,7 @@ public class ExtraServlet extends HttpServlet {
 				/************ 3.加入完成,準備轉交(Send the Success view)**/	
 				req.setAttribute("getAllExt", "getAllExt");		//跟select_page說要顯示				
 				se.removeAttribute("addform");				//把通行證拿掉防止f5重送表單
-				String url = "/store-end/pdc_mng/store_select_page.jsp?ext_num="+ext_num;
+				String url = "/store-end/pdc_mng/addExtra.jsp?ext_num="+ext_num;
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);				
 				

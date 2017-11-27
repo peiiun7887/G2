@@ -16,8 +16,15 @@
 
 <html>
 <head>
+	
 	<title>所有商品資料</title>
+	<style>
+		.list>tbody>tr>td{
+			vertical-align:middle;
+		}
+	</style>
 </head>
+
 
 <body>
 <%-- 錯誤表列 --%>
@@ -30,7 +37,7 @@
 	</ul>
 </c:if>
 <div class="table-responsive">
-	<table class="table">
+	<table class="table list">
 		<tr>
 			<th>商品編號</th>		
 			<th>商品名稱</th>
@@ -45,10 +52,10 @@
 			<th>刪除</th>
 		</tr>
 		
-	
+
 		<c:forEach var="PdcVO" items="${list}" >
-		<tr ${(PdcVO.com_num==param.com_num)?'bgcolor=#CCCCFF':''}>
-			<td>${PdcVO.com_num}</td>	
+		<tr ${(PdcVO.com_num==param.com_num)?'bgcolor=#DCE6D2':''}>
+			<td class="aaa">${PdcVO.com_num}</td>	
 			<td>${PdcVO.com_name}</td>
 			<td>${PdcVO.m_price}</td>
 			<td>${PdcVO.l_price}</td>
@@ -58,33 +65,52 @@
 			<td>${PdcVO.status}</td>
 			<td width=200>				
 			<c:forEach var="mcVO" items="${mcSvc.getMerList(PdcVO.mercom_num)}" varStatus="p">
-				<span>
-				${p.count} -
+				<small>				
 				${pdSvc.getOneProduct(mcVO.com_num).com_name} 
 				小杯 ${pdSvc.getOneProduct(mcVO.com_num).m_price}
 				大杯 ${pdSvc.getOneProduct(mcVO.com_num).l_price}
-				</span><br>
+				</small><br>
 			</c:forEach>
 			</td>
 			
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/pdc_mng/StoPdcMng.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改">
+			     <input type="submit" value="修改"  class="btn btn-green">
 			     <input type="hidden" name="com_num" value="${PdcVO.com_num}">
 			      <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/pdc_mng/StoPdcMng.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="刪除">
+			     <input type="submit" id="delete" value="刪除" class="btn btn-org">
 			     <input type="hidden" name="com_num"  value="${PdcVO.com_num}">
 			     <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
-			     <input type="hidden" name="action" value="delete"></FORM>
+			     <input type="hidden" name="action" value="delete" ></FORM>
 			</td>
 		</tr>
 		</c:forEach>		
-		
+
 	</table>
 </div>
+
+<script>
+	//table hover color
+	$('tr').hover(
+		function(){
+			$(this).css("background-color","#ffe4b3");
+		},
+		function(){
+			$(this).css("background-color","#FFFFFF");
+		}
+	);
+	
+	//delete alert
+	$('input[id=delete]').click(function(){
+		var answer = confirm("確定要刪除資料嗎?");
+		if(answer){
+			
+		}
+	});
+</script>
 </body>
 </html>

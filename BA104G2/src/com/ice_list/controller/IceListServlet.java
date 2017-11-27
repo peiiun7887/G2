@@ -72,7 +72,7 @@ public class IceListServlet extends HttpServlet {
 				req.setAttribute("getAllIce", "getAllIce");	//跟select_page說要顯示冰
 				se.removeAttribute("addform");				//把通行證拿掉防止f5重送表單
 
-				String url = "/store-end/pdc_mng/store_select_page.jsp?ice_num="+ice_num;
+				String url = "/store-end/pdc_mng/addIce.jsp?ice_num="+ice_num;
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);				
 				

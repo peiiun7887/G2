@@ -126,7 +126,7 @@ public class ProductServlet extends HttpServlet {
 				String com_num = productVO.getCom_num();
 				/************ 3.加入完成,準備轉交(Send the Success view)**/	
 				se.removeAttribute("addform");				//把通行證拿掉防止f5重送表單
-				String url = "/store-end/pdc_mng/store_select_page.jsp?com_num="+com_num;
+				String url = "/store-end/pdc_mng/addProduct.jsp?com_num="+com_num;
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交stolistAllProduct.jsp
 				successView.forward(req, res);
 				

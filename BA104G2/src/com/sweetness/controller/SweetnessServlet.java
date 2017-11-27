@@ -69,7 +69,7 @@ public class SweetnessServlet extends HttpServlet {
 				/************ 3.加入完成,準備轉交(Send the Success view)**/	
 				req.setAttribute("getAllSwt","getAllSwt");	//跟select_page說要顯示糖				
 				se.removeAttribute("addform");				//把通行證拿掉防止f5重送表單
-				String url = "/store-end/pdc_mng/store_select_page.jsp?sweet_num="+sweet_num;
+				String url = "/store-end/pdc_mng/addSweetness.jsp?sweet_num="+sweet_num;
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交stolistAllProduct.jsp
 				successView.forward(req, res);
 

@@ -1,6 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
+
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> -->
+<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/store_base.css">
+
 <style>
 	.btn-green-group{
 		background:#3C9682; /*main green*/
@@ -9,11 +13,12 @@
 	.bar{
 		margin-right:20px;
 	}
-	{
-		margin-top:50px;
-		margin-top:50px;
+	.btn-green:hover{
+		background:#DCE6D2; 
+		color:#3C9682;
+		font-weight:border;
 	}
-
+	
 </style>
 </head>
 
@@ -43,7 +48,7 @@
 							<input type="hidden" name="action" value="getAllIce">
 						</form>
 						<form class="btn-group" METHOD="post" ACTION="<%= request.getContextPath() %>/pdc_mng/StoSwtMng.do">
-							<span class="input-group-btn">
+							<span class="">
 							<input type="submit" value="甜度列表" class="btn btn-green">
 							</span>
 							<input type="hidden" name="action" value="getAllSwt">
@@ -80,17 +85,13 @@
 										
 					</form>
 				</li>
-
-
 </ul>
 
 
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script>
-		$(document).ready(function () {
-			
-		});	
+
 	</script>
 </body>
 </html>

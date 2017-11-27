@@ -99,7 +99,9 @@ var searchResult;
 // 	        label : '現在位置',
 	        map : map
 	        });
+	        
 	        map.addListener('center_changed',centerChanged);
+	        centerChanged();
 	    }
 		
 		function succ(event) {	//抓點成功
@@ -136,6 +138,7 @@ var searchResult;
 			    success: callback,
 			});	        
 	        map.addListener('center_changed',centerChanged);
+	        centerChanged();
 	    }
 		
 		function centerChanged() {
@@ -199,7 +202,7 @@ var searchResult;
 		
 	
 </script>
-<!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgGwpHCYQMEnC2S0l-ycO9Df87WvE2gLk&callback=initMap&libraries=geometry,places"></script> -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgGwpHCYQMEnC2S0l-ycO9Df87WvE2gLk&callback=initMap&libraries=geometry,places"></script>
 
 
 

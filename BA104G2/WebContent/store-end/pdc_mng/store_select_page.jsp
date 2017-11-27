@@ -24,7 +24,8 @@
 	<!-- 2層框左 -->	
 			<jsp:include page="/store-end/store_left.jsp" /> <!-- leftSidebar -->
 	<!-- 2層框右 -->		
-			<div class="col-xs-12 col-sm-8 col-sm-offset-3" >				
+			<div class="col-xs-12 col-sm-8 col-sm-offset-3" >
+				
 				<div class="block-center panelheight">
 				
 	<!--========================== 功能放這邊 ↓↓↓↓↓↓===============================-->
@@ -38,15 +39,10 @@
 	}
 %>
 
-		
-
-  <jsp:include page="/store-end/pdc_mng/btn_select.jsp" />	
-
+<jsp:include page="/store-end/pdc_mng/btn_select.jsp" />	
 				
 <%-- 查詢+ListAll按鈕+add按鈕 --%>
-
-
-				
+	
 			<div id="listAll">
 				<% if (request.getAttribute("getAllExt")!=null){
 					request.removeAttribute("getAllPdc");
@@ -93,9 +89,7 @@
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script>
-		$(document).ready(function () {
-		
-		});	
+
 	</script>
 </body>
 </html>

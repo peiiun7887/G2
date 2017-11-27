@@ -27,8 +27,8 @@
 		</c:forEach>
 	</ul>
 </c:if>
-<div class="table-responsive">
-	<table class="table">
+
+<table class="table">
 		<tr>
 			<th>甜度編號</th>		
 			<th>店家編號</th>
@@ -40,7 +40,7 @@
 		
 		<c:forEach var="swtVO" items="${list}">
 			
-			<tr ${(swtVO.sweet_num==param.sweet_num)?'bgcolor=#CCCCFF':''}>
+			<tr ${(swtVO.sweet_num==param.sweet_num)?'bgcolor=#DCE6D2':''}>
 				<td>${swtVO.sweet_num}</td>	
 				<td>${swtVO.sto_num}</td>
 				<td>${swtVO.sweet_type}</td>
@@ -63,8 +63,8 @@
 			
 		</c:forEach>
 		
-	</table>
-</div>
-</div>
+</table>
+
+
 </body>
 </html>

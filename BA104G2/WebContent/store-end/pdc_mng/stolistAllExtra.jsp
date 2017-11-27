@@ -40,7 +40,7 @@
 		
 	<c:forEach var="extVO" items="${list}">
 			
-		<tr ${(extVO.ext_num==param.ext_num)?'bgcolor=#CCCCFF':''}>
+		<tr ${(extVO.ext_num==param.ext_num)?'bgcolor=#DCE6D2':''}>
 			<td>${extVO.ext_num}</td>	
 			<td>${extVO.sto_num}</td>
 			<td>${extVO.ext_name}</td>
@@ -66,6 +66,6 @@
 	
 	</table>
 </div>
-</div>
+
 </body>
 </html>
