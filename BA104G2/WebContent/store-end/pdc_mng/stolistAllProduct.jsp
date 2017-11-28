@@ -17,7 +17,7 @@
 <html>
 <head>
 	
-	<title>所有商品資料</title>
+	<title>所有商品資料</title>	
 	<style>
 		.list>tbody>tr>td{
 			vertical-align:middle;
@@ -36,7 +36,7 @@
 		</c:forEach>
 	</ul>
 </c:if>
-<div class="table-responsive">
+
 	<table class="table list">
 		<tr>
 			<th>商品編號</th>		
@@ -81,8 +81,8 @@
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/pdc_mng/StoPdcMng.do" style="margin-bottom: 0px;">
-			     <input type="submit" id="delete" value="刪除" class="btn btn-org">
+			  <FORM id="form_delete" METHOD="post" ACTION="<%=request.getContextPath()%>/pdc_mng/StoPdcMng.do" style="margin-bottom: 0px;">
+			     <input type="button" value="刪除" class="btn btn-org delete">
 			     <input type="hidden" name="com_num"  value="${PdcVO.com_num}">
 			     <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
 			     <input type="hidden" name="action" value="delete" ></FORM>
@@ -91,7 +91,7 @@
 		</c:forEach>		
 
 	</table>
-</div>
+
 
 <script>
 	//table hover color
@@ -105,12 +105,46 @@
 	);
 	
 	//delete alert
-	$('input[id=delete]').click(function(){
-		var answer = confirm("確定要刪除資料嗎?");
-		if(answer){
-			
-		}
+	$('.delete').click(function(){
+		swal({
+			  title: '確定要刪除資料?',
+			  text: "資料刪除後無法回復",
+			  type: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3C9682',
+			  cancelButtonColor: '#FA5532',
+			  confirmButtonText: '刪除',
+			  cancelButtonText: '取消'
+			}).then((result) => {
+			  if (result.value) {
+				  swal({
+					  position: 'center',
+					  type: 'success',
+					  title: '資料已刪除',
+					  showConfirmButton: false,
+					  timer: 1000
+				 	}).then((result) => {					  
+			 			  $("#form_delete").submit();					  
+					})
+			  }
+			})
 	});
+	
+// 	$('document').ready(function(){
+		
+// 		var queryStr='${param.com_num}';
+// 		if(queryStr!='null'){
+// 			swal({
+// 				  position: 'center',
+// 				  type: 'success',
+// 				  title: '修改成功',
+// 				  showConfirmButton: false,
+// 				  timer: 1000
+// 			 	})	
+// 		}
+// 	});
+
+	
 </script>
 </body>
 </html>

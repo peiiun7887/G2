@@ -26,13 +26,7 @@ public class ProductServlet extends HttpServlet {
 		HttpSession se = req.getSession();
 
 		if("insert".equals(action)){
-			//檢查是否從add頁面過來
-			if(se.getAttribute("addform")!="permit" ){
-				String url = "/store-end/pdc_mng/store_select_page.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); //回去listAll頁面
-				successView.forward(req, res);
-				return;
-			} 
+
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs",errorMsgs);
 			
@@ -320,6 +314,7 @@ public class ProductServlet extends HttpServlet {
 					failureView.forward(req, res);
 					return;
 				}
+				
 				/************ 2.開始修改資料   ****************************/
 				ProductService pdcSvc = new ProductService();
 				productVO = pdcSvc.updateProduct(productVO);

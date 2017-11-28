@@ -25,15 +25,7 @@ public class IceListServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		HttpSession se = req.getSession();
 
-		if("insert".equals(action)){
-			//檢查是否從add頁面過來
-			if(se.getAttribute("addform")!="permit" ){
-				req.setAttribute("getAllIce","getAllIce");
-				String url = "/store-end/pdc_mng/store_select_page.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交stolistAllProduct.jsp
-				successView.forward(req, res);
-				return;
-			}
+		if("insert".equals(action)){			
 			
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs",errorMsgs);

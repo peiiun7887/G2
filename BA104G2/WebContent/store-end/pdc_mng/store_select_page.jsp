@@ -8,11 +8,13 @@
 
 <html>
 <head>
-<title>店家商品管理</title>
-<style>
+	
 
-
-</style>
+	<title>店家商品管理</title>
+	<style>
+	
+	
+	</style>
 
 </head>
 
@@ -40,7 +42,9 @@
 %>
 
 <jsp:include page="/store-end/pdc_mng/btn_select.jsp" />	
-				
+
+
+
 <%-- 查詢+ListAll按鈕+add按鈕 --%>
 	
 			<div id="listAll">
@@ -85,7 +89,7 @@
 	</div><!-- div class="container-fluid" -->
 	
 	<jsp:include page="/store-end/store_foot.jsp" />
-
+	
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script>

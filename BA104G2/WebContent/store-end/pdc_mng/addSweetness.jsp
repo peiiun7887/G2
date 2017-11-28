@@ -5,9 +5,6 @@
 <%
 	SweetnessVO sweetnessVO = (SweetnessVO) request.getAttribute("sweetnessVO");
 	String str = request.getQueryString();
-	if(str==null){
-		session.setAttribute("addform","permit");	//從add頁面來得給個通行證
-	}
 	String sto_num = (String) session.getAttribute("sto_num");
 	SweetnessService swtSvc = new SweetnessService();
 	List<SweetnessVO> list = swtSvc.getSweetness(sto_num);
@@ -138,7 +135,7 @@
 	</div><!-- div class="container-fluid" -->
 	
 	<jsp:include page="/store-end/store_foot.jsp" />
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.5/sweetalert2.min.js"></script>	
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script>
@@ -159,6 +156,29 @@
 		$('input[name=sweet_type]').val("全糖");		
 	});
 	$('tr:even').css('background-color','#f1f3f3');
+	
+	$('document').ready(function(){
+		
+		var queryStr='<%= str %>';
+		
+		
+		if(queryStr!='null'){
+			swal({
+				  position: 'center',
+				  type: 'success',
+				  title: '新增成功',
+				  showConfirmButton: false,
+				  timer: 1000
+			 	})	
+		}
+	});
+	
+	//prevent F5
+	$(document).keydown(function(e) {			
+	    if( e.keyCode == '116' ){
+	    	window.location.replace("<%= request.getContextPath() %>/store-end/pdc_mng/addSweetness.jsp");
+	    }
+	});
 	</script>
 </body>
 </html>

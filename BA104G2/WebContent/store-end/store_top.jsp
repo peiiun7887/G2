@@ -12,23 +12,22 @@
 	</head>
 <body>
 		<!-- top nav bar -->
-	<div class="navbars navbar-fixed-top ">
 		<div class="container-fluid">
 			<div class="row ">	
-				<div class="col-xs-12 col-sm-3 col-sm-offset-1">
-					<ul class="nav navbar-nav ">
-						<li>
-							<a class="navbar-brand item-color" href="#">
-							揪茶趣 ‧ 店家管理頁面</a>
-						</li>
-					</ul>	
-
-				</div>
-				<div class="col-xs-12 col-sm-8">
+				<nav class="navbar-fixed-top navbars">
+					<div class="col-xs-12 col-sm-2 col-sm-offset-1 ">
+						<div class="nav">
+							<span class="display-4"><a class="item-color navbar-brand text-center " href="<%=request.getContextPath()%>/store-end/pdc_mng/store_select_page.jsp">
+								揪茶趣 ‧ 店家管理頁面</a></span>
+							
+						</div>	
+					</div>
+					
+				<div class="col-xs-12 col-sm-7">
 					<ul class="nav navbar-nav navbar-right ">	
 						<li>
-							
 							<a class="item-color " href="<%= request.getContextPath() %>/fakeLogin?action=logoutout">
+<%-- 	整合log				<a class="item-color " href="<%= request.getContextPath() %>/store-end/storeprofile/sto.do?action=logout"> --%>
 							<span class="glyphicon glyphicon-log-out icons"></span>
 								登出							
 							</a>
@@ -38,9 +37,9 @@
 
 				<!-- 登出按鈕 -->
 				
+	</nav>		
 			</div>
 		</div>
-	</div>		
 
 
 </body>

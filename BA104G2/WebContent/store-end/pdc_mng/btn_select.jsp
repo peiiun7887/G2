@@ -3,8 +3,8 @@
 <head>
 
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> -->
-<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/store_base.css">
-
+<%-- <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/store_base.css"> --%>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.5/sweetalert2.min.css">
 <style>
 	.btn-green-group{
 		background:#3C9682; /*main green*/
@@ -87,11 +87,11 @@
 				</li>
 </ul>
 
-
+	
+	
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script>
-
-	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.5/sweetalert2.min.js"></script>
+	
 </body>
 </html>

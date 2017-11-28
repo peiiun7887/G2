@@ -8,9 +8,6 @@
 <%
 	ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 	String str = request.getQueryString();
-	if(str==null){
-		session.setAttribute("addform","permit");	//從add頁面來得給個通行證
-	}
 	String sto_num = (String) session.getAttribute("sto_num");
 	ProductService pdcSvc = new ProductService();	
     List<ProductVO> list = pdcSvc.stoFindAllProduct(sto_num);
@@ -54,9 +51,10 @@
 	<!--========================== 功能放這邊 =============================================-->
 
 <%-- 查詢+ListAll按鈕 --%>
-<div>
+
 <jsp:include page="/store-end/pdc_mng/btn_select.jsp" />
-</div>
+
+
 <div class="col-xs-12 col-sm-5">
 	<div class="row">	
 		<div class="panel">
@@ -75,7 +73,7 @@
 				</c:if>
 				
 				<div class="form-horizontal">
-					<FORM METHOD="post" ACTION="<%= request.getContextPath() %>/pdc_mng/StoPdcMng.do" enctype="multipart/form-data">
+					<FORM id="insert" METHOD="post" ACTION="<%= request.getContextPath() %>/pdc_mng/StoPdcMng.do" enctype="multipart/form-data">
 					
 						<div class="form-group panel-form">
 							<label for="sto_num" class="col-sm-3 control-label">店家編號</label>
@@ -207,10 +205,12 @@
 	</div><!-- div class="container-fluid" -->
 	
 	<jsp:include page="/store-end/store_foot.jsp" />
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.5/sweetalert2.min.js"></script>
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script>
+		
+	
 		$('#pdc1').click(function(){
 			$('input[id=com_name]').val("翡翠烏龍");
 			$('input[name=m_price]').val("20");
@@ -253,6 +253,31 @@
 		});
 		$('tr:even').css('background-color','#f1f3f3');
 		
+
+		$('document').ready(function(){
+			
+			var queryStr='<%= str %>';
+			
+			if(queryStr!='null'){
+				swal({
+					  position: 'center',
+					  type: 'success',
+					  title: '新增成功',
+					  showConfirmButton: false,
+					  timer: 1000
+				 	})	
+			}
+		});
+		
+		//prevent F5
+		$(document).keydown(function( e ) {			
+		    if( e.keyCode == '116' ){
+		    	window.location.replace("<%= request.getContextPath() %>/store-end/pdc_mng/addProduct.jsp");
+		    }
+		});
+		
+		
+
 
 	</script>
 </body>

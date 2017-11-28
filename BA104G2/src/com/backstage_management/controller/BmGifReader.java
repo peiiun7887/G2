@@ -37,7 +37,7 @@ public class BmGifReader extends HttpServlet {
 				in.close();
 			} else {
 				//若檔案名稱不對，改顯示圖片
-				InputStream in = getServletContext().getResourceAsStream("/img/LOGO_150x150.png");
+				InputStream in = getServletContext().getResourceAsStream("/img/LOGO_150x150_gray_edge.png");
 				byte[] b = new byte[in.available()];
 				in.read(b);
 				out.write(b);
@@ -47,7 +47,7 @@ public class BmGifReader extends HttpServlet {
 			stmt.close();
 		} catch (Exception e) {
 			//空值NullPointerException，改顯示圖片
-			InputStream in = getServletContext().getResourceAsStream("/img/LOGO_150x150.png");
+			InputStream in = getServletContext().getResourceAsStream("/img/LOGO_150x150_gray_edge.png");
 			byte[] b = new byte[in.available()];
 			in.read(b);
 			out.write(b);

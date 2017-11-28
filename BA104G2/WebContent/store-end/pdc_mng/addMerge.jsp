@@ -115,7 +115,7 @@
 							
 							<small>				
 								${pdSvc.getOneProduct(mcVO.com_num).com_name} 
-								${pdSvc.getOneProduct(mcVO.com_num).m_price}/
+								${pdSvc.getOneProduct(mcVO.com_num).m_price} /
 								${pdSvc.getOneProduct(mcVO.com_num).l_price}
 							</small><br>
 							
@@ -226,7 +226,9 @@
 						<div class="panel-heading panel-green"><h3 class="text-center">選擇的合併商品</h3></div>
 						<div class="panel-body panel-green">	
 							<table id="mergelist" class="table">
-								<tr><td>合併商品</td><td>小杯價錢</td><td>大杯價錢</td></tr>
+								<thead>
+								<tr><th>合併商品</th><th>小杯價錢</th><th>大杯價錢</th></tr>
+								</thead>
 							</table>	
 						</div>			
 					</div>
@@ -332,6 +334,7 @@
 			$('#insert').hide("fast");
 			
 			$('#err').remove();
+			$('#mergelist').find('tbody').remove();
 			return false;		
 		});
 		
