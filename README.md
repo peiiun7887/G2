@@ -12,7 +12,7 @@
 
 <h4>使用技術與工具</h4>
 <ul>
-  <li>前端技術：HTML、CSS、Javascript、Ajax、JQuery，框架：Bootstrap 3.7 </li>
+  <li>前端技術：HTML、CSS、Javascript、Ajax、JQuery、Bootstrap 3.7 </li>
   <li>後端技術：JAVA、JDBC、JNDI、Servlet、JSP、SQL</li>
   <li>Container：Tomcat</li>
   <li>Database：Oracle</li>
