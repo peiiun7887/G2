@@ -14,28 +14,23 @@
 		<!-- top nav bar -->
 		<div class="container-fluid">
 			<div class="row ">	
-				<nav class="navbar-fixed-top navbars">
+				<nav class="navbar-fixed-top navbars nav">
 					<div class="col-xs-12 col-sm-2 col-sm-offset-1 ">
-						<div class="nav">
+						<div class="nav page-brand">
 							<span class="display-4"><a class="item-color navbar-brand text-center " href="<%=request.getContextPath()%>/store-end/pdc_mng/store_select_page.jsp">
 								揪茶趣 ‧ 店家管理頁面</a></span>
 							
 						</div>	
 					</div>
 					
-				<div class="col-xs-12 col-sm-7">
-					<ul class="nav navbar-nav navbar-right ">	
-						<li>
-							<a class="item-color " href="<%= request.getContextPath() %>/fakeLogin?action=logoutout">
-<%-- 	整合log				<a class="item-color " href="<%= request.getContextPath() %>/store-end/storeprofile/sto.do?action=logout"> --%>
-							<span class="glyphicon glyphicon-log-out icons"></span>
+				<div class="col-xs-12 col-sm-8">
+					<a class="item-color text-center navbar-text pull-right" href="<%= request.getContextPath() %>/fakeLogin?action=logoutout">
+<%-- 					<a class="item-color " href="<%= request.getContextPath() %>/store-end/storeprofile/sto.do?action=logout"> --%>
+						<span class="glyphicon glyphicon-log-out icons"></span>
 								登出							
-							</a>
-						</li>
-					</ul>
+					</a>
 				</div>
 
-				<!-- 登出按鈕 -->
 				
 	</nav>		
 			</div>

@@ -16,12 +16,7 @@
 				font-weight:bolder;
 				color:#595942
 			}
-			.panel-heading a:hover{				
-				text-decoration:none;			
-			}
-			.list-group a:hover{
-				text-decoration:none;	
-			}
+
 		</style>
 	
 	</head>
@@ -57,10 +52,8 @@
 						    </div>
 						    <div id="func1" class="panel-collapse collapse " role="tabpanel" aria-labelledby="panel1">
 						      	<div class="list-group">
-						        	<a href="#" class="list-group-item active">訂單驗證</a>
-						        	<a href="#" class="list-group-item">瀏覽客戶寄杯</a>
-						        	<a href="#" class="list-group-item">送出寄杯</a>
-						        	<a href="#" class="list-group-item">瀏覽訂單</a>
+						      		<a href="<%= request.getContextPath() %>/store-end/order/order.jsp" class="list-group-item">瀏覽訂單</a>
+						            <a href="<%= request.getContextPath() %>/store-end/keeprecord/keeprecord.jsp" class="list-group-item">瀏覽客戶寄杯</a>						        	<a href="#" class="list-group-item">送出寄杯</a>
 						        </div>	     
 						    </div>
 						</div>
@@ -86,11 +79,8 @@
 						    </div>
 						    <div id="func3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="panel3">
 						      	<div class="list-group">
-						        	<a href="#" class="list-group-item active">修改店家資訊</a>
-						        	<a href="#" class="list-group-item">瀏覽店家評論</a>
-						        	<a href="#" class="list-group-item">店家上/下架</a>
-						        	<a href="#" class="list-group-item">集點卡設定</a>
-						        	<a href="#" class="list-group-item">檢舉評論</a>
+						        	<a href="<%= request.getContextPath() %>/store-end/store/storeProfile.jsp" class="list-group-item">修改店家資訊</a>
+						        	<a href="<%= request.getContextPath() %>/store-end/store/storeMessage.jsp" class="list-group-item">瀏覽店家評論</a>
 						        </div>	
 						    </div>
 						</div>
@@ -104,8 +94,8 @@
 						    </div>
 						    <div id="func4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="panel4">
 						      	<div class="list-group">
-						        	<a href="#" class="list-group-item active">查詢點數餘額</a>
-						        	<a href="#" class="list-group-item">點數提領</a>
+						        	<a href="<%= request.getContextPath() %>/store-end/point/stoPoint.jsp" class="list-group-item">查詢點數餘額</a>
+						        	<a href="<%= request.getContextPath() %>/store-end/point/remPoint.jsp" class="list-group-item">點數提領</a>
 						        </div>	
 						    </div>
 						</div>
@@ -119,9 +109,8 @@
 						    </div>
 						    <div id="func5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="panel5">
 						      	<div class="list-group">
-						        	<a href="#" class="list-group-item active">新增廣告</a>
-						        	<a href="#" class="list-group-item">廣告紀錄</a>
-						        	<a href="#" class="list-group-item">購買廣告</a>
+						        	<a href="<%= request.getContextPath() %>/store-end/storeprofile/addad.jsp" class="list-group-item">新增廣告</a>
+						        	<a href="<%= request.getContextPath() %>/store-end/storeprofile/adlist.jsp" class="list-group-item">廣告紀錄</a>
 						        </div>	
 						    </div>
 						</div>
@@ -135,9 +124,8 @@
 						    </div>
 						    <div id="func6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="panel6">
 						      	<div class="list-group">
-						        	<a href="#" class="list-group-item active">申請發佈折價券</a>
-						        	<a href="#" class="list-group-item">新增折價券</a>
-						        	<a href="#" class="list-group-item">折價券紀錄</a>
+						        	<a href="<%= request.getContextPath() %>/store-end/coupon/couponApply.jsp" class="list-group-item">新增折價券</a>
+						        	<a href="<%= request.getContextPath() %>/store-end/coupon/stoCoupon.jsp" class="list-group-item">折價券紀錄</a>
 						        </div>
 						    </div>
 						</div>
@@ -151,7 +139,7 @@
 						    </div>
 						    <div id="func7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="panel7">
 						      	<div class="list-group">
-						        	<a href="#" class="list-group-item active">檢舉紀錄</a>
+						        	<a href="#" class="list-group-item">檢舉紀錄</a>
 						        	<a href="#" class="list-group-item">聯繫後台人員</a>
 						        </div>
 						    </div>
@@ -166,7 +154,7 @@
 						    </div>
 						    <div id="func8" class="panel-collapse collapse" role="tabpanel" aria-labelledby="panel8">
 						      	<div class="list-group">
-						        	<a href="#" class="list-group-item active">店家資訊維護教學</a>
+						        	<a href="#" class="list-group-item">店家資訊維護教學</a>
 						        	<a href="#" class="list-group-item">訂單處理教學</a>
 						        	<a href="#" class="list-group-item">廣告發佈教學</a>
 						        	<a href="#" class="list-group-item">折價券申請教學</a>
@@ -191,15 +179,31 @@
 			$("[class~='panel-heading']").hover(function(){$(this).css("background-color","#DCE6D2")},function(){$(this).css("background-color"," #FFFFFF")});
 			
 			// 改 panel裡面 hover 顏色
-// 			$(".list-group > [class|='list-group-item']").hover(function(){$(this).css({"background-color":"#DCE6D2","color":"#595942"})},function(){$(this).css({"background-color":"#FFFFFF","color":"#595942"})});
+			$(".list-group > a").hover(function(){
+				
+				if(!$(this).hasClass('active')){
+					$(this).css({"background-color":"#DCE6D2","color":"#595942"});
+				}
+			},function(){
+				if(!$(this).hasClass('active')){
+					$(this).css({"background-color":"#FFFFFF","color":"#595942"});
+				}
+			});
+			
+			$(".list-group > [class|='list-group-item']").on('click',function(){
+				$(".list-group > a").removeClass('active').css({"background-color":"#FFFFFF","color":"#595942"});			
+				$(this).addClass("active");
+				$(this).css({"background-color":"#3C9682","color":"#FFFFFF"});
+			});
+			
 			
 			//目前active頁面
-			var loc = window.location.pathname;
-			console.log(loc);
-			$('.panel-collapse').find('a').each(function() {
-			     $(this).toggleClass('active', $(this).attr('href') == loc);
-			  });
-			$('.active').css("background","#3C9682");
+// 			var loc = window.location.pathname;
+// 			console.log(loc);
+// 			$('.panel-collapse').find('a').each(function() {
+// 			     $(this).toggleClass('active', $(this).attr('href') == loc);
+// 			  });
+// 			$('.active').css("background","#3C9682");
 
 		</script>	
 </body>

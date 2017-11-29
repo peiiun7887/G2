@@ -6,24 +6,16 @@
 <%-- <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/store_base.css"> --%>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.5/sweetalert2.min.css">
 <style>
-	.btn-green-group{
-		background:#3C9682; /*main green*/
-		color:#FFFFFF;
+
+	.bar{ 
+ 		margin-right:20px; 
 	}
-	.bar{
-		margin-right:20px;
-	}
-	.btn-green:hover{
-		background:#DCE6D2; 
-		color:#3C9682;
-		font-weight:border;
-	}
-	
+
 </style>
 </head>
 
 <body>
- <h3>店家商品管理</h3>
+ <h2 class="text-center"><strong>店家商品管理</strong></h2>
  
 <ul class="nav nav-pills page-header">
 				<li class="bar">
