@@ -13,7 +13,12 @@
 
 <html>
 <head>
-	<title>所有商品資料</title>
+	<title>所有後臺人員</title>
+	<style>
+		.list>tbody>tr>td{
+			vertical-align:middle;
+		}
+	</style>
 </head>
 
 <body>
@@ -27,8 +32,8 @@
 	</ul>
 </c:if>
 
-<div class="table-responsive">
-	<table class="table">
+
+	<table class="table list">
 		<tr>
 			<th>人員編號</th>		
 			<th>名稱</th>
@@ -54,7 +59,7 @@
 			<td>${bmVO.bm_jstatus}</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%= request.getContextPath() %>/bks_mng/BksMng.do" style="margin-bottom: 0px">
-			     <input type="submit" value="修改">
+			     <input type="submit" value="修改" class="btn btn-green">
 			     <input type="hidden" name="bm_no" value="${bmVO.bm_no}">
 			      <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
@@ -63,7 +68,20 @@
 		</c:forEach>		
 		
 	</table>
-</div>
-</div>
+
+
+<script>
+	//table hover color
+	$('tr').hover(
+		function(){
+			$(this).css("background-color","#ffe4b3");
+		},
+		function(){
+			$(this).css("background-color","#FFFFFF");
+		}
+	);
+
+
+</script>
 </body>
 </html>

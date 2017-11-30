@@ -160,9 +160,10 @@
 							<input type="hidden" name="com_num" value="${productVO.com_num}">					
 							<input type="hidden" name="mercom_num" value="${productVO.mercom_num}">
 							<input type="hidden" name="action" value="update">
-						</div>				
-					</div>
-				</div>
+						</div>	
+									
+					</div><!-- row -->
+				</div><!-- cotainer -->
 				
 					<div class="panel-footer ">
 						<input type="submit" value="送出修改" class="btn btn-green btn-block panel-form">
@@ -173,7 +174,7 @@
 			</div><!-- panel body -->
 		</div><!-- panel -->	
 	</div><!-- row -->	
-	
+</div>	
 		
 <!--========================== 功能放這邊 =============================================-->			
 				</div><!-- class="block-center panelheight" -->			

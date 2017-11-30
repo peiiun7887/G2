@@ -13,6 +13,28 @@
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 	<title>個人資料修改</title>
+	<style>
+		.magic{
+			background-color:#FFFFFF;
+			color:#ffd280;
+		}
+		.panel-green{
+			border:1px solid #595942;
+			color:#595942;	
+		}
+		.panel-form{
+			margin-top:20px;
+			margin-bottom:20px;
+		}
+		.productList{
+			font-size:11pt;
+		}
+		img{
+			display:block;
+			margin: 0 auto;
+		}
+
+	</style>
 </head>
 
 <body>
@@ -30,95 +52,134 @@
 <%-- 查詢+ListAll按鈕 --%>
 <jsp:include page="/back-end/bks_mng/btn_select.jsp" />
 
-<table>
-	<tr>
-		<td><h3>個人資料</h3></td>
-	</tr>
-</table>
-
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message.value}</li>
-		</c:forEach>
-	</ul>
-</c:if>
-
-	<FORM METHOD="post" ACTION="<%= request.getContextPath() %>/bks_mng/BksMng.do" enctype="multipart/form-data">
-	<table>
-		<tr>
-			<td>員工編號:</td>
-			<td>${bmVO.bm_no}
-				<input type="hidden" name="bm_no" value="${bmVO.bm_no}">
-			</td>			
-		</tr>
-		<tr>
-			<td>員工名稱:</td>
-			<td>${bmVO.bm_name}
-				<input type="hidden" name="bm_name" value="${bmVO.bm_name}" />
-			</td>
-		</tr>
-		<tr>
-			<td>員工帳號:</td>
-			<td>${bmVO.bm_num}
-				<input type="hidden" name="bm_num" value="${bmVO.bm_num}">
-			</td>
-		</tr>
-		<c:if test="${sessionScope.bm_no == bmVO.bm_no }">
-		<tr>
-			<td>員工密碼:</td>
-			<td><input type="text" name="bm_pwd" value="${bmVO.bm_pwd}"></td>
-		</tr>
-		</c:if>
-		<tr>
-			<td>員工手機:</td>
-			<td><input type="TEXT" name="bm_number" size="45"
-				 value="${bmVO.bm_number}"/></td>
-		</tr>
-		<tr>
-			<td>員工信箱:</td>
-			<td><input type="TEXT" name="bm_mail" size="45"
-				 value="${bmVO.bm_mail}" /></td>
-		</tr>
-		<tr>
-			<td>員工銀行帳號:</td>
-			<td>${bmVO.bm_banknum}
-				<input type="hidden" name="bm_banknum" size="45" value="${bmVO.bm_banknum}"></td>
-		</tr>
-		<tr>
-			<td>員工照片:</td>
-			<td><img  src="<%=request.getContextPath()%>/BmGifReader?bm_no=${bmVO.bm_no}"><br>
-			<input type="File" name="bm_img" size="45"/></td>
-		</tr>	
-		<tr>
-			<td>員工狀態:</td>
-			<td>${bmVO.bm_jstatus}
-				<input type="hidden" name="bm_jstatus" value="${bmVO.bm_jstatus}">
-			</td>
-		</tr>
-		<tr>
-			<td>權限：</td>
-			<td>
-			<c:forEach var="funcVO" items="${flSvc.all}">
-				<input type="checkbox" name=func value="${funcVO.func_no}"
-					
-						<c:forEach var="funcList" items="${funcList}">
-							${(funcList==funcVO.func_no)? 'checked':'' }
-						</c:forEach>					
-							disabled
-					> ${funcVO.func_name} <br>
-			</c:forEach>
-			</td>
-		</tr>		
-	</table>
+<div class="col-xs-12 col-sm-9">
+	<div class="row">	
+		<div class="panel">
+        	<div class="panel-heading panel-green"><h3 class="text-center">個人資料修改</h3></div>
 	
-	<input type="hidden" name="auth" value="self">
-	<input type="hidden" name="action" value="update">
-	<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
-	<input type="submit" value="送出修改">
-	</FORM>
+				<div class="panel-body panel-green">
+
+				<%-- 錯誤表列 --%>
+				<c:if test="${not empty errorMsgs}">
+					<font style="color:red">請修正以下錯誤:</font>
+					<ul>
+						<c:forEach var="message" items="${errorMsgs}">
+							<li style="color:red">${message.value}</li>
+						</c:forEach>
+					</ul>
+				</c:if>
+				
+				<div class="form-horizontal">
+
+					<FORM METHOD="post" ACTION="<%= request.getContextPath() %>/bks_mng/BksMng.do" enctype="multipart/form-data">
+					
+					<div class="container">
+						<div class="row">
+						
+							<div class="col-xs-12 col-sm-3">
+							<!-- 員工圖片 -->
+								<div class="form-group panel-form">
+									<label for="bm_img" class="col-sm-12 text-center">員工圖片</label>
+									<div class="col-sm-12">
+										<img src="<%=request.getContextPath()%>/BmGifReader?bm_no=${bmVO.bm_no}"><br>
+										<input type="File" name="bm_img" id="bm_img" class="form-control"/>	
+									</div>
+								</div>						
+							</div><!-- col-3 -->
+							
+							<div class="col-xs-12 col-sm-6">
+							<!-- 員工資料 -->
+							
+								<div class="form-group panel-form">
+									<label for="bm_no" class="col-sm-3 control-label">員工編號</label>
+									<div class="col-sm-8">
+										<input type="TEXT" name="bm_no" id="bm_no" value="${bmVO.bm_no}" disabled class="form-control"/>	
+									</div>
+								</div>							
+								
+								<div class="form-group panel-form">
+									<label for="bm_name" class="col-sm-3 control-label">員工名稱</label>
+									<div class="col-sm-8">
+										<input type="TEXT" name="bm_name" id="bm_name" value="${bmVO.bm_name}" class="form-control" disabled/>	
+									</div>
+								</div>									
+							
+								<div class="form-group panel-form">
+									<label for="bm_num" class="col-sm-3 control-label">員工帳號</label>
+									<div class="col-sm-8">
+										<input type="TEXT" name="bm_num" id="bm_num" value="${bmVO.bm_num}" class="form-control" disabled/>	
+									</div>
+								</div>
+								
+								<c:if test="${sessionScope.bm_no == bmVO.bm_no }">
+									<div class="form-group panel-form">
+										<label for="bm_pwd" class="col-sm-3 control-label">員工密碼</label>
+										<div class="col-sm-8">
+											<input type="TEXT" name="bm_pwd" id="bm_pwd" value="${bmVO.bm_pwd}" class="form-control"/>	
+										</div>
+									</div>
+								</c:if>
+								
+								<div class="form-group panel-form">
+									<label for="bm_number" class="col-sm-3 control-label">員工手機</label>
+									<div class="col-sm-8">
+										<input type="TEXT" name="bm_number" id="bm_number" value="${bmVO.bm_number}" class="form-control"/>	
+									</div>
+								</div>
+
+								<div class="form-group panel-form">
+									<label for="bm_mail" class="col-sm-3 control-label">員工信箱</label>
+									<div class="col-sm-8">
+										<input type="TEXT" name="bm_mail" id="bm_mail" value="${bmVO.bm_mail}" class="form-control"/>	
+									</div>
+								</div>
+								
+								<div class="form-group panel-form">
+									<label for="bm_banknum" class="col-sm-3 control-label">員工銀行帳號</label>
+									<div class="col-sm-8">
+										<input type="TEXT" name="bm_banknum" id="bm_banknum" value="${bmVO.bm_banknum}" class="form-control" disabled/>	
+									</div>
+								</div>								
+																								
+								<div class="form-group panel-form">
+									<label for="bm_jstatus" class="col-sm-3 control-label">員工狀態</label>
+									<div class="col-sm-8">
+										<select size="1" name="bm_jstatus" class="form-control" disabled>
+											<option value="在職" ${(bmVO.bm_jstatus=='在職')? 'selected':'' } >在職
+											<option value="離職" ${(bmVO.bm_jstatus=='離職')? 'selected':'' } >離職
+										</select>
+									</div>
+								</div>								
+							
+
+							
+							
+							
+							</div><!-- col-6 -->
+											
+						</div><!-- row -->
+					</div><!-- container -->						
+					
+					
+
+					
+					<input type="hidden" name="bm_no" value="${bmVO.bm_no}">
+					<input type="hidden" name="bm_name" value="${bmVO.bm_name}" />
+					<input type="hidden" name="bm_num" value="${bmVO.bm_num}">
+					<input type="hidden" name="bm_banknum" size="45" value="${bmVO.bm_banknum}">
+					<input type="hidden" name="bm_jstatus" value="${bmVO.bm_jstatus}">
+					<input type="hidden" name="auth" value="self">
+					<input type="hidden" name="action" value="update">
+					<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
+					<div class="panel-footer ">	
+						<input type="submit" value="送出修改" class="btn btn-green btn-block panel-form">
+					</div>
+					</FORM>
+				</div><!-- from horizon -->	
+			</div><!-- panel body -->
+		</div><!-- panel -->	
+	</div><!-- row -->	
+</div>			
 	
 <!--========================== 功能放這邊 =============================================-->			
 				</div><!-- class="block-center panelheight" -->			

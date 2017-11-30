@@ -30,9 +30,9 @@
 	
 	
 <% 
-	BackstageManagementService bmSvc = new BackstageManagementService();		
-	List<BackstageManagementVO> getAllStaff = bmSvc.getAll();
- 	request.setAttribute("getAllStaff",getAllStaff);	
+// 	BackstageManagementService bmSvc = new BackstageManagementService();		
+// 	List<BackstageManagementVO> getAllStaff = bmSvc.getAll();
+//  	request.setAttribute("getAllStaff",getAllStaff);	
 
 %>
 
@@ -43,12 +43,12 @@
 
 
 				
-			<div id="listAll">
-				<% if (request.getAttribute("getAllStaff")!=null){ %>
+<!-- 			<div id="listAll"> -->
+<%-- 				<% if (request.getAttribute("getAllStaff")!=null){ %> --%>
        				<jsp:include page="listAllStaff.jsp" />
-				<% } %>	
+<%-- 				<% } %>	 --%>
 
-			</div>
+<!-- 			</div> -->
 
 		
 		

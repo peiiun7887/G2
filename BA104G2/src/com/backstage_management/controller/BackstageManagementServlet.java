@@ -37,13 +37,7 @@ public class BackstageManagementServlet extends HttpServlet {
 		HttpSession se = req.getSession();
 		
 		if("insert".equals(action)){
-			//檢查是否從add頁面過來
-			if(se.getAttribute("addform")!="permit" ){
-				String url = "/back-end/bks_mng/bksmng_select_page.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); //回去listAll頁面
-				successView.forward(req, res);
-				return;
-			} 
+
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs",errorMsgs);
 			
@@ -69,7 +63,7 @@ public class BackstageManagementServlet extends HttpServlet {
 				BackstageManagementService bmSvc = new BackstageManagementService();		
 				int count = bmSvc.checkBm_num(bm_num);
 				if (count>0){
-					errorMsgs.put("bm_number_2","帳號重複");
+					errorMsgs.put("bm_number_2","帳號重複了!換一個吧:-)");
 				}
 				
 				String bm_number = req.getParameter("bm_number");
@@ -77,7 +71,7 @@ public class BackstageManagementServlet extends HttpServlet {
 				if (bm_number == null || bm_number.trim().length() == 0){
 					errorMsgs.put("bm_number","員工手機：請勿空白");
 				} else if (!bm_number.matches(phone_nameReg)){
-					errorMsgs.put("bm_number","手機格式錯誤，請依照09xx-xxxxxx格式");
+					errorMsgs.put("bm_number","手機格式錯誤，請依照09xx-xxxxxx格式輸入喔");
 				}
 				
 				String bm_mail = req.getParameter("bm_mail");
@@ -93,7 +87,7 @@ public class BackstageManagementServlet extends HttpServlet {
 				if (bm_banknum == null || bm_banknum.trim().length() == 0){
 					errorMsgs.put("bm_banknum","銀行帳戶請勿空白");
 				}else if (!bm_banknum.trim().matches(bank_nameReg)){
-					errorMsgs.put("bm_banknum","銀行帳號格式錯誤");
+					errorMsgs.put("bm_banknum","銀行帳號格式錯誤，請輸入10-14碼純數字");
 				}
 				
 				Part imgs= req.getPart("bm_img");
@@ -101,13 +95,17 @@ public class BackstageManagementServlet extends HttpServlet {
 				
 				//抓權限box
 				String[] func = req.getParameterValues("func");
-				List<String> funcList = new ArrayList<String>();
-				for(int i= 0; i<func.length;i++){
-					funcList.add(func[i]);					
+				List<String> funcList = new ArrayList<String>(); ;
+				try{					
+					for(int i= 0; i<func.length;i++){
+						funcList.add(func[i]);					
+					}
+				req.setAttribute("funcList",funcList);
+				} catch (NullPointerException ee){
+					errorMsgs.put("func","請設定權限");
 				}
-				req.setAttribute("funcList",funcList);		
 			
-			System.out.println(funcList);	
+	
 				
 			System.out.println(bm_name+","+bm_num+","+bm_number+","+bm_mail+","+bm_banknum);
 				
@@ -120,7 +118,7 @@ public class BackstageManagementServlet extends HttpServlet {
 				bmVO.setBm_mail(bm_mail);
 				bmVO.setBm_banknum(bm_banknum);
 				bmVO.setBm_img(bm_img);				
-				bmVO.setBm_jstatus("在職");
+			    bmVO.setBm_jstatus("在職");
 				
 				//send back if errors
 				if (!errorMsgs.isEmpty()) {
@@ -137,7 +135,7 @@ public class BackstageManagementServlet extends HttpServlet {
 				String bm_pwd = getRandomPassword();				
 				System.out.println(bm_pwd);	
 				bmVO.setBm_pwd(bm_pwd);				
-				bmVO = bmSvc.addStaff(bmVO);
+				bmVO = bmSvc.addStaff(bmVO);				
 				String bm_no = bmVO.getBm_no();
 		//寄信		
 				//寄給誰
@@ -154,10 +152,10 @@ public class BackstageManagementServlet extends HttpServlet {
 			    //寫入權限資料
 			    AuthListService alSvc = new AuthListService();
 			    alSvc.insert(bm_no, funcList);
-				
+			    
 				/************ 3.加入完成,準備轉交(Send the Success view)**/	
 				se.removeAttribute("addform");				//把通行證拿掉防止f5重送表單
-				String url = "/back-end/bks_mng/bksmng_select_page.jsp?bm_no="+bm_no;
+				String url = "/back-end/bks_mng/addStaff.jsp?bm_no="+bm_no;
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);
 				
@@ -170,16 +168,16 @@ public class BackstageManagementServlet extends HttpServlet {
 			}		
 		}
 		
-		if("getAllStaff".equals(action)){	
-			System.out.println("---");
-				BackstageManagementService bmSvc = new BackstageManagementService();		
-				List<BackstageManagementVO> getAllStaff = bmSvc.getAll();	
-			System.out.println("---"+getAllStaff.size());
-				req.setAttribute("getAllStaff", getAllStaff);			
-				RequestDispatcher successView = req.getRequestDispatcher("/back-end/bks_mng/bksmng_select_page.jsp");
-				successView.forward(req, res);
-			}
-		
+//		if("getAllStaff".equals(action)){	
+//			System.out.println("---");
+//				BackstageManagementService bmSvc = new BackstageManagementService();		
+//				List<BackstageManagementVO> getAllStaff = bmSvc.getAll();	
+//			System.out.println("---"+getAllStaff.size());
+//				req.setAttribute("getAllStaff", getAllStaff);			
+//				RequestDispatcher successView = req.getRequestDispatcher("/back-end/bks_mng/bksmng_select_page.jsp");
+//				successView.forward(req, res);
+//			}
+//		
 		if("check".equals(action)){	//ajax檢查帳號是否重複
 			String bm_num = req.getParameter("bm_num");
 			BackstageManagementService bmSvc = new BackstageManagementService();		
@@ -187,7 +185,6 @@ public class BackstageManagementServlet extends HttpServlet {
 			res.setContentType("application/json ; charset=UTF-8");
 		    PrintWriter out = res.getWriter();
 		    out.print(count);
-		    System.out.println(count);
 		}
 		
 		if("getOne_For_Update".equals(action)){
@@ -331,15 +328,18 @@ public class BackstageManagementServlet extends HttpServlet {
 				//抓權限box
 				List<String> funcList = new ArrayList<String>();;
 				String auth = req.getParameter("auth");
-				if(!"self".equals(auth)){
-					String[] func = req.getParameterValues("func");					
-					for(int i= 0; i<func.length;i++){
-						funcList.add(func[i]);					
+				if(!"self".equals(auth)){	//不是self修改頁面過來的話
+					String[] func = req.getParameterValues("func");
+					try{
+						for(int i= 0; i<func.length;i++){
+							funcList.add(func[i]);					
+						}
+						req.setAttribute("funcList",funcList);
+					} catch (NullPointerException ee){
+						errorMsgs.put("func","請設定權限");
 					}
-					req.setAttribute("funcList",funcList);
+					
 				}
-				
-				
 				
 			System.out.println(bm_img+","+bm_name+","+bm_num+","+bm_number+","+bm_mail+","+bm_banknum+","+bm_jstatus);
 				
@@ -380,7 +380,7 @@ public class BackstageManagementServlet extends HttpServlet {
 				/************ 3.加入完成,準備轉交(Send the Success view)**/	
 				
 				req.setAttribute("bmVO",bmVO);
-				if(!"self".equals(auth)){
+				if("self".equals(auth)){
 					String url = "/back-end/bks_mng/bksmng_select_page.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url); 
 					successView.forward(req, res);
