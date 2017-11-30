@@ -18,7 +18,7 @@
    .coupon{
    		 background-image: url(<%= request.getContextPath() %>/img/coupon_bg.png);
    		 background-repeat: repeat;
-   		 height:70px;   		    		 
+   		 height:50px;   		    		 
    }
    .coupon-title{
    		color:orange; 
@@ -30,8 +30,8 @@
    		color:#3C9682; 
    		font-size:16pt;
    		display:inline-block;
-   		height:70px;
-        line-height:70px;
+   		height:50px;
+        line-height:50px;
         margin:0 5px;
    }
    .imgrvs{
@@ -54,7 +54,7 @@
 
 		<div class="container-fluid area50">
 			<div class="row">
-				<div id="carousel-id" class="carousel slide" data-ride="carousel">
+				<div id="carousel-id" class="carousel slide col-xs-12 col-sm-10 col-sm-offset-1" data-ride="carousel">
 				    <!-- §é»ù¨é¹Ï°Ï -->
 				    <div class="carousel-inner radius5">
 				    <c:forEach var="cpMsg" items="${cpList}" varStatus="i">
@@ -71,7 +71,7 @@
 		</div>
 
 
-		<script src="https://code.jquery.com/jquery.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- 		<script src="https://code.jquery.com/jquery.js"></script> -->
+<!-- 		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 </body>
 </html>

@@ -10,6 +10,17 @@
 				margin: 0px 0px 5px 0px;
 				color:#595942; 
 			}
+			a {
+				color:#3C9682;
+				text-decoration:none;	
+			}
+			
+			a:hover{
+				font-size:1.2em;
+				color:#3C9682;
+				text-decoration:none;
+			}
+			
 			.navbars{
 				background-color: #3C9682;
 			}
@@ -18,6 +29,11 @@
 			}
 			.item-color{
 				color:#DCE6D2;
+			}
+			.item-color:hover{
+				color:#FFFFFF;
+				font-size:border;
+				text-decoration:none;
 			}
 			.area50{
 				margin-top: 25px;
@@ -52,12 +68,21 @@
 				color:#FFFFFF;
 /* 				margin-right:5px; */
 			}
+			.btn-green:hover{
+				background:#DCE6D2; 
+				color:#3C9682;
+				font-weight:border;
+				border:1px solid #FFFFFF;
+			}
 
 			.btn-org{
 				background: #FA5532;
 				color:#FFFFFF;
 			}
-
+			.btn-org:hover{
+				background: #ffd280;
+				color:#FA5532;
+			}
 			.icons{
 				padding:0px 10px 0px 0px;
 			}
@@ -104,6 +129,17 @@
 			
 			.rank-point{
 				color: orange;				
+			}
+			.navbars-menu{
+				background-color: #3C9682;
+				color:#3C9682;
+				height:200px;
+			}
+			
+			.seperate_align{
+			display:flex;
+		    justify-content:space-around;
+		    flex-direction:row;
 			}
 
 			

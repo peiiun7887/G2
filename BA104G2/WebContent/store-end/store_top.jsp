@@ -23,16 +23,14 @@
 						</div>	
 					</div>
 					
-				<div class="col-xs-12 col-sm-8">
-					<a class="item-color text-center navbar-text pull-right" href="<%= request.getContextPath() %>/fakeLogin?action=logoutout">
-<%-- 					<a class="item-color " href="<%= request.getContextPath() %>/store-end/storeprofile/sto.do?action=logout"> --%>
-						<span class="glyphicon glyphicon-log-out icons"></span>
-								登出							
-					</a>
-				</div>
-
-				
-	</nav>		
+					<div class="col-xs-12 col-sm-8">
+						<a class="item-color text-center navbar-text pull-right" href="<%= request.getContextPath() %>/fakeLogin?action=logoutout">
+	<%-- 					<a class="item-color " href="<%= request.getContextPath() %>/store-end/storeprofile/sto.do?action=logout"> --%>
+							<span class="glyphicon glyphicon-log-out icons"></span>
+									登出							
+						</a>
+					</div>
+				</nav>		
 			</div>
 		</div>
 

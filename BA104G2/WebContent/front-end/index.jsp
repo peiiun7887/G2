@@ -17,31 +17,8 @@
 
 <title>揪茶趣:訂飲料好方便</title>
  
-    <style>
+<style>
 
-    div{
-    	border: 0px solid #AAAAAA;
-    }
-    
-   .coupon{
-   		 background-image: url(<%= request.getContextPath() %>/img/coupon_bg.png);
-   		 background-repeat: repeat;
-   		 height:50px;   		    		 
-   }
-   .coupon-title{
-   		color:#EFBC56; 
-   		font-size:16pt;
-   		margin:0 5px;
-   }
-	
-   .coupon-text{
-   		color:#3C9682; 
-   		font-size:16pt;
-   		display:inline-block;
-   		height:50px;
-        line-height:50px;
-        margin:0 5px;
-   }
    
    	img{
 		display: inline-block;
@@ -103,13 +80,54 @@
     	letter-spacing: 3pt;		
 	}
 	#carousel-ctrl {
-		height:540px;
+		height:530px;
 	}
 	#carousel-ctrl .item img{
 		height:100%;
 	}
    
-</style>
+   
+   	
+		<!---->	
+			.bg-fix{
+				position: relative;	
+				height:600px;
+			}
+		
+			.s1{
+				
+				color:#FFFFFF;
+				background-image: url(<%= request.getContextPath() %>/img/ad1.jpeg);
+				border: 1px solid #cccccc;
+			}
+			.s2{
+				color: #FFFFFF;
+				width:1600px;
+				height: 600px;
+				background-image: url(<%= request.getContextPath() %>/img/ad2.jpeg);
+				border: 1px solid #cccccc;
+				background-color: #FFFFFF;
+				
+			}
+			.s3{
+				color: #CCCCCC;
+				background-image: url(<%= request.getContextPath() %>/img/ad3.jpeg);
+				border: 1px solid #cccccc;
+			}
+			.arty{
+				margin: auto;
+				height: 600px;
+				padding:40px;
+				width:1600px;
+				background-repeat: no-repeat;
+				background-position: center center;
+				background-size: cover;
+				background-attachment: fixed; 
+			}
+
+
+	</style>	
+
 
 </head>
  
@@ -120,21 +138,16 @@
 	StoreProfileService stSvc = new StoreProfileService();
 %>
 
-<%
-
-%>
-
 
 <jsp:include page="/front-end/member_top.jsp" />
 <jsp:include page="/front-end/coupon_notify.jsp" />
 
 
 
+<div class= "bg-fix">
 
 <div class="container-fluid area50">
 	<div class="row">
-
-
 
 		<!-- 好評排行-->
 
@@ -172,22 +185,30 @@
 			        <li data-target="#carousel-id2" data-slide-to="0" class=""></li>
 			        <li data-target="#carousel-id2" data-slide-to="1" class=""></li>
 			        <li data-target="#carousel-id2" data-slide-to="2" class="active"></li>
+			        <li data-target="#carousel-id2" data-slide-to="3" ></li>
+			        <li data-target="#carousel-id2" data-slide-to="4" ></li>
 			    </ol>
 			    <!-- 幻燈片主圖區 -->
 			    <div class="carousel-inner " id="carousel-ctrl">
 			        <div class="item">
-			        	<img class="adimg" src="<%= request.getContextPath()%>/img/ad3.jpeg" alt="">
+			        	<img class="adimg" src="<%= request.getContextPath()%>/img/carousel_01.jpg" alt="">
 				    </div>
 			        <div class="item">
-			            <img class="adimg" src="<%= request.getContextPath()%>/img/ad1.jpeg" alt="">			            
+			            <img class="adimg" src="<%= request.getContextPath()%>/img/carousel_02.jpg" alt="">			            
 			        </div>
 			        <div class="item active">
-			            <img class="adimg" src="<%= request.getContextPath()%>/img/ad2.jpeg" alt="">			            
+			            <img class="adimg" src="<%= request.getContextPath()%>/img/carousel_03.jpg" alt="">			            
+			        </div>
+			        <div class="item">
+			            <img class="adimg" src="<%= request.getContextPath()%>/img/carousel_04.jpg" alt="">			            
+			        </div>
+			        <div class="item">
+			            <img class="adimg" src="<%= request.getContextPath()%>/img/carousel_05.jpg" alt="">			            
 			        </div>
 			    </div>
 			    <!-- 上下頁控制區 -->
-				    <a class="left carousel-control" href="#carousel-id2" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-				    <a class="right carousel-control" href="#carousel-id2" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+<!-- 				    <a class="left carousel-control" href="#carousel-id2" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a> -->
+<!-- 				    <a class="right carousel-control" href="#carousel-id2" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a> -->
 			</div>
 		</div>
 		
@@ -195,6 +216,8 @@
 	</div>  <!--功能區塊row end-->
 </div>   <!--功能區塊container end-->
 
+
+</div><!-- fix -->>
 
 
 <!-- 附近店家 -->
@@ -208,12 +231,54 @@
 </div>   <!--附近店家-->
 
 
+<!-- 		<div class="bg-fix"></div> -->
+		<div class="s1 arty">
+			AAA<br>
+			AAA<br>
+			AAA<br>
+
+		</div>
+		<div class="s2 ">
+			BBB<br>
+			BBB<br>
+			BBB<br>
+
+		</div>
+		<div class="s3 arty">
+			CCC<br>
+			CCC<br>
+			CCC<br>
+
+			<div class="panel panel-warning">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">標題</h3>
+			  </div>
+			  <div class="panel-body table">
+			    AAAAAAA
+			  </div>
+			  <div class="panel-body table">
+			    AAAAAAA
+			  </div>
+			  <div class="panel-body table">
+			    AAAAAAA
+			  </div>
+			</div>
+
+		</div>
+
+
+
+
+
+
+
+
+
+
 
 <!--footer-->
 <jsp:include page="/front-end/member_foot.jsp" />
 
-		<script src="https://code.jquery.com/jquery.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<script>
 		$(document).ready(function () {
 			

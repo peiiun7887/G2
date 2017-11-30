@@ -29,12 +29,13 @@
 
 		<!-- top nav bar =============================================================== -->
 	<div class="navbars navbar-fixed-top">
-		<div class="container">
+		<div class="container-fluid ">
 			<div class="row ">
 				<ul class="nav navbar-nav navbar-right ">
 				<c:if test="${mem_num==null}">
 					<li>
 						<a class="item-color" href="<%= request.getContextPath()%>/store-end/form.jsp">
+<%-- 	整合的登入				<a class="item-color" href="<%= request.getContextPath()%>/front-end/memberprofile/login.jsp"> --%>
 						<span class="glyphicon glyphicon-log-in icons"></span>
 						登入</a>
 					</li>
@@ -46,9 +47,9 @@
 				</c:if>	
 				<c:if test="${mem_num!=null}">
 					<li>
-						<a class="item-color" href="<%= request.getContextPath()%>/store-end/form.jsp">
+						<a class="item-color" href="#">
 						
-						${mem_num}，你好</a>
+						${mem_name}，你好</a>
 					</li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle item-color" data-toggle="dropdown">
@@ -57,14 +58,16 @@
 							
 						</a>
 						<ul class="dropdown-menu">	
-							<li><a href="#">訂單管理</a></li>
-							<li><a href="#">寄杯</a></li>
-							<li><a href="#">點數</a></li>
-							<li><a href="#">集點卡</a></li>	
-							<li><a href="#">最愛店家</a></li>
-							<li><a href="#">評論</a></li>
-							<li><a href="#">好友</a></li>
-							<li><a href="#">個人資料</a></li>				
+							<li><a href="<%=request.getContextPath()%>/front-end/order/memorder.jsp">訂單管理</a></li>
+							<li><a href="<%=request.getContextPath()%>/keepRecordSearch/keepRecordSearch.do">寄杯</a></li>
+							<li><a href="<%=request.getContextPath()%>/front-end/point/memPoint.jsp">點數</a></li>
+							<li><a href="<%=request.getContextPath()%>/front-end/point/addPoint.jsp">點數儲值</a></li>
+							<li><a href="<%=request.getContextPath()%>/front-end/coupon/memCoupon.jsp">折價券</a></li>
+							<li><a href="<%=request.getContextPath()%>/front-end/card/memCardRecord.jsp">集點卡</a></li>	
+							<li><a href="<%=request.getContextPath()%>/FavoriteStore/FSC.html">最愛店家</a></li>
+							<li><a href="<%=request.getContextPath()%>/StoreComment/SCC.html">評論</a></li>
+							<li><a href="<%=request.getContextPath()%>/FriendList/FLC.html">好友</a></li>
+							<li><a href="<%=request.getContextPath()%>/MemberProfile/MPC.html">個人資料</a></li>				
 						</ul>
 					</li>
 					<li>
@@ -128,10 +131,11 @@
 
 
 		        <!-- 訂單管理 btn+ 附近店家 btn + 折價券btn -->
-		        <div class="col-xs-12 col-sm-3 area70">			        	
-	        		<button type="button" class="btn btn-green btn-lg pull-left">訂單管理</button>			        	
-	        		<a href="<%= request.getContextPath() %>/front-end/storeMap.jsp" type="button" class="btn btn-green btn-lg">附近店家</a>			        	
-	        		<button type="button" class="btn btn-org btn-lg pull-right">瘋折價券</button>         	
+		        <div class="col-xs-12 col-sm-3 area70 seperate_align ">
+		        	<a href="<%= request.getContextPath() %>/front-end/order/memorder.jsp" type="button" class="btn btn-green  btn-lg">訂單管理 <span class="glyphicon glyphicon-list-alt"></span></a>				        	
+	        		<a href="<%= request.getContextPath() %>/front-end/storeMap.jsp" type="button" class="btn btn-green  btn-lg"> 附近店家 <span class="glyphicon glyphicon-map-marker"></span></a>
+	        		<a href="<%= request.getContextPath() %>/front-end/coupon/getCoupon.jsp" type="button" class="btn btn-org  btn-lg"> 瘋折價券 <span class="glyphicon glyphicon-fire"></span></a>  			        	
+	        	
 		    	</div>
 			</div>
 		</div>	
@@ -140,8 +144,8 @@
 
 
 
-
 <script src="https://code.jquery.com/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
 
 		var lat;
