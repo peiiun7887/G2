@@ -252,7 +252,7 @@ public class BackstageManagementServlet extends HttpServlet {
 		if("update".equals(action)){
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs",errorMsgs);
-			
+			req.removeAttribute("updateData");
 			
 			try {
 				/************ 1.接收請求參數 -輸入格式處理  ******************/
@@ -380,13 +380,15 @@ public class BackstageManagementServlet extends HttpServlet {
 				/************ 3.加入完成,準備轉交(Send the Success view)**/	
 				
 				req.setAttribute("bmVO",bmVO);
-				if("self".equals(auth)){
-					String url = "/back-end/bks_mng/bksmng_select_page.jsp";
-					RequestDispatcher successView = req.getRequestDispatcher(url); 
-					successView.forward(req, res);
-				}else{
+				if("self".equals(auth)){	//自己修改自己
 					String requestURL = req.getParameter("requestURL");
-					res.sendRedirect(req.getContextPath()+requestURL);
+					req.setAttribute("updateData", "updateData");
+					RequestDispatcher successView = req.getRequestDispatcher(requestURL); 
+					successView.forward(req, res);
+				}else{		
+					String url = "/back-end/bks_mng/bksmng_select_page.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url); 					
+					successView.forward(req, res);
 				}
 				
 				

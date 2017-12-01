@@ -117,15 +117,20 @@
 
 					 <!-- hot keys 熱門字 24個中文字滿-->        
 					
-				     <div class="hotkey">
-				     	<ul class="list-inline">
-				     		<%	int count = 0; %>
-				     		<%	for (Map.Entry<String, Integer> entry:list_KeyData){	%>
-				     		<%	if(count<10){ %>	
-				     			<li><%= entry.getKey() %></li>
-				     		<%	count ++; %>	
-				     		<%  }} %>	     	    
-				     	 </ul>				     
+				 	<div class="hotkey">
+				     	<div class="col-xs-12 col-sm-2"><div class="row"><span class="glyphicon glyphicon-chevron-left"></span> 熱門搜尋 <span class="glyphicon glyphicon-chevron-right"></span></div></div>
+				     	<div class="col-xs-12 col-sm-10 ">
+				     		<div class="row">			     	
+						     	<ul class="list-inline pull-left">
+						     		<%	int count = 0; %>
+						     		<%	for (Map.Entry<String, Integer> entry:list_KeyData){	%>
+						     		<%	if(count<8){ %>	
+						     			<li><%= entry.getKey() %></li>
+						     		<%	count ++; %>	
+						     		<%  }} %>	     	    
+						     	 </ul>	
+				     	 	</div>
+				     	 </div>			     
 					</div>
 			</div>
 

@@ -39,11 +39,13 @@
 		padding: 10px;
 		border-radius:10px;
 		height:100px;
+		background-color:#FFFFFF;
+		opacity:0.8;
+		box-shadow:2px 2px 12px 2px #22615345;
 	}
 	
 	.wrap:hover{
-		border-color:#EFBC56;
-		border-width: unset;
+		opacity:1;
 	}
 	.color-org{
 		color:#FA5532;
@@ -88,37 +90,38 @@
    
    
    	
-		<!---->	
+
 			.bg-fix{
 				position: relative;	
-				height:600px;
+				height:650px;
 			}
 		
 			.s1{
-				
+				height: 200px;
 				color:#FFFFFF;
-				background-image: url(<%= request.getContextPath() %>/img/ad1.jpeg);
+				background-image: url(<%= request.getContextPath() %>/img/bg02.jpg);
 				border: 1px solid #cccccc;
+				
 			}
 			.s2{
 				color: #FFFFFF;
-				width:1600px;
-				height: 600px;
-				background-image: url(<%= request.getContextPath() %>/img/ad2.jpeg);
+				width:100%;
+				height: 800px;
+				background-image: url(<%= request.getContextPath() %>/img/bg02.jpg);
 				border: 1px solid #cccccc;
 				background-color: #FFFFFF;
 				
 			}
 			.s3{
 				color: #CCCCCC;
-				background-image: url(<%= request.getContextPath() %>/img/ad3.jpeg);
+				background-image: url(<%= request.getContextPath() %>/img/bg03.jpg);
 				border: 1px solid #cccccc;
 			}
 			.arty{
 				margin: auto;
-				height: 600px;
+				height: 400px;
 				padding:40px;
-				width:1600px;
+
 				background-repeat: no-repeat;
 				background-position: center center;
 				background-size: cover;
@@ -144,7 +147,7 @@
 
 
 
-<div class= "bg-fix">
+<div class="bg-fix">
 
 <div class="container-fluid area50">
 	<div class="row">
@@ -217,32 +220,29 @@
 </div>   <!--功能區塊container end-->
 
 
-</div><!-- fix -->>
+</div>
 
 
-<!-- 附近店家 -->
-<div class="container-fluid" id="storeList">
 
-	<div class="row">		
-		<div class="col-xs-12 col-sm-10 col-sm-offset-1 ">
-			<jsp:include page="storeListAll.jsp" />
+
+
+
+		<div class="s1 arty col-xs-12 col-sm-12">
+			<h1>123</h1>
 		</div>
-	</div> 
-</div>   <!--附近店家-->
 
-
-<!-- 		<div class="bg-fix"></div> -->
-		<div class="s1 arty">
-			AAA<br>
-			AAA<br>
-			AAA<br>
-
-		</div>
+		
 		<div class="s2 ">
-			BBB<br>
-			BBB<br>
-			BBB<br>
-
+			<!-- 附近店家 -->
+			<div class="container-fluid">
+			
+				<div class="row">		
+					<div class="col-xs-12 col-sm-10 col-sm-offset-1 ">
+						<jsp:include page="storeListAll.jsp" />
+					</div>
+				</div> 
+			</div>
+			<!--附近店家-->
 		</div>
 		<div class="s3 arty">
 			CCC<br>

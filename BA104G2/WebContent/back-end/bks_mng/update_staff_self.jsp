@@ -7,6 +7,7 @@
 <% 
 	BackstageManagementVO bmVO = (BackstageManagementVO) request.getAttribute("bmVO"); 
 	List<String> funcList = (List<String>)request.getAttribute("funcList");
+	String fromUpdate = (String) request.getAttribute("updateData");
 %>
 
 <html>
@@ -160,9 +161,6 @@
 						</div><!-- row -->
 					</div><!-- container -->						
 					
-					
-
-					
 					<input type="hidden" name="bm_no" value="${bmVO.bm_no}">
 					<input type="hidden" name="bm_name" value="${bmVO.bm_name}" />
 					<input type="hidden" name="bm_num" value="${bmVO.bm_num}">
@@ -189,9 +187,30 @@
 	
 	<jsp:include page="/back-end/back_foot.jsp" />
 
-	<script src="https://code.jquery.com/jquery.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- 	<script src="https://code.jquery.com/jquery.js"></script> -->
+<!-- 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 	<script>
+	$('document').ready(function(){
+		var fromUpdate = "${updateData}";
+		console.log(fromUpdate);
+		if(fromUpdate=='updateData'){
+			swal({
+				  position: 'center',
+				  type: 'success',
+				  title: '­×§ï¤wÀx¦s',
+				  showConfirmButton: false,
+				  timer: 1000
+			})
+		}
+	});
+	
+	//prevent F5
+	$(document).keydown(function(e) {			
+	    if( e.keyCode == '116' ){
+	    	window.location.replace("<%= request.getContextPath() %>/back-end/bks_mng/bksmng_select_page.jsp");
+	    }
+	});
+
 	</script>
 </body>
 </html>

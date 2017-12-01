@@ -58,7 +58,7 @@
 <div class="col-xs-12 col-sm-9">
 	<div class="row">	
 		<div class="panel">
-        	<div class="panel-heading panel-green"><h3 class="text-center">商品資料修改</h3></div>
+        	<div class="panel-heading panel-green"><h3 class="text-center">後臺人員修改</h3></div>
 	
 				<div class="panel-body panel-green">
 
@@ -181,7 +181,7 @@
 					</div><!-- container -->	
 					
 
-				
+					<input type="hidden" name="bm_no" value="${bmVO.bm_no}">
 					<input type="hidden" name="bm_no" value="${bmVO.bm_no}">
 					<input type="hidden" name="action" value="update">
 					<div class="panel-footer ">
