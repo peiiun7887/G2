@@ -3,6 +3,10 @@
 	<name>BA104G2</name>
 	<comment></comment>
 	<projects>
+		<project>jstl</project>
+		<project>standard</project>
+		<project>javax.mail</project>
+		<project>gson-2.3.1</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

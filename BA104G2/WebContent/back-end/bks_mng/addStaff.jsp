@@ -191,6 +191,20 @@
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script>
+	$('input[type=submit]').on('click',function(){
+		$('form').submit();
+		swal({
+			  position: 'center',
+			  type: '',
+			  title: '正在儲存...',
+			  allowOutsideClick: false,
+			  showConfirmButton: false,
+			  timer: 5000
+			})
+		$(this).prop('disabled',true)
+		
+	});
+	
 	
 	//檢查帳號是否重複
 	$('#bm_num').blur(checkBm_num);

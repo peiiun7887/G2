@@ -144,10 +144,10 @@ public class BackstageManagementServlet extends HttpServlet {
 			    String subject = "揪茶趣新進員工密碼通知";
 			    //內容
 			    String messageText = 
-			    		"Hello! " + bm_name + ",歡迎加入揪茶趣！\n您的帳密碼已經啟用囉\n請妥善保存此帳號密碼:\n 帳號:" + bm_num + "\n密碼:"+ bm_pwd; 
+			    		"Hello! " + bm_name + ",歡迎加入揪茶趣！\n您的帳密碼已經啟用囉\n請妥善保存此帳號密碼:\n帳號:" + bm_num + "\n密碼:"+ bm_pwd; 
 			    MailService mailService = new MailService();
 	     
-		//mailService.sendMail(to, subject, messageText);				
+			    mailService.sendMail(to, subject, messageText);				
 				
 			    //寫入權限資料
 			    AuthListService alSvc = new AuthListService();

@@ -14,7 +14,15 @@
 	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/member_base.css">
-	
+	<style type="text/css">
+	.dropdown.open a {
+		color:#3C9682;
+		font-size:18px;
+	}
+	.navbars navbar-fixed-top{
+		height:80px;
+	}
+	</style>
 </head>
 <body>
 
@@ -30,12 +38,12 @@
 		<!-- top nav bar =============================================================== -->
 	<div class="navbars navbar-fixed-top">
 		<div class="container-fluid ">
-			<div class="row ">
-				<ul class="nav navbar-nav navbar-right ">
+			<div class=" col-xs-12 col-sm-10 col-sm-offset-1">
+				<ul class="nav navbar-nav navbar-right">
 				<c:if test="${mem_num==null}">
 					<li>
-						<a class="item-color" href="<%= request.getContextPath()%>/store-end/form.jsp">
-<%-- 	整合的登入				<a class="item-color" href="<%= request.getContextPath()%>/front-end/memberprofile/login.jsp"> --%>
+<%-- 					<a class="item-color" href="<%= request.getContextPath()%>/store-end/form.jsp"> --%>
+						<a class="item-color" href="<%= request.getContextPath()%>/front-end/memberprofile/login.jsp"> 
 						<span class="glyphicon glyphicon-log-in icons"></span>
 						登入</a>
 					</li>
@@ -46,33 +54,70 @@
 					</li>
 				</c:if>	
 				<c:if test="${mem_num!=null}">
-					<li>
-						<a class="item-color" href="#">
-						
-						${mem_name}，你好</a>
-					</li>
+
+<!-- 					<li class="dropdown"> -->
+<!-- 						<a href="#" class="dropdown-toggle item-color" data-toggle="dropdown"> -->
+<!-- 							<span class="glyphicon glyphicon-user icons"></span> -->
+<!-- 							會員專區							 -->
+<!-- 						</a> -->
+<!-- 						<ul class="dropdown-menu">	 -->
+<%-- 							<li><a href="<%=request.getContextPath()%>/front-end/order/memorder.jsp">訂單管理</a></li> --%>
+<%-- 							<li><a href="<%=request.getContextPath()%>/keepRecordSearch/keepRecordSearch.do">寄杯</a></li> --%>
+<%-- 							<li><a href="<%=request.getContextPath()%>/front-end/point/memPoint.jsp">點數</a></li> --%>
+<%-- 							<li><a href="<%=request.getContextPath()%>/front-end/point/addPoint.jsp">點數儲值</a></li> --%>
+<%-- 							<li><a href="<%=request.getContextPath()%>/front-end/coupon/memCoupon.jsp">折價券</a></li> --%>
+<%-- 							<li><a href="<%=request.getContextPath()%>/front-end/card/memCardRecord.jsp">集點卡</a></li>	 --%>
+<%-- 							<li><a href="<%=request.getContextPath()%>/FavoriteStore/FSC.html">最愛店家</a></li> --%>
+<%-- 							<li><a href="<%=request.getContextPath()%>/StoreComment/SCC.html">評論</a></li> --%>
+<%-- 							<li><a href="<%=request.getContextPath()%>/FriendList/FLC.html">好友</a></li> --%>
+<%-- 							<li><a href="<%=request.getContextPath()%>/MemberProfile/MPC.html">個人資料</a></li>				 --%>
+<!-- 						</ul> -->
+<!-- 					</li>				 -->
+
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle item-color" data-toggle="dropdown">
-							<span class="glyphicon glyphicon-user icons"></span>
-							會員專區
-							
+						<a class="dropdown-toggle item-color  btn-green" data-toggle="dropdown">
+							<span class="glyphicon glyphicon-shopping-cart icons"></span>
+							訂購專區							
 						</a>
-						<ul class="dropdown-menu">	
+						<ul class="dropdown-menu">
 							<li><a href="<%=request.getContextPath()%>/front-end/order/memorder.jsp">訂單管理</a></li>
-							<li><a href="<%=request.getContextPath()%>/keepRecordSearch/keepRecordSearch.do">寄杯</a></li>
-							<li><a href="<%=request.getContextPath()%>/front-end/point/memPoint.jsp">點數</a></li>
-							<li><a href="<%=request.getContextPath()%>/front-end/point/addPoint.jsp">點數儲值</a></li>
+							<li><a href="<%=request.getContextPath()%>/keepRecordSearch/keepRecordSearch.do">寄杯</a></li>			
 							<li><a href="<%=request.getContextPath()%>/front-end/coupon/memCoupon.jsp">折價券</a></li>
-							<li><a href="<%=request.getContextPath()%>/front-end/card/memCardRecord.jsp">集點卡</a></li>	
+							<li><a href="<%=request.getContextPath()%>/front-end/card/memCardRecord.jsp">集點卡</a></li>			
+						</ul>
+					</li>
+
+					<li class="dropdown">
+						<a class="dropdown-toggle item-color  btn-green" data-toggle="dropdown">
+							<span class="glyphicon glyphicon-usd icons"></span>
+							點數儲值							
+						</a>
+						<ul class="dropdown-menu">			
+							<li><a href="<%=request.getContextPath()%>/front-end/point/memPoint.jsp">我的點數</a></li>
+							<li><a href="<%=request.getContextPath()%>/front-end/point/addPoint.jsp">點數儲值</a></li>			
+						</ul>
+					</li>
+					
+					<li class="dropdown" >
+						<a class="dropdown-toggle item-color  btn-green" data-toggle="dropdown">
+							<span class="glyphicon glyphicon-user icons "></span>
+							會員專區							
+						</a>
+						<ul class="dropdown-menu">
 							<li><a href="<%=request.getContextPath()%>/FavoriteStore/FSC.html">最愛店家</a></li>
-							<li><a href="<%=request.getContextPath()%>/StoreComment/SCC.html">評論</a></li>
-							<li><a href="<%=request.getContextPath()%>/FriendList/FLC.html">好友</a></li>
-							<li><a href="<%=request.getContextPath()%>/MemberProfile/MPC.html">個人資料</a></li>				
+							<li><a href="<%=request.getContextPath()%>/StoreComment/SCC.html">我的評論</a></li>
+							<li><a href="<%=request.getContextPath()%>/FriendList/FLC.html">我的好友</a></li>
+							<li><a href="<%=request.getContextPath()%>/MemberProfile/MPC.html" >個人資料</a></li>				
 						</ul>
 					</li>
 					<li>
-						<a class="item-color" href="<%= request.getContextPath() %>/fakeLogin?action=logoutm">
-						<span class="glyphicon glyphicon-log-out"></span>
+						<a class="item-color  icons btn-green" href="<%=request.getContextPath()%>/MemberProfile/MPC.html">						
+						${mem_name}，你好</a>
+					</li>
+					
+					<li>
+						<a class="item-color btn-green" href="<%= request.getContextPath() %>/fakeLogin?action=logoutm">
+						<span class="glyphicon glyphicon-log-out icons"></span>
 						登出</a>
 					</li>
 				
@@ -118,10 +163,10 @@
 					 <!-- hot keys 熱門字 24個中文字滿-->        
 					
 				 	<div class="hotkey">
-				     	<div class="col-xs-12 col-sm-2"><div class="row"><span class="glyphicon glyphicon-chevron-left"></span> 熱門搜尋 <span class="glyphicon glyphicon-chevron-right"></span></div></div>
+				     	<div class="col-xs-12 col-sm-2"><div class="row">【熱門搜尋】</div></div>
 				     	<div class="col-xs-12 col-sm-10 ">
 				     		<div class="row">			     	
-						     	<ul class="list-inline pull-left">
+						     	<ul class="list-inline pull-left " id="keyword">
 						     		<%	int count = 0; %>
 						     		<%	for (Map.Entry<String, Integer> entry:list_KeyData){	%>
 						     		<%	if(count<8){ %>	
@@ -151,14 +196,22 @@
 
 <script src="https://code.jquery.com/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script>
 
+<script>
+		$('#keyword').find('li').on('click',function(){
+			var str = $(this).text();
+			$("input[name=keyword]").val(str);			
+		});
+		
+
+		
+		
 		var lat;
 		var lng;
-// 		function initMap() {	
+		function initMap() {	
 			var g = window.navigator.geolocation;
 		    g.getCurrentPosition(succ, fail);
-// 		}
+		}
 		function succ(event){
 			lat=event.coords.latitude;
 	        lng=event.coords.longitude;	
@@ -180,7 +233,7 @@
 
 	
 </script>
-<!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgGwpHCYQMEnC2S0l-ycO9Df87WvE2gLk&callback=initMap&libraries=geometry,places"></script> -->
+ <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgGwpHCYQMEnC2S0l-ycO9Df87WvE2gLk&callback=initMap&libraries=geometry,places"></script> -->
 
 </body>
 </html>

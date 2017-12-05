@@ -97,7 +97,8 @@ public class StoreProfileDAOJDBC implements StoreProfileDAO_interface{
 	public static void main(String[] args) {
 		
 		StoreProfileDAOJDBC dao = new StoreProfileDAOJDBC();
-		List<StoreProfileVO> list = dao.search("茶");
+		List<StoreProfileVO> list = dao.search();
+		System.out.println(list.size());
 		for( StoreProfileVO s :list){
 			System.out.println(s.getAddress());
 		}

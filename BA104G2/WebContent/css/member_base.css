@@ -32,6 +32,7 @@
 			}
 			.item-color:hover{
 				color:#FFFFFF;
+				background-color:#3C9682;
 				font-size:border;
 				text-decoration:none;
 			}
@@ -66,7 +67,7 @@
 			.btn-green{
 				background:#3C9682; 
 				color:#FFFFFF;
-/* 				margin-right:5px; */
+				margin-right:5px;
 			}
 			.btn-green:hover{
 				background:#DCE6D2; 
@@ -131,15 +132,31 @@
 				color: orange;				
 			}
 			.navbars-menu{
-				background-color: #3C9682;
-				color:#3C9682;
-				height:200px;
+				height:30px;
 			}
 			
 			.seperate_align{
 				display:flex;
 			    justify-content:space-around;
 			    flex-direction:row;
+			    line-height:40px;
+			}
+			.title-block{				
+				margin: 10px;
+				height:80px;
+				color:#FFFFFF;
+				border:1px solid #FFFFFF;
+				border-radius:10px;
+			}
+			.title-word{
+				font-size:36px;
+				letter-spacing:10px;
+				line-height:80px;
+				text-shadow: rgb(44, 66, 58) 0px 1px 2px;
+				font-weight:bolder;
+			}
+			.shadow{
+				box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 			}
 
 			

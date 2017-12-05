@@ -20,44 +20,7 @@
 <style>
 
    
-   	img{
-		display: inline-block;
-		float:left;
-		margin: 0 10px 0 0;
-	}
-	#stolist{
-		width:100%;
-	}
 
-	#stolist td{
-		padding: 10px;
-		width:30%;
-		align:center;
-	}
-	.wrap{		
-		border:1px solid #DCE6D2;
-		padding: 10px;
-		border-radius:10px;
-		height:100px;
-		background-color:#FFFFFF;
-		opacity:0.8;
-		box-shadow:2px 2px 12px 2px #22615345;
-	}
-	
-	.wrap:hover{
-		opacity:1;
-	}
-	.color-org{
-		color:#FA5532;
-	}
-	.title{
-		color:#3C9682;
-		font-weight:border;
-		
-	}
-	a:hover {
-    	text-decoration: none;
-	}
 	.adimg{
 		width:100%;
 		height:500px;
@@ -72,61 +35,41 @@
 		color:#CCCCCC;
 		font-size:16pt;
 	}
-	.shadow{
-		box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-	}
+
 	#comment-rank{
 		background-color: #3C9682;
 		color:#FFFFFF;
 		font-size: 16pt;
     	letter-spacing: 3pt;		
 	}
-	#carousel-ctrl {
-		height:530px;
-	}
-	#carousel-ctrl .item img{
-		height:100%;
-	}
-   
-   
-   	
 
-			.bg-fix{
-				position: relative;	
-				height:650px;
-			}
-		
-			.s1{
-				height: 200px;
-				color:#FFFFFF;
-				background-image: url(<%= request.getContextPath() %>/img/bg02.jpg);
-				border: 1px solid #cccccc;
-				
-			}
-			.s2{
-				color: #FFFFFF;
-				width:100%;
-				height: 800px;
-				background-image: url(<%= request.getContextPath() %>/img/bg02.jpg);
-				border: 1px solid #cccccc;
-				background-color: #FFFFFF;
-				
-			}
-			.s3{
-				color: #CCCCCC;
-				background-image: url(<%= request.getContextPath() %>/img/bg03.jpg);
-				border: 1px solid #cccccc;
-			}
-			.arty{
-				margin: auto;
-				height: 400px;
-				padding:40px;
+ 	#carousel-ctrl .item img{ 
+ 		height:100%;
+ 	} 
 
-				background-repeat: no-repeat;
-				background-position: center center;
-				background-size: cover;
-				background-attachment: fixed; 
-			}
+	.bg-fix{
+		position: relative;	
+		height:670px;
+	}
+
+	.s1{
+		height: 800px;
+		color: #FFFFFF;
+		background-image: url('<%= request.getContextPath() %>/img/bg02.jpg');
+		border: 1px solid #cccccc;
+	}
+	
+	.arty{
+		margin: auto;
+		height: 1020px;
+		padding: 40px;
+		background-repeat: no-repeat;
+		background-position: center center;
+		background-size: cover;
+		background-attachment: fixed; 
+	}
+
+			
 
 
 	</style>	
@@ -154,26 +97,27 @@
 
 		<!-- 好評排行-->
 
-		<div class="col-xs-12 col-sm-2 col-sm-offset-1 shadow radius5 panel">
+		<div class="col-xs-12 col-sm-2 col-sm-offset-1 radius5 panel">
 		
 			<div class="panel-heading text-center" id="comment-rank">好評排行榜</div>
+			
 				<%	int count = 0; %>
 				<% for ( Map.Entry<String, Integer> Key  : list_RankData){ %>
 				<%	if(count<5){ %>	
-			<div class="panel-body table good-to-drink ">
-				<div class="gd-left">
-					<img class="imgsize"  src="<%= request.getContextPath()%>/StoGifReader?sto_num=<%= Key.getKey() %>">
+				<div class="panel-body table good-to-drink ">
+					<div class="gd-left">
+						<img class="imgsize"  src="<%= request.getContextPath()%>/StoGifReader?sto_num=<%= Key.getKey() %>">
+					</div>
+					<div class="gd-right">
+						<p class="store-name">
+						<a href = "<%= request.getContextPath()%>/xxx.do?sto_num=<%= Key.getKey() %>">
+						<%= stSvc.getOneStoName(Key.getKey()).getSto_name() %>
+						</a>
+						</p>						
+						<span class="rank-style"></span>
+						<span class="rank-point">  <%= Key.getValue() %> </span>
+					</div>
 				</div>
-				<div class="gd-right">
-					<p class="store-name">
-					<a href = "<%= request.getContextPath()%>/xxx.do?sto_num=<%= Key.getKey() %>">
-					<%= stSvc.getOneStoName(Key.getKey()).getSto_name() %>
-					</a>
-					</p>						
-					<span class="rank-style"></span>
-					<span class="rank-point">  <%= Key.getValue() %> </span>
-				</div>
-			</div>
 				<%	count ++; %>		
 				<% }} %>
 		</div>
@@ -185,29 +129,17 @@
 			<div id="carousel-id2" class="carousel slide" data-ride="carousel">
 			    <!-- 幻燈片小圓點區 -->
 			    <ol class="carousel-indicators">
-			        <li data-target="#carousel-id2" data-slide-to="0" class=""></li>
-			        <li data-target="#carousel-id2" data-slide-to="1" class=""></li>
-			        <li data-target="#carousel-id2" data-slide-to="2" class="active"></li>
-			        <li data-target="#carousel-id2" data-slide-to="3" ></li>
-			        <li data-target="#carousel-id2" data-slide-to="4" ></li>
+				    <c:forEach varStatus="s" items="${adSvc.getAllBySa_addmode('上架')}">
+				    	<li data-target="#carousel-id2" data-slide-to="${s.index}" class="${s.first?'active':''}"></li>
+				    </c:forEach>
 			    </ol>
 			    <!-- 幻燈片主圖區 -->
-			    <div class="carousel-inner " id="carousel-ctrl">
-			        <div class="item">
-			        	<img class="adimg" src="<%= request.getContextPath()%>/img/carousel_01.jpg" alt="">
-				    </div>
-			        <div class="item">
-			            <img class="adimg" src="<%= request.getContextPath()%>/img/carousel_02.jpg" alt="">			            
-			        </div>
-			        <div class="item active">
-			            <img class="adimg" src="<%= request.getContextPath()%>/img/carousel_03.jpg" alt="">			            
-			        </div>
-			        <div class="item">
-			            <img class="adimg" src="<%= request.getContextPath()%>/img/carousel_04.jpg" alt="">			            
-			        </div>
-			        <div class="item">
-			            <img class="adimg" src="<%= request.getContextPath()%>/img/carousel_05.jpg" alt="">			            
-			        </div>
+			    <div class="carousel-inner ">
+				    <c:forEach varStatus="s" var="adVO" items="${adSvc.getAllBySa_addmode('上架')}">
+				     	<div class="item ${s.first?'active':''}">
+				        	<img class="adimg" src="<%= request.getContextPath()%>/GetPic?getType=shopad&sa_no=${adVO.sa_no}" alt="">
+					    </div>
+				    </c:forEach>
 			    </div>
 			    <!-- 上下頁控制區 -->
 <!-- 				    <a class="left carousel-control" href="#carousel-id2" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a> -->
@@ -220,58 +152,13 @@
 </div>   <!--功能區塊container end-->
 
 
+</div><!-- "bg-fix" -->
+
+<div class="s1 arty col-xs-12 col-sm-12">
+	<div class="col-xs-12 col-sm-10 col-sm-offset-1 ">
+		<jsp:include page="storeListAll.jsp" />
+	</div>
 </div>
-
-
-
-
-
-
-		<div class="s1 arty col-xs-12 col-sm-12">
-			<h1>123</h1>
-		</div>
-
-		
-		<div class="s2 ">
-			<!-- 附近店家 -->
-			<div class="container-fluid">
-			
-				<div class="row">		
-					<div class="col-xs-12 col-sm-10 col-sm-offset-1 ">
-						<jsp:include page="storeListAll.jsp" />
-					</div>
-				</div> 
-			</div>
-			<!--附近店家-->
-		</div>
-		<div class="s3 arty">
-			CCC<br>
-			CCC<br>
-			CCC<br>
-
-			<div class="panel panel-warning">
-			  <div class="panel-heading">
-			    <h3 class="panel-title">標題</h3>
-			  </div>
-			  <div class="panel-body table">
-			    AAAAAAA
-			  </div>
-			  <div class="panel-body table">
-			    AAAAAAA
-			  </div>
-			  <div class="panel-body table">
-			    AAAAAAA
-			  </div>
-			</div>
-
-		</div>
-
-
-
-
-
-
-
 
 
 
@@ -286,7 +173,6 @@
 			//評分顯示星星
 			$(".rank-style").each(function(){
 				var rating = parseInt($(this).next().text());
-				console.log(rating);
 				for(var i =1 ; i<6 ;i++){
 					if(i<=rating){						
 						$(this).append('<span class="fa fa-star checked"></span>');

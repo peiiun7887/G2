@@ -9,29 +9,79 @@
 <title>瀏覽店家</title>
 
 <style type="text/css">
-	img{
-		display: inline-block;
-		float:left;
-		margin: 0 10px 0 0;
-	}
+/* 	img{ */
+/* 		display: inline-block; */
+/* 		float:left; */
+/* 		margin: 0 10px 0 0; */
+/* 	} */
 
 
-	#stolist td{
-		padding: 10px;
-		width:30%;
-		align:center;
-	}
-	.wrap{		
-		border:1px solid #DCE6D2;
-		padding: 10px;
-		border-radius:10px;
-		height:120px;
-	}
+/* 	#stolist td{ */
+/* 		padding: 10px; */
+/* 		width:30%; */
+/* 		align:center; */
+/* 	} */
+/* 	.wrap{		 */
+/* 		border:1px solid #DCE6D2; */
+/* 		padding: 10px; */
+/* 		border-radius:10px; */
+/* 		height:120px; */
+/* 	} */
 	
-	.wrap:hover{
-		border-color:#EFBC56;
-		border-width: unset;
-	}
+/* 	.wrap:hover{ */
+/* 		border-color:#EFBC56; */
+/* 		border-width: unset; */
+/* 	} */
+/* 	.color-org{ */
+/* 		color:#FA5532; */
+/* 	} */
+/* 	.title{ */
+/* 		color:#3C9682; */
+/* 		font-weight:border; */
+		
+/* 	} */
+/* 	a:hover { */
+/*     	text-decoration: none; */
+/* 	} */
+
+   	img{ 
+ 		display: inline-block; 
+		float:left; 
+ 		margin: 0 10px 0 0; 
+ 	} 
+ 	#stolist{ 
+ 		width:100%; 
+ 	}
+
+ 	#stolist td{ 
+ 		padding: 10px; 
+ 		width:30%;
+ 		align:center;
+	} 
+ 	.wrap{		
+		border:1px solid #DCE6D2;
+ 		padding: 10px;
+ 		border-radius:10px;
+ 		height:120px;
+		background-color:#FFFFFF;
+		opacity:0.8;
+ 		box-shadow:2px 2px 12px 2px #22615345; 
+ 	}
+ 	
+	.wrap-block{
+		padding: 10px;
+ 		border-radius:10px;
+ 		height:120px;
+		border:1px solid #FFFFFF;
+		opacity:0.7;
+		background-color:#FFFFFF;
+		border-radius:10px;
+		box-shadow:2px 2px 12px 2px #22615345; 
+	} 
+	
+ 	.wrap-block:hover{ 
+		opacity:1; 
+ 	} 
 	.color-org{
 		color:#FA5532;
 	}
@@ -59,7 +109,11 @@
 
 	<div class="container-fliud">
 			<div class="row">
-				
+					
+					<div class="title-block area70 shadow">
+						<div class="text-center title-word"> 優質商家</div>
+					</div>
+					
 				
 					<table id="stolist">
 						<c:forEach var="stoVO" items="${stoList}" varStatus="status">
@@ -67,7 +121,7 @@
 								<tr>
 							</c:if>
 							<td>
-							<div class="wrap">
+							<div class="wrap-block">
 								<img height=100 src="<%= request.getContextPath()%>/StoGifReader?sto_num=${stoVO.sto_num}">	
 								<a href="xxx.do/sto_num=${stoVO.sto_num}"><h3 class="title">${stoVO.sto_name}</h3></a>
 								<span>${stoVO.area}${stoVO.address}</span><br>

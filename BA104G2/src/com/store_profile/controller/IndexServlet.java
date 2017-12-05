@@ -104,21 +104,43 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 			HttpSession se = req.getSession();
 			double curlat = (double) se.getAttribute("lat");
 			double curlng = (double) se.getAttribute("lng");
+			
+			String keywordorg= req.getParameter("keyword");
 			try{
-				String keyword = req.getParameter("keyword");
-				StoreProfileService spSvc = new StoreProfileService();
-				oldList = spSvc.getByKeyword(keyword);//查出有關鍵字且上架狀態的店家
-				//把關鍵字存在map
-				if(keywordMap.containsKey(keyword)){
-				   keywordMap.put(keyword, keywordMap.get(keyword)+1);
-				}else{
-
-					keywordMap.put(keyword, 1);
-				}			
+				String keyword = keywordorg;
+				String str_reg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9)]+$";
+				for(String retval: keyword.split(" ")){
+		        	System.out.println("be:"+retval);
+		        	if(retval.length()!=0 && retval.matches(str_reg)){
+			            System.out.println("af:"+retval);
+			            keyword=retval;
+			            
+						//把關鍵字存在map
+						if(keywordMap.containsKey(keyword)){
+							keywordMap.put(keyword, keywordMap.get(keyword)+1);
+						}else{
+							keywordMap.put(keyword, 1);
+						}
+			            break;
+		        	}else{
+		        		keyword="X";
+		        	}
+		        }
 				
-			} catch (Exception e){	//沒有輸入關鍵字				
+				StoreProfileService spSvc = new StoreProfileService();
+	
+				if (keyword.equals("X")){
+					oldList = spSvc.getAllgeo();	
+					System.out.println("不符合正則 list-size:"+oldList.size());
+				}else{
+					System.out.println();
+					oldList = spSvc.getByKeyword(keyword);//查出有關鍵字且上架狀態的店家
+					System.out.println(keyword+"有符合正則 list-size:"+oldList.size());
+				}
+				
+			} catch (Exception e){	
 				StoreProfileService spSvc = new StoreProfileService();	
-				oldList = spSvc.getNoKeyword();	
+				oldList = spSvc.getAllgeo();	
 				
 			} finally {
 
@@ -149,6 +171,7 @@ public class IndexServlet extends HttpServlet/* implements Runnable*/{
 			
 	    	context.setAttribute("list_KeyData", list_KeyData);  	    
 			req.setAttribute("stoList", newList);
+			req.setAttribute("keywordorg", keywordorg);
 			
 			RequestDispatcher successView = req.getRequestDispatcher("/front-end/storeList.jsp"); 
 			successView.forward(req, res);

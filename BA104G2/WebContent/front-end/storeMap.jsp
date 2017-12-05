@@ -9,7 +9,7 @@
 <title>揪茶趣:看地圖訂飲料好方便</title>
 <style type="text/css">
 	#map {
-	  height: 500px;
+	  height: 600px;
 	  width: 100%;
 	}
 
@@ -30,10 +30,10 @@
 <jsp:include page="/front-end/coupon_notify.jsp" />
 
 
-	<div class="container-fluid area20">
+	<div class="container-fluid area50">
 	    <div class="row">
 	    
-	    <div class="col-xs-12 col-sm-7 col-sm-offset-1 ">
+	    <div class="col-xs-12 col-sm-6 col-sm-offset-1 ">
 		    
 		    <!-- 地圖 -->
 			<div id="map"></div>	    
@@ -41,7 +41,7 @@
 	    </div>
 	    
 	    
-	    <div class="col-xs-12 col-sm-3 col-sm-offset-0 ">
+	    <div class="col-xs-12 col-sm-4 col-sm-offset-0 ">
 	    
 	    	<!-- 地圖上可以看到的店家 -->
 			<div id="tableOutput" class="table-responsive ">			
@@ -90,7 +90,9 @@ var searchResult;
 	        map = new google.maps.Map(document.getElementById("map"), {
 	        minZoom : 12,
 	        zoom : 12,
-	        center : position
+	        center : position,
+	        styles: [{"featureType":"all","elementType":"all","stylers":[{"hue":"#ffaa00"},{"saturation":"-33"},{"lightness":"10"}]},{"featureType":"administrative.locality","elementType":"labels.text.fill","stylers":[{"color":"#9c5e18"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry","stylers":[{"visibility":"simplified"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"visibility":"simplified"}]},{"featureType":"road.highway","elementType":"labels.text","stylers":[{"visibility":"on"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"visibility":"simplified"}]},{"featureType":"transit.line","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"saturation":"-23"},{"gamma":"2.01"},{"color":"#f2f6f6"}]},{"featureType":"water","elementType":"geometry.stroke","stylers":[{"saturation":"-14"}]}]
+
 	        });
 	        console.log(map);
 	        var marker = new google.maps.Marker({
@@ -204,7 +206,8 @@ var searchResult;
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgGwpHCYQMEnC2S0l-ycO9Df87WvE2gLk&callback=initMap&libraries=geometry,places"></script>
 
-
+<!--footer-->
+<jsp:include page="/front-end/member_foot.jsp" />
 
 </body>
 </html>

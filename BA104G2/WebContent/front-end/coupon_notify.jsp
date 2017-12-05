@@ -1,3 +1,5 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="com.sun.xml.internal.bind.v2.schemagen.xmlschema.SimpleDerivation"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="BIG5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 <%@ page import="java.util.*"%>
@@ -5,6 +7,13 @@
 <%@ page import="com.store_profile.model.*"%>
 <jsp:useBean id="cpSvc" scope="request" class="com.coupon.model.CouponService" />
 <jsp:useBean id="spSvc" scope="request" class="com.store_profile.model.StoreProfileService" />
+<%
+SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+pageContext.setAttribute("simpleDateFormat",simpleDateFormat);
+List<CouponVO> cpList = cpSvc.getCoupon();
+pageContext.setAttribute("cpList",cpList);
+%>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -43,12 +52,7 @@
 </head>
   
 <body>
-<%
-	
- 	List<CouponVO> cpList = cpSvc.getCoupon();
-	pageContext.setAttribute("cpList",cpList);
 
-%>
 
 		<!-- 折價券預告============================================================= -->
 
@@ -60,7 +64,7 @@
 				    <c:forEach var="cpMsg" items="${cpList}" varStatus="i">
 				        <div class="item coupon text-center ${(i.count==1)?'active':''}" >
 				        	<span class="coupon-title">折價券預告 <span class=" glyphicon glyphicon-bullhorn"></span></span>
-				        	<span class="coupon-text"> ${cpMsg.up_date} 起  </span>
+				        	<span class="coupon-text"> ${simpleDateFormat.format(cpMsg.up_date)} 起  </span>
 				        	<span class="coupon-text"> ${spSvc.getOneStoName(cpMsg.sto_num).sto_name } ${cpMsg.coupon_desc}元 共${cpMsg.total}張</span>
 				        	<span class="coupon-title"> <span class=" glyphicon glyphicon-bullhorn imgrvs"></span> 折價券預告</span>
 						</div>
@@ -73,5 +77,6 @@
 
 <!-- 		<script src="https://code.jquery.com/jquery.js"></script> -->
 <!-- 		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+
 </body>
 </html>
