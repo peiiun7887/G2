@@ -32,6 +32,7 @@
 	context.setAttribute("list_KeyData", list_KeyData);
 	HttpSession se = request.getSession();
 	Double position = (Double)se.getAttribute("lat");
+
 %>
 
 		<!-- top nav bar =============================================================== -->
@@ -41,8 +42,8 @@
 				<ul class="nav navbar-nav navbar-right">
 				<c:if test="${mem_num==null}">
 					<li>
-					<a class="item-color" href="<%= request.getContextPath()%>/store-end/form.jsp">
-<%-- 						<a class="item-color" href="<%= request.getContextPath()%>/front-end/memberprofile/login.jsp">  --%>
+<%-- 					<a class="item-color" href="<%= request.getContextPath()%>/store-end/form.jsp"> --%>
+						<a class="item-color" href="<%= request.getContextPath()%>/front-end/memberprofile/login.jsp"> 
 						<span class="glyphicon glyphicon-log-in icons"></span>
 						登入</a>
 					</li>
@@ -201,7 +202,9 @@
 			var str = $(this).text();
 			$("input[name=keyword]").val(str);			
 		});
+		
 
+		
 		
 		var lat;
 		var lng;
@@ -230,7 +233,7 @@
 
 	
 </script>
- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgGwpHCYQMEnC2S0l-ycO9Df87WvE2gLk&callback=initMap&libraries=geometry,places"></script>
+ <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgGwpHCYQMEnC2S0l-ycO9Df87WvE2gLk&callback=initMap&libraries=geometry,places"></script> -->
 
 </body>
 </html>

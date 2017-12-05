@@ -25,11 +25,9 @@
 	<div class="col-xs-12 col-sm-8 col-sm-offset-2 navbars-menu">
 		<div class="list-inline text-center seperate_align">								      
 			 <a href="#" class="item-color">揪茶趣手機版</a></li>				 
-		     <a href="#" class="item-color">關於揪茶趣</a></li>
-		     <a href="<%= request.getContextPath()%>/store-end/storeprofile/addStoreProfile.jsp" class="item-color">成為店家</a></li>					
-<%-- 		 <a href="<%= request.getContextPath()%>/store-end/storeprofile/addStoreProfile.jsp" class="item-color">成為店家</a></li>					  --%>
-			 <a href="<%= request.getContextPath()%>/store-end/form.jsp" class="item-color">店家登入</a></li>	
-<%-- 		 <a href="<%= request.getContextPath()%>/store-end/storeprofile/login.jsp" class="item-color">店家登入</a></li>				  --%>
+		     <a href="#" class="item-color">關於揪茶趣</a></li>				
+		     <a href="<%= request.getContextPath()%>/store-end/storeprofile/addStoreProfile.jsp" class="item-color">成為店家</a></li>					 
+		     <a href="<%= request.getContextPath()%>/store-end/storeprofile/login.jsp" class="item-color">店家登入</a></li>				 
 		     <a href="#" class=" item-color">教學專區</a></li>
 		</div>	
 	</div>
